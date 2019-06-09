@@ -23,15 +23,13 @@ public class DrawPanel extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0,0, getWidth(), getHeight());
 
-        int cx = getWidth() / 2;
-        int cy = getHeight() / 2;
-
-        cx = cy = 50;
+        int cx = 50;
+        int cy = 50;
 
         int coeff = Math.min(getWidth() - cx - 50, getHeight() - cy - 50);
 
         int z = 0;
-        int toFind = 10;
+        int toFind = 3;
 
         Point old = null;
         for(Point p : flight.getDrawable()) {

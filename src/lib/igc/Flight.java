@@ -19,8 +19,6 @@ public class Flight implements Iterable<Point> {
                 String x = line.substring(15, 24);
                 String alt = line.substring(25, 30);
 
-                //System.out.println(extractPos(y) + " -> " + extractPos(x) + " ; " + extractAlt(alt));
-
                 flight.add(new Point(extractPos(x), extractPos(y), extractAlt(alt)));
             }
         }
@@ -183,21 +181,29 @@ public class Flight implements Iterable<Point> {
 
         Point min = res.getMin();
 
-        for(Point p : res) {
+        res.positives(min);
+
+        Point max = res.getMax();
+
+        res.standardize(max);
+
+        return res;
+    }
+
+    public void positives(Point min) {
+        for(Point p : this) {
             p.setX((p.getX() - min.getX()));
             p.setY((p.getY() - min.getY()));
             p.setAlt((p.getAlt() - min.getAlt()));
         }
+    }
 
-        Point max = res.getMax();
-
-        for(Point p : res) {
+    public void standardize(Point max) {
+        for(Point p : this) {
             p.setX((p.getX() / max.getX()));
             p.setY((p.getY() / max.getY()));
             p.setAlt((p.getAlt() / max.getAlt()));
         }
-
-        return res;
     }
 
     @Override
