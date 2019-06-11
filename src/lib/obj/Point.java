@@ -13,6 +13,12 @@ public class Point {
         this.z = z;
     }
 
+    public Point(lib.igc.Point p) {
+        x = p.getX() * 5;
+        y = p.getAlt() * 5;
+        z = p.getY() * 5;
+    }
+
     public float getX() {
         return x;
     }

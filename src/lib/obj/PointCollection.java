@@ -1,5 +1,8 @@
 package lib.obj;
 
+import lib.igc.Flight;
+import sun.text.CodePointIterator;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,6 +44,19 @@ public class PointCollection {
         addSurface(s);
     }
 
+    public void addFlight(Flight f) {
+        Point old = null;
+        int i = 0;
+        for(lib.igc.Point p : f) {
+            Point tmp = new Point(p);
+            if(old != null) {
+                addSurface(old, tmp);
+                //addSurface(old, tmp, new Point(tmp.getX(), 0, tmp.getZ()), new Point(old.getX(), 0, old.getZ()));
+            }
+            old = new Point(p);
+        }
+    }
+
     public void writeToFile(String name) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter(name));
 
@@ -70,8 +86,8 @@ public class PointCollection {
     public static void main(String[] args) {
         PointCollection pc = new PointCollection();
 
-        pc.addSurface(new Point(0, 0, 0), new Point(0, 0, 1), new Point(0, 1, 1), new Point(0, 1, 0));
-        pc.addSurface(new Point(0, 0, 0), new Point(0, 0, 1), new Point(1, 1, 1), new Point(1, 1, 0));
+        pc.addSurface(new Point(0, 0, 0), new Point(0, 0, 10), new Point(0, 1, 10), new Point(0, 1, 0));
+        //pc.addSurface(new Point(0, 0, 0), new Point(0, 0, 1), new Point(1, 1, 1), new Point(1, 1, 0));
 
         try {
             pc.writeToFile("data.obj");

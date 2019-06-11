@@ -18,6 +18,7 @@ public class Flight implements Iterable<Point> {
                 String y = line.substring(7, 15);
                 String x = line.substring(15, 24);
                 String alt = line.substring(25, 30);
+                //String alt = line.substring(30, 35);
 
                 flight.add(new Point(extractPos(x), extractPos(y), extractAlt(alt)));
             }
@@ -34,6 +35,17 @@ public class Flight implements Iterable<Point> {
         for(Point p : f.flight) {
             flight.add(new Point(p));
         }
+    }
+
+    public void addPoint(Point p) {
+        flight.add(p);
+    }
+
+    public float altitudeDifference() {
+        float res = -flight.get(0).getAlt();
+        res += flight.get(flight.size() - 1).getAlt();
+
+        return res;
     }
 
     public Point averagePos() {
@@ -188,6 +200,50 @@ public class Flight implements Iterable<Point> {
         res.standardize(max);
 
         return res;
+    }
+
+    public ArrayList<Flight> findThermals() {
+        ArrayList<Flight> res = new ArrayList<>();
+        Flight current = new Flight();
+        int minPointCount = 10;
+        int minAltDiff = 20;
+
+        Point cAvg = null;
+        for(Point p : this) {
+            if(cAvg == null || cAvg.distance(p) < 200) {
+                current.addPoint(new Point(p));
+                cAvg = current.averagePos();
+            }
+            else {
+                if(current.size() > minPointCount && current.altitudeDifference() > minAltDiff) {
+                    res.add(current);
+                }
+                cAvg = null;
+                current = new Flight();
+            }
+        }
+
+        //for(int i = 1; i < flight.size() - 1; i++) {
+        //    Point avg = Point.average(flight.get(i - 1), flight.get(i + 1));
+        //    if(avg.distance(flight.get(i)) > 5) {
+        //        current.addPoint(new Point(flight.get(i)));
+        //    }
+        //    else {
+        //        if(current.size() > minPointCount && current.altitudeDifference() > 0) {
+        //            res.add(current);
+        //        }
+        //        current = new Flight();
+        //    }
+        //}
+
+        if(current.size() > minPointCount && current.altitudeDifference() > minAltDiff) {
+            res.add(current);
+        }
+        return res;
+    }
+
+    public int size() {
+        return flight.size();
     }
 
     public void positives(Point min) {
