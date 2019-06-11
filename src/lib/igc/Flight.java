@@ -296,7 +296,7 @@ public class Flight implements Iterable<Point> {
                 for (int j = i + 1; j < res.size(); j++) {
                     Flight f2 = res.get(j);
 
-                    if(f2.averagePos().distance(f1.averagePos()) < 200 && f2.timeDifference(f1) < 10) {
+                    if(f2.averagePos().distance(f1.averagePos()) < 300 && f2.timeDifference(f1) < 30) {
                         f1.addFlight(f2);
                         res.remove(j);
                         j--;
@@ -311,6 +311,29 @@ public class Flight implements Iterable<Point> {
 
     public int size() {
         return flight.size();
+    }
+
+    public float climbRate() {
+        float res;
+
+        Point min = flight.get(0);
+        Point max = flight.get(flight.size() - 1);
+
+        res = max.getAlt() - min.getAlt();
+        res /= max.getTime() - min.getTime();
+
+        return res;
+    }
+
+    public int duration() {
+        int res;
+
+        Point min = flight.get(0);
+        Point max = flight.get(flight.size() - 1);
+
+        res = max.getTime() - min.getTime();
+
+        return res;
     }
 
     public void positives(Point min) {

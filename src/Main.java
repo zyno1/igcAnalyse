@@ -7,14 +7,23 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] argc) {
         try {
-            //Flight tmp = new Flight("data/NetCoupe2019_8606.igc");
+            Flight tmp = new Flight("data/NetCoupe2019_8606.igc");
             //Flight tmp = new Flight("data/NetCoupe2019_8643.igc");
-            Flight tmp = new Flight("data/2019-06-01-XCS-AAA-02.igc");
+            //Flight tmp = new Flight("data/2019-06-01-XCS-AAA-02.igc");
             ArrayList<Flight> thermals = tmp.findClusters();
+
+            thermals.removeIf(new Predicate<Flight>() {
+                @Override
+                public boolean test(Flight points) {
+                    return points.getMin().getAlt() < 700 || points.duration() < 90 || points.climbRate() < 1;
+                    //return false;
+                }
+            });
 
             Point m = tmp.getMin();
 
@@ -23,18 +32,12 @@ public class Main {
                 f.positives(m);
             }
 
-            float minAltDiff = 200 - m.getAlt();
-            float minAlt = 800 - m.getAlt();
-
             m = tmp.getMax();
 
             tmp.standardize(m);
             for(Flight f : thermals) {
                 f.standardize(m);
             }
-
-            minAltDiff /= m.getAlt();
-            minAlt /= m.getAlt();
 
             PointCollection pc = new PointCollection();
             pc.addFlight(tmp);
@@ -43,9 +46,8 @@ public class Main {
             pc = new PointCollection();
             for(Flight f : thermals) {
                 //0 && 100
-                if(f.altitudeDifference() > minAltDiff && f.size() > 50 && f.getMin().getAlt() > minAlt) {
-                    pc.addFlight(f);
-                }
+                //if(f.altitudeDifference() > minAltDiff && f.size() > 50 && f.getMin().getAlt() > minAlt) {
+                pc.addFlight(f);
             }
             pc.writeToFile("thermals.obj");
 
