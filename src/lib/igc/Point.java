@@ -1,22 +1,31 @@
 package lib.igc;
 
-import java.util.regex.Matcher;
-
 public class Point {
     private float x;
     private float y;
     private float alt;
 
+    private int time;
+
     public Point(float x, float y, float alt) {
         this.x = x;
         this.y = y;
         this.alt = alt;
+        time = 0;
+    }
+
+    public Point(int time, float x, float y, float alt) {
+        this.x = x;
+        this.y = y;
+        this.alt = alt;
+        this.time = time;
     }
 
     public Point(Point p) {
         x = p.x;
         y = p.y;
         alt = p.alt;
+        time = p.time;
     }
 
     public float getX() {
@@ -68,6 +77,14 @@ public class Point {
         }
 
         return res;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     @Override

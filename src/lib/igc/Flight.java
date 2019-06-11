@@ -15,12 +15,19 @@ public class Flight implements Iterable<Point> {
         String line;
         while ((line = bf.readLine()) != null) {
             if(line.charAt(0) == 'B') {
+
+                String h = line.substring(1, 3);
+                String m = line.substring(3, 5);
+                String s = line.substring(5, 7);
+
+                int time = Integer.valueOf(h) * 3600 + Integer.valueOf(m) * 60 + Integer.valueOf(s);
+
                 String y = line.substring(7, 15);
                 String x = line.substring(15, 24);
                 String alt = line.substring(25, 30);
                 //String alt = line.substring(30, 35);
 
-                flight.add(new Point(extractPos(x), extractPos(y), extractAlt(alt)));
+                flight.add(new Point(time, extractPos(x), extractPos(y), extractAlt(alt)));
             }
         }
     }
@@ -39,6 +46,24 @@ public class Flight implements Iterable<Point> {
 
     public void addPoint(Point p) {
         flight.add(p);
+    }
+
+    private void insertPoint(Point p) {
+        int i;
+        for(i = (flight.size() - 1); i >= 0 && p.getTime() < flight.get(i).getTime(); i--) {
+        }
+        if(i + 1 < flight.size()) {
+            flight.add(i + 1, p);
+        }
+        else {
+            flight.add(p);
+        }
+    }
+
+    public void addFlight(Flight f) {
+        for(Point p : f) {
+            insertPoint(p);
+        }
     }
 
     public float altitudeDifference() {
@@ -164,6 +189,9 @@ public class Flight implements Iterable<Point> {
             if(p.getAlt() > tmp.getAlt()) {
                 p.setAlt(tmp.getAlt());
             }
+            if(p.getTime() > tmp.getTime()) {
+                p.setTime(tmp.getTime());
+            }
         }
 
         return p;
@@ -182,6 +210,9 @@ public class Flight implements Iterable<Point> {
             }
             if(p.getAlt() < tmp.getAlt()) {
                 p.setAlt(tmp.getAlt());
+            }
+            if(p.getTime() < tmp.getTime()) {
+                p.setTime(tmp.getTime());
             }
         }
 
@@ -242,6 +273,42 @@ public class Flight implements Iterable<Point> {
         return res;
     }
 
+    private int timeDifference(Flight f) {
+        return Math.min(Math.abs(getMin().getTime() - f.getMax().getTime()), Math.abs(f.getMin().getTime() - getMax().getTime()));
+    }
+
+    public ArrayList<Flight> findClusters() {
+        ArrayList<Flight> res = new ArrayList<>();
+
+        for (Point p : this) {
+            Flight tmp = new Flight();
+            tmp.addPoint(new Point(p));
+            res.add(tmp);
+        }
+
+        boolean modified = true;
+
+        while(modified) {
+            modified = false;
+
+            for (int i = 0; i < res.size(); i++) {
+                Flight f1 = res.get(i);
+                for (int j = i + 1; j < res.size(); j++) {
+                    Flight f2 = res.get(j);
+
+                    if(f2.averagePos().distance(f1.averagePos()) < 200 && f2.timeDifference(f1) < 10) {
+                        f1.addFlight(f2);
+                        res.remove(j);
+                        j--;
+                        modified = true;
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
     public int size() {
         return flight.size();
     }
@@ -265,5 +332,16 @@ public class Flight implements Iterable<Point> {
     @Override
     public Iterator<Point> iterator() {
         return flight.iterator();
+    }
+
+    public static void main(String[] args) {
+        Flight f = new Flight();
+
+        f.insertPoint(new Point(0, 0, 0, 0));
+        f.insertPoint(new Point(3, 3, 0, 0));
+        f.insertPoint(new Point(2, 2, 0, 0));
+        f.insertPoint(new Point(1, 1, 0, 0));
+
+        System.out.println(f);
     }
 }

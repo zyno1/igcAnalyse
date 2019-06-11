@@ -14,7 +14,7 @@ public class Main {
             //Flight tmp = new Flight("data/NetCoupe2019_8606.igc");
             //Flight tmp = new Flight("data/NetCoupe2019_8643.igc");
             Flight tmp = new Flight("data/2019-06-01-XCS-AAA-02.igc");
-            ArrayList<Flight> thermals = tmp.findThermals();
+            ArrayList<Flight> thermals = tmp.findClusters();
 
             Point m = tmp.getMin();
 
@@ -23,6 +23,9 @@ public class Main {
                 f.positives(m);
             }
 
+            float minAltDiff = 200 - m.getAlt();
+            float minAlt = 800 - m.getAlt();
+
             m = tmp.getMax();
 
             tmp.standardize(m);
@@ -30,17 +33,23 @@ public class Main {
                 f.standardize(m);
             }
 
+            minAltDiff /= m.getAlt();
+            minAlt /= m.getAlt();
+
             PointCollection pc = new PointCollection();
             pc.addFlight(tmp);
             pc.writeToFile("data.obj");
 
             pc = new PointCollection();
             for(Flight f : thermals) {
-                pc.addFlight(f);
+                //0 && 100
+                if(f.altitudeDifference() > minAltDiff && f.size() > 50 && f.getMin().getAlt() > minAlt) {
+                    pc.addFlight(f);
+                }
             }
             pc.writeToFile("thermals.obj");
 
-            new MainFrame(tmp);
+            //new MainFrame(tmp);
         } catch (IOException e) {
             e.printStackTrace();
         }
