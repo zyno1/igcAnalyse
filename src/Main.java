@@ -1,4 +1,5 @@
 import lib.igc.Flight;
+import lib.igc.FlightCollection;
 import lib.igc.Point;
 import lib.obj.PointCollection;
 import view.MainFrame;
@@ -12,10 +13,11 @@ import java.util.function.Predicate;
 public class Main {
     public static void main(String[] argc) {
         try {
-            Flight tmp = new Flight("data/NetCoupe2019_8606.igc");
+            //FlightCollection tmp = new FlightCollection("data/NetCoupe2019_8643.igc", "data/NetCoupe2019_8606.igc");
+            FlightCollection tmp = new FlightCollection("data/2019-06-01-XCS-AAA-01.igc", "data/2019-06-01-XCS-AAA-02.igc");
             //Flight tmp = new Flight("data/NetCoupe2019_8643.igc");
             //Flight tmp = new Flight("data/2019-06-01-XCS-AAA-02.igc");
-            ArrayList<Flight> thermals = tmp.findClusters();
+            /*ArrayList<Flight> thermals = tmp.findClusters();
 
             thermals.removeIf(new Predicate<Flight>() {
                 @Override
@@ -49,9 +51,14 @@ public class Main {
                 //if(f.altitudeDifference() > minAltDiff && f.size() > 50 && f.getMin().getAlt() > minAlt) {
                 pc.addFlight(f);
             }
-            pc.writeToFile("thermals.obj");
+            pc.writeToFile("thermals.obj");*/
 
             //new MainFrame(tmp);
+
+            tmp.standardize();
+            PointCollection pc = new PointCollection();
+            pc.addFlightCollection(tmp);
+            pc.writeToFile("data.obj");
         } catch (IOException e) {
             e.printStackTrace();
         }

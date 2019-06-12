@@ -87,6 +87,24 @@ public class Point {
         this.time = time;
     }
 
+    public static void max(Point res, Point... in) {
+        for(int i = 0; i < in.length; i++) {
+            res.setX(Math.max(res.getX(), in[i].getX()));
+            res.setY(Math.max(res.getY(), in[i].getY()));
+            res.setAlt(Math.max(res.getAlt(), in[i].getAlt()));
+            res.setTime(Math.max(res.getTime(), in[i].getTime()));
+        }
+    }
+
+    public static void min(Point res, Point... in) {
+        for(int i = 0; i < in.length; i++) {
+            res.setX(Math.min(res.getX(), in[i].getX()));
+            res.setY(Math.min(res.getY(), in[i].getY()));
+            res.setAlt(Math.min(res.getAlt(), in[i].getAlt()));
+            res.setTime(Math.min(res.getTime(), in[i].getTime()));
+        }
+    }
+
     @Override
     public String toString() {
         return "Point{" +

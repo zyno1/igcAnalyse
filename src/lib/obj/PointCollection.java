@@ -1,6 +1,7 @@
 package lib.obj;
 
 import lib.igc.Flight;
+import lib.igc.FlightCollection;
 import sun.text.CodePointIterator;
 
 import java.io.BufferedWriter;
@@ -54,6 +55,12 @@ public class PointCollection {
                 //addSurface(old, tmp, new Point(tmp.getX(), 0, tmp.getZ()), new Point(old.getX(), 0, old.getZ()));
             }
             old = new Point(p);
+        }
+    }
+
+    public void addFlightCollection(FlightCollection fc) {
+        for(Flight f : fc) {
+            addFlight(f);
         }
     }
 

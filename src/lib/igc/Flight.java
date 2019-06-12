@@ -3,9 +3,16 @@ package lib.igc;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class Flight implements Iterable<Point> {
     private ArrayList<Point> flight;
+
+    private float maxDist = 300;
+    private int maxTimeDiff = 30;
+    private float minHeight = 700;
+    private int minDuration = 90;
+    private float minClimbRate = 1;
 
     public Flight(String file) throws IOException {
         flight = new ArrayList<>();
@@ -103,7 +110,7 @@ public class Flight implements Iterable<Point> {
         return new Point((float)Math.sqrt(x), (float)Math.sqrt(y), (float)Math.sqrt(alt));
     }
 
-    private float extractPos(String l) {
+    private static float extractPos(String l) {
         float res;
         float coeff = 1;
         if(l.contains("N") || l.contains("S")) {
@@ -126,7 +133,7 @@ public class Flight implements Iterable<Point> {
         return res * coeff;
     }
 
-    private float extractAlt(String l) {
+    private static float extractAlt(String l) {
         return Float.valueOf(l);
     }
 
@@ -180,18 +187,7 @@ public class Flight implements Iterable<Point> {
 
         for(int i = 0; i < flight.size(); i++) {
             Point tmp = flight.get(i);
-            if(p.getX() > tmp.getX()) {
-                p.setX(tmp.getX());
-            }
-            if(p.getY() > tmp.getY()) {
-                p.setY(tmp.getY());
-            }
-            if(p.getAlt() > tmp.getAlt()) {
-                p.setAlt(tmp.getAlt());
-            }
-            if(p.getTime() > tmp.getTime()) {
-                p.setTime(tmp.getTime());
-            }
+            Point.min(p, tmp);
         }
 
         return p;
@@ -202,18 +198,7 @@ public class Flight implements Iterable<Point> {
 
         for(int i = 0; i < flight.size(); i++) {
             Point tmp = flight.get(i);
-            if(p.getX() < tmp.getX()) {
-                p.setX(tmp.getX());
-            }
-            if(p.getY() < tmp.getY()) {
-                p.setY(tmp.getY());
-            }
-            if(p.getAlt() < tmp.getAlt()) {
-                p.setAlt(tmp.getAlt());
-            }
-            if(p.getTime() < tmp.getTime()) {
-                p.setTime(tmp.getTime());
-            }
+            Point.max(p, tmp);
         }
 
         return p;
@@ -233,51 +218,11 @@ public class Flight implements Iterable<Point> {
         return res;
     }
 
-    public ArrayList<Flight> findThermals() {
-        ArrayList<Flight> res = new ArrayList<>();
-        Flight current = new Flight();
-        int minPointCount = 10;
-        int minAltDiff = 20;
-
-        Point cAvg = null;
-        for(Point p : this) {
-            if(cAvg == null || cAvg.distance(p) < 200) {
-                current.addPoint(new Point(p));
-                cAvg = current.averagePos();
-            }
-            else {
-                if(current.size() > minPointCount && current.altitudeDifference() > minAltDiff) {
-                    res.add(current);
-                }
-                cAvg = null;
-                current = new Flight();
-            }
-        }
-
-        //for(int i = 1; i < flight.size() - 1; i++) {
-        //    Point avg = Point.average(flight.get(i - 1), flight.get(i + 1));
-        //    if(avg.distance(flight.get(i)) > 5) {
-        //        current.addPoint(new Point(flight.get(i)));
-        //    }
-        //    else {
-        //        if(current.size() > minPointCount && current.altitudeDifference() > 0) {
-        //            res.add(current);
-        //        }
-        //        current = new Flight();
-        //    }
-        //}
-
-        if(current.size() > minPointCount && current.altitudeDifference() > minAltDiff) {
-            res.add(current);
-        }
-        return res;
-    }
-
     private int timeDifference(Flight f) {
         return Math.min(Math.abs(getMin().getTime() - f.getMax().getTime()), Math.abs(f.getMin().getTime() - getMax().getTime()));
     }
 
-    public ArrayList<Flight> findClusters() {
+    public ArrayList<Flight> findThermals() {
         ArrayList<Flight> res = new ArrayList<>();
 
         for (Point p : this) {
@@ -296,7 +241,7 @@ public class Flight implements Iterable<Point> {
                 for (int j = i + 1; j < res.size(); j++) {
                     Flight f2 = res.get(j);
 
-                    if(f2.averagePos().distance(f1.averagePos()) < 300 && f2.timeDifference(f1) < 30) {
+                    if(f2.averagePos().distance(f1.averagePos()) < maxDist && f2.timeDifference(f1) < maxTimeDiff) {
                         f1.addFlight(f2);
                         res.remove(j);
                         j--;
@@ -305,6 +250,8 @@ public class Flight implements Iterable<Point> {
                 }
             }
         }
+
+        res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
 
         return res;
     }

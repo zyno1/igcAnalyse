@@ -1,16 +1,17 @@
 package view;
 
 import lib.igc.Flight;
+import lib.igc.FlightCollection;
 import lib.igc.Point;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class DrawPanel extends JPanel {
-    private Flight flight;
+    private FlightCollection fc;
 
-    public DrawPanel(Flight flight) {
-        this.flight = flight;
+    public DrawPanel(FlightCollection fc) {
+        this.fc = fc;
 
         //setSize(900,900);
         setPreferredSize(new Dimension(900,900));
@@ -31,32 +32,22 @@ public class DrawPanel extends JPanel {
         int z = 0;
         int toFind = 3;
 
+        Color[] c = {Color.BLACK, Color.GREEN, Color.RED, Color.BLUE, Color.GRAY, Color.CYAN, Color.MAGENTA, Color.ORANGE, Color.PINK};
+        int current = 0;
+
         Point old = null;
-        for(Point p : flight.getDrawable()) {
-            g.setColor(Color.BLACK);
-            if(old != null) {
-                if(old.getAlt() < p.getAlt()) {
-                    if(z == toFind) {
-                        g.setColor(Color.GREEN);
-                    }
-                    else {
-                        z += toFind / Math.abs(toFind);
-                    }
+        FlightCollection tmp = new FlightCollection(fc);
+        tmp.standardize();
+        for(Flight f : tmp) {
+            g.setColor(c[current]);
+            current++;
+            current %= c.length;
+            for (Point p : f) {
+                if (old != null) {
+                    g.drawLine((int) (p.getX() * coeff + cx), getHeight() - (int) (p.getY() * coeff + cy), (int) (old.getX() * coeff + cx), getHeight() - (int) (old.getY() * coeff + cy));
                 }
-                else if(old.getAlt() > p.getAlt()) {
-                    if(z == -toFind) {
-                        g.setColor(Color.RED);
-                    }
-                    else {
-                        z -= toFind / Math.abs(toFind);
-                    }
-                }
-                g.drawLine((int)(p.getX() * coeff + cx), getHeight() - (int)(p.getY() * coeff + cy), (int)(old.getX() * coeff + cx), getHeight() - (int)(old.getY() * coeff + cy));
+                old = p;
             }
-            else {
-                g.drawLine((int)(p.getX() * coeff + cx), getHeight() - (int)(p.getY() * coeff + cy), (int)(p.getX() * coeff + cx), getHeight() - (int)(p.getY() * coeff + cy));
-            }
-            old = p;
         }
     }
 }

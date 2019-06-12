@@ -1,15 +1,15 @@
 package view;
 
-import lib.igc.Flight;
+import lib.igc.FlightCollection;
 
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    public MainFrame(Flight f) {
+    public MainFrame(FlightCollection fc) {
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        add(new DrawPanel(f));
+        add(new DrawPanel(fc));
         pack();
     }
 }
