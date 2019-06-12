@@ -52,18 +52,46 @@ public class FlightCollection implements Iterable<Flight> {
         return p;
     }
 
-    public void standardize() {
+    public StandardizePair standardize() {
+        StandardizePair sdp = new StandardizePair();
         Point m = getMin();
+
+        sdp.setMin(m);
 
         for(Flight f : flights) {
             f.positives(m);
         }
 
         m = getMax();
+        sdp.setMax(m);
 
         for(Flight f : flights) {
             f.standardize(m);
         }
+
+        return sdp;
+    }
+
+    public void standardize(StandardizePair sdp) {
+        for(Flight f : flights) {
+            f.positives(sdp.getMin());
+        }
+
+        for(Flight f : flights) {
+            f.standardize(sdp.getMax());
+        }
+    }
+
+    public FlightCollection findThermalsAsFlightCollection() {
+        FlightCollection res = new FlightCollection();
+
+        for(Flight f : flights) {
+            for(Flight th : f.findThermals()) {
+                res.addFlight(th);
+            }
+        }
+
+        return res;
     }
 
     @Override

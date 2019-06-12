@@ -1,6 +1,7 @@
 import lib.igc.Flight;
 import lib.igc.FlightCollection;
 import lib.igc.Point;
+import lib.igc.StandardizePair;
 import lib.obj.PointCollection;
 import view.MainFrame;
 
@@ -13,8 +14,8 @@ import java.util.function.Predicate;
 public class Main {
     public static void main(String[] argc) {
         try {
-            //FlightCollection tmp = new FlightCollection("data/NetCoupe2019_8643.igc", "data/NetCoupe2019_8606.igc");
-            FlightCollection tmp = new FlightCollection("data/2019-06-01-XCS-AAA-01.igc", "data/2019-06-01-XCS-AAA-02.igc");
+            FlightCollection tmp = new FlightCollection("data/NetCoupe2019_8643.igc", "data/NetCoupe2019_8606.igc");
+            //FlightCollection tmp = new FlightCollection("data/2019-06-01-XCS-AAA-01.igc", "data/2019-06-01-XCS-AAA-02.igc");
             //Flight tmp = new Flight("data/NetCoupe2019_8643.igc");
             //Flight tmp = new Flight("data/2019-06-01-XCS-AAA-02.igc");
             /*ArrayList<Flight> thermals = tmp.findClusters();
@@ -55,10 +56,18 @@ public class Main {
 
             //new MainFrame(tmp);
 
-            tmp.standardize();
+            FlightCollection th = tmp.findThermalsAsFlightCollection();
+
+            StandardizePair sdp = tmp.standardize();
+            th.standardize(sdp);
+
             PointCollection pc = new PointCollection();
             pc.addFlightCollection(tmp);
             pc.writeToFile("data.obj");
+
+            pc = new PointCollection();
+            pc.addFlightCollection(th);
+            pc.writeToFile("thermals.obj");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,7 +12,7 @@ public class Flight implements Iterable<Point> {
     private int maxTimeDiff = 30;
     private float minHeight = 700;
     private int minDuration = 90;
-    private float minClimbRate = 1;
+    private float minClimbRate = 1f;
 
     public Flight(String file) throws IOException {
         flight = new ArrayList<>();
@@ -251,6 +251,7 @@ public class Flight implements Iterable<Point> {
             }
         }
 
+        //res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
         res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
 
         return res;
