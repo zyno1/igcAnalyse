@@ -45,6 +45,16 @@ public class PointCollection {
         addSurface(s);
     }
 
+    public void addSurface(lib.igc.Point... p) {
+        int[] s = new int[p.length];
+
+        for(int i = 0; i < p.length; i++) {
+            s[i] = addPoint(new Point(p[i]));
+        }
+
+        addSurface(s);
+    }
+
     public void addFlight(Flight f) {
         Point old = null;
         int i = 0;

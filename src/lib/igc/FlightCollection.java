@@ -94,6 +94,58 @@ public class FlightCollection implements Iterable<Flight> {
         return res;
     }
 
+    public ArrayList<Point> findThermals() {
+        ArrayList<Point> res = new ArrayList<>();
+
+        for(Flight f : findThermalsAsFlightCollection()) {
+            res.add(f.averagePos());
+        }
+
+        boolean modified = true;
+        while (modified) {
+            modified = false;
+
+            for(int i = 0; i < res.size(); i++) {
+                Point p1 = res.get(i);
+
+                for(int j = i + 1; j < res.size(); j++) {
+                    Point p2 = res.get(j);
+
+                    if(p1.distance(p2) < 150) {
+                        p1.setX((p1.getX() + p2.getX()) / 2);
+                        p1.setY((p1.getY() + p2.getY()) / 2);
+                        p1.setAlt((p1.getAlt() + p2.getAlt()) / 2);
+
+                        res.remove(j);
+                        j--;
+                        modified = true;
+                    }
+                }
+            }
+        }
+
+        if(res.size() > 2) {
+            Point start = res.get(0);
+            for (int i = 1; i < res.size(); i++) {
+                int posMin = i;
+                for (int j = i + 1; j < res.size(); j++) {
+                    if (start.distance(res.get(posMin)) > start.distance(res.get(j))) {
+                        posMin = j;
+                    }
+                }
+
+                if (posMin != i) {
+                    Point tmp = res.get(posMin);
+                    res.set(posMin, res.get(i));
+                    res.set(i, tmp);
+                }
+                start = res.get(i);
+            }
+        }
+
+        return res;
+    }
+
     @Override
     public Iterator<Flight> iterator() {
         return flights.iterator();

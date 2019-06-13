@@ -56,17 +56,36 @@ public class Main {
 
             //new MainFrame(tmp);
 
-            FlightCollection th = tmp.findThermalsAsFlightCollection();
+            //FlightCollection th = tmp.findThermalsAsFlightCollection();
+            ArrayList<Point> th = tmp.findThermals();
 
             StandardizePair sdp = tmp.standardize();
-            th.standardize(sdp);
+            for(Point p : th) {
+                p.setX((p.getX() - sdp.getMin().getX()));
+                p.setY((p.getY() - sdp.getMin().getY()));
+                p.setAlt((p.getAlt() - sdp.getMin().getAlt()));
+            }
+            for(Point p : th) {
+                p.setX((p.getX() / sdp.getMax().getX()));
+                p.setY((p.getY() / sdp.getMax().getY()));
+                p.setAlt((p.getAlt() / sdp.getMax().getAlt()));
+            }
 
             PointCollection pc = new PointCollection();
             pc.addFlightCollection(tmp);
             pc.writeToFile("data.obj");
 
             pc = new PointCollection();
-            pc.addFlightCollection(th);
+            //pc.addFlightCollection(th);
+
+            Point old = null;
+            for(Point p : th) {
+                if(old != null) {
+                    pc.addSurface(old, p);
+                }
+                old = p;
+            }
+
             pc.writeToFile("thermals.obj");
         } catch (IOException e) {
             e.printStackTrace();
