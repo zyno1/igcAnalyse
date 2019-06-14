@@ -124,25 +124,6 @@ public class FlightCollection implements Iterable<Flight> {
             }
         }
 
-        if(res.size() > 2) {
-            Point start = res.get(0);
-            for (int i = 1; i < res.size(); i++) {
-                int posMin = i;
-                for (int j = i + 1; j < res.size(); j++) {
-                    if (start.distance(res.get(posMin)) > start.distance(res.get(j))) {
-                        posMin = j;
-                    }
-                }
-
-                if (posMin != i) {
-                    Point tmp = res.get(posMin);
-                    res.set(posMin, res.get(i));
-                    res.set(i, tmp);
-                }
-                start = res.get(i);
-            }
-        }
-
         return res;
     }
 
