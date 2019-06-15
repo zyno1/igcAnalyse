@@ -3,8 +3,7 @@ package lib.obj;
 import lib.igc.Flight;
 import lib.igc.FlightCollection;
 import lib.thermals.Thermal;
-import lib.thermals.ThermalColection;
-import sun.text.CodePointIterator;
+import lib.thermals.ThermalCollection;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -76,7 +75,7 @@ public class PointCollection {
         }
     }
 
-    public void addThermalCollection(ThermalColection th) {
+    public void addThermalCollection(ThermalCollection th) {
         Point old = null;
         for(Thermal t : th) {
             Point i = new Point(t.getPos());

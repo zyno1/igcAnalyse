@@ -67,7 +67,7 @@ public class Thermal {
 
         str.append("\"Thermal ");
         str.append(count);
-        str.append("\",\"Th\",FR,");
+        str.append("\",,FR,");
 
         float lat = pos.getY();
         String dlat = "N";
@@ -124,7 +124,7 @@ public class Thermal {
         Thermal t = new Thermal(new Point(14.17445f, 1.123f, 100.1234450f));
         System.out.println(t.toCUP());
 
-        String line = "\"Thermal 1\",\"Th\",FR,0107.380N,01410.466E,100.12344m,0,,,,\"\"";
+        String line = "\"Thermal 1\",,FR,0107.380N,01410.466E,100.12344m,0,,,,\"\"";
 
         t = new Thermal(line);
         System.out.println(t.toCUP());

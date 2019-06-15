@@ -6,11 +6,26 @@ import lib.igc.StandardizePair;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ThermalColection implements Iterable<Thermal> {
+public class ThermalCollection implements Iterable<Thermal> {
     ArrayList<Thermal> thermals;
 
-    public ThermalColection() {
+    public ThermalCollection() {
         thermals = new ArrayList<>();
+    }
+
+    public ThermalCollection(String data) {
+        String[] splitted = data.split("\n");
+
+        //"name, code, country, lat, lon, elev, style, rwydir, rwylen, freq, desc"
+
+        String line = splitted[0];
+        if(!line.contains("name") && !line.contains("code") && !line.contains("country") && !line.contains("lat") && !line.contains("lon") && !line.contains("elev")) {
+            thermals.add(new Thermal(line));
+        }
+
+        for(int i = 1; i < splitted.length; i++) {
+            thermals.add(new Thermal(splitted[i]));
+        }
     }
 
     public void addThermal(Point p) {
@@ -80,6 +95,19 @@ public class ThermalColection implements Iterable<Thermal> {
             p.setY((p.getY() / sdp.getMax().getY()));
             p.setAlt((p.getAlt() / sdp.getMax().getAlt()));
         }
+    }
+
+    public String toCUP() {
+        StringBuilder str = new StringBuilder();
+
+        str.append("name, code, country, lat, lon, elev, style, rwydir, rwylen, freq, desc");
+
+        for(Thermal t : this) {
+            str.append("\n");
+            str.append(t.toCUP());
+        }
+
+        return str.toString();
     }
 
     @Override
