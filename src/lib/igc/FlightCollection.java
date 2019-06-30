@@ -127,6 +127,10 @@ public class FlightCollection implements Iterable<Flight> {
         return res;
     }
 
+    public int size() {
+        return flights.size();
+    }
+
     @Override
     public Iterator<Flight> iterator() {
         return flights.iterator();

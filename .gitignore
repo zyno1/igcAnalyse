@@ -1,3 +1,5 @@
 .idea
 igcanalyse.iml
 data
+*.cup
+*.obj

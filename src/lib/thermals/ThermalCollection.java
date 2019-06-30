@@ -100,7 +100,7 @@ public class ThermalCollection implements Iterable<Thermal> {
     public String toCUP() {
         StringBuilder str = new StringBuilder();
 
-        str.append("name, code, country, lat, lon, elev, style, rwydir, rwylen, freq, desc");
+        str.append("name,code,country,lat,lon,elev,style,rwydir,rwylen,freq,desc");
 
         for(Thermal t : this) {
             str.append("\n");
