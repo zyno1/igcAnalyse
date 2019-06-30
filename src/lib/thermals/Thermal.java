@@ -115,7 +115,7 @@ public class Thermal {
         str.append(",");
 
         str.append(pos.getAlt());
-        str.append("m,0,,,,\"\"");
+        str.append("m,15,,,,\"\"");
 
         return str.toString();
     }
