@@ -5,6 +5,7 @@ import lib.igc.StandardizePair;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class ThermalCollection implements Iterable<Thermal> {
     ArrayList<Thermal> thermals;
@@ -45,6 +46,10 @@ public class ThermalCollection implements Iterable<Thermal> {
             }
         }
         thermals.add(t);
+    }
+
+    public int size() {
+        return thermals.size();
     }
 
     public void addThermals(Thermal... t) {
@@ -95,6 +100,15 @@ public class ThermalCollection implements Iterable<Thermal> {
             p.setY((p.getY() / sdp.getMax().getY()));
             p.setAlt((p.getAlt() / sdp.getMax().getAlt()));
         }
+    }
+
+    public void filter(int min) {
+        thermals.removeIf(new Predicate<Thermal>() {
+            @Override
+            public boolean test(Thermal thermal) {
+                return thermal.getCount() < min;
+            }
+        });
     }
 
     public String toCUP() {

@@ -21,7 +21,7 @@ public class Flight implements Iterable<Point> {
 
         String line;
         while ((line = bf.readLine()) != null) {
-            if(line.charAt(0) == 'B') {
+            if(line.length() != 0 && line.charAt(0) == 'B') {
 
                 String h = line.substring(1, 3);
                 String m = line.substring(3, 5);

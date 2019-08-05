@@ -42,14 +42,14 @@ public class Main {
         try {
             Wind w = new Wind("data/wind.txt");
             w.matchLocation("LFNC");
-            Entry[] date = w.get("LFNC", "2019063015");
+            /*Entry[] date = w.get("LFNC", "2019063015");
 
             if(date.length != 0) {
                 for(Entry tmp : date) {
                     w.matchDirection(tmp.getAltitude(), tmp.getDirection(), 5);
                     w.matchSpeed(tmp.getAltitude(), tmp.getSpeed(), 20);
                 }
-            }
+            }*/
 
             System.out.println("Dates;");
             System.out.println("\t" + Arrays.toString(w.getDates()));
@@ -63,11 +63,16 @@ public class Main {
                 File folder = new File(path);
                 File[] listOfFiles = folder.listFiles();
 
-                for (File file : listOfFiles) {
-                    if (file.isFile()) {
-                        //System.out.println(file.getAbsolutePath());
-                        fc.addFlight(new Flight(file.getAbsolutePath()));
+                if(listOfFiles != null) {
+                    for (File file : listOfFiles) {
+                        if (file.isFile()) {
+                            //System.out.println(file.getAbsolutePath());
+                            fc.addFlight(new Flight(file.getAbsolutePath()));
+                        }
                     }
+                }
+                else {
+                    System.out.println(path + " : not found");
                 }
             }
 
@@ -79,6 +84,11 @@ public class Main {
                     tc.addThermal(t.averagePos());
                 }
                 System.out.println(i++ + "/" + fc.size());
+            }
+
+            i = 5;
+            while (tc.size() > 200) {
+                tc.filter(i++);
             }
 
             //System.out.println(tc.toCUP());
