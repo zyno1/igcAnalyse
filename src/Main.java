@@ -12,6 +12,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] argc) {
@@ -79,15 +84,61 @@ public class Main {
             int i = 0;
 
             ThermalCollection tc = new ThermalCollection();
-            for(Flight f : fc) {
+            Iterator<Flight> it = fc.iterator();
+
+            AtomicInteger co = new AtomicInteger(0);
+
+            Runnable r = () -> {
+                Flight f = null;
+                synchronized (it) {
+                    if(it.hasNext()) {
+                        f = it.next();
+                    }
+                }
+
+                while (f != null) {
+                    for(Flight t : f.findThermals()) {
+                        synchronized (tc) {
+                            tc.addThermal(t.averagePos());
+                        }
+                    }
+                    System.out.println(co.getAndIncrement() + "/" + fc.size());
+                    synchronized (it) {
+                        if(it.hasNext()) {
+                            f = it.next();
+                        }
+                        else {
+                            f = null;
+                        }
+                    }
+                }
+            };
+
+            Thread[] threads = new Thread[3];
+
+            for (int k = 0; k < threads.length; k++) {
+                threads[k] = new Thread(r);
+                threads[k].start();
+            }
+
+            r.run();
+
+            for(Thread t : threads) {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            /*for(Flight f : fc) {
                 for(Flight t : f.findThermals()) {
                     tc.addThermal(t.averagePos());
                 }
                 System.out.println(i++ + "/" + fc.size());
-            }
+            }*/
 
             i = 5;
-            while (tc.size() > 200) {
+            while (tc.size() > 150) {
                 tc.filter(i++);
             }
 

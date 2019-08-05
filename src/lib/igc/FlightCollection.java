@@ -131,6 +131,10 @@ public class FlightCollection implements Iterable<Flight> {
         return flights.size();
     }
 
+    public int index(Flight f) {
+        return flights.indexOf(f);
+    }
+
     @Override
     public Iterator<Flight> iterator() {
         return flights.iterator();
