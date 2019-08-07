@@ -37,11 +37,29 @@ public class ThermalCollection implements Iterable<Thermal> {
         for (Thermal i : this) {
             if(i.getPos().distance(t.getPos()) < 150) {
                 Point p = i.getPos();
-                p.setX((p.getX() + t.getPos().getX()) / 2);
-                p.setY((p.getY() + t.getPos().getY()) / 2);
-                p.setAlt((p.getAlt() + t.getPos().getAlt()) / 2);
 
-                i.setCount(i.getCount() + t.getCount());
+                int ic = i.getCount();
+                int tc = t.getCount();
+
+                float xi = i.getPos().getX() * ic;
+                float yi = i.getPos().getY() * ic;
+                float alti = i.getPos().getAlt() * ic;
+
+                float xt = t.getPos().getX() * tc;
+                float yt = t.getPos().getY() * tc;
+                float altt = t.getPos().getAlt() * tc;
+
+                float x = (xi + xt) / (ic + tc);
+                float y = (yi + yt) / (ic + tc);
+                float alt = (alti + altt) / (ic +  tc);
+
+                p.setX(x);
+                p.setY(y);
+                p.setAlt(alt);
+
+                i.setCount(ic + tc);
+
+
                 return;
             }
         }
