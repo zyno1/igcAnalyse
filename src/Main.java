@@ -214,7 +214,7 @@ public class Main {
             tc.filter(i);
         }
 
-        while (tc.size() > MAX_COUNT || MAX_COUNT == -1) {
+        while (tc.size() > MAX_COUNT && MAX_COUNT != -1) {
             tc.filter(i++);
         }
 
