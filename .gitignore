@@ -3,3 +3,5 @@ igcanalyse.iml
 data
 *.cup
 *.obj
+*.jar
+META-INF
