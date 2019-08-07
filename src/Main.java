@@ -156,6 +156,8 @@ public class Main {
         Iterator<String> it = igcPaths.iterator();
         final int size = igcPaths.size();
 
+        System.out.println("Analyzing " + size + " files:");
+
         Runnable r = () -> {
             String f = null;
             synchronized (it) {
@@ -174,7 +176,7 @@ public class Main {
                 } catch (IOException e) {
                     System.out.println("failed to load file: " + f);
                 }
-                System.out.println(co.getAndIncrement() + "/" + size);
+                System.out.print("\r                              \r" + co.getAndIncrement() + "/" + size);
                 synchronized (it) {
                     if(it.hasNext()) {
                         f = it.next();
