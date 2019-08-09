@@ -176,7 +176,7 @@ public class Main {
                 } catch (IOException e) {
                     System.out.println("failed to load file: " + f);
                 }
-                System.out.print("\r                              \r" + co.getAndIncrement() + "/" + size);
+                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
                 synchronized (it) {
                     if(it.hasNext()) {
                         f = it.next();
@@ -228,6 +228,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Done, result written to res.cup");
     }
 
     public static void main(String[] arg) {
