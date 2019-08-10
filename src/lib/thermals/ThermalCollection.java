@@ -70,6 +70,26 @@ public class ThermalCollection implements Iterable<Thermal> {
         return thermals.size();
     }
 
+    public int getMin() {
+        int i = Integer.MAX_VALUE;
+
+        for(Thermal t : thermals) {
+            i = Math.min(t.getCount(), i);
+        }
+
+        return i;
+    }
+
+    public int getMax() {
+        int i = Integer.MIN_VALUE;
+
+        for(Thermal t : thermals) {
+            i = Math.max(t.getCount(), i);
+        }
+
+        return i;
+    }
+
     public void addThermals(Thermal... t) {
         for(Thermal i : t) {
             addThermal(i);

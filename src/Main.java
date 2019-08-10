@@ -230,6 +230,10 @@ public class Main {
         }
 
         System.out.println("Done, result written to res.cup");
+
+        System.out.println("Thermals count: " + tc.size());
+        System.out.println("min: " + tc.getMin());
+        System.out.println("max: " + tc.getMax());
     }
 
     public static void main(String[] arg) {
