@@ -34,36 +34,74 @@ public class ThermalCollection implements Iterable<Thermal> {
     }
 
     public void addThermal(Thermal t) {
-        for (Thermal i : this) {
-            if(i.getPos().distance(t.getPos()) < 150) {
-                Point p = i.getPos();
+        int posMin = 0;
+        float distMin = Float.MAX_VALUE;
 
-                int ic = i.getCount();
-                int tc = t.getCount();
+        for(int i = 0; i < thermals.size(); i++) {
+            Thermal j = thermals.get(i);
+            float tmp = j.getPos().distance(t.getPos());
 
-                float xi = i.getPos().getX() * ic;
-                float yi = i.getPos().getY() * ic;
-                float alti = i.getPos().getAlt() * ic;
-
-                float xt = t.getPos().getX() * tc;
-                float yt = t.getPos().getY() * tc;
-                float altt = t.getPos().getAlt() * tc;
-
-                float x = (xi + xt) / (ic + tc);
-                float y = (yi + yt) / (ic + tc);
-                float alt = (alti + altt) / (ic +  tc);
-
-                p.setX(x);
-                p.setY(y);
-                p.setAlt(alt);
-
-                i.setCount(ic + tc);
-
-
-                return;
+            if(tmp < distMin) {
+                posMin = i;
+                distMin = tmp;
             }
         }
-        thermals.add(t);
+
+        if(posMin < thermals.size() && distMin < 150) {
+            Thermal i = thermals.get(posMin);
+
+            merge(i, t);
+        }
+        else {
+            thermals.add(t);
+        }
+    }
+
+    private static void merge(Thermal ti, Thermal tj) {
+        Point p = ti.getPos();
+
+        int ic = ti.getCount();
+        int jc = tj.getCount();
+
+        float xi = ti.getPos().getX() * ic;
+        float yi = ti.getPos().getY() * ic;
+        float alti = ti.getPos().getAlt() * ic;
+
+        float xj = tj.getPos().getX() * jc;
+        float yj = tj.getPos().getY() * jc;
+        float altj = tj.getPos().getAlt() * jc;
+
+        float x = (xi + xj) / (ic + jc);
+        float y = (yi + yj) / (ic + jc);
+        float alt = (alti + altj) / (ic +  jc);
+
+        p.setX(x);
+        p.setY(y);
+        p.setAlt(alt);
+
+        ti.setCount(ic + jc);
+    }
+
+    public void mergeExisting() {
+        boolean modified = true;
+
+        while (modified) {
+            modified = false;
+
+            for(int i = 0; i < thermals.size() - 1; i++) {
+                Thermal ti = thermals.get(i);
+                for(int j = i + 1; j < thermals.size(); j++) {
+                    Thermal tj = thermals.get(j);
+
+                    if(ti.getPos().distance(tj.getPos()) < 150) {
+                        merge(ti, tj);
+
+                        thermals.remove(j);
+                        j--;
+                    }
+                }
+            }
+        }
     }
 
     public int size() {
