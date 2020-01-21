@@ -1,7 +1,10 @@
 package lib.igc;
 
+import lib.obj.PointCollection;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
@@ -70,6 +73,12 @@ public class Flight implements Iterable<Point> {
     public void addFlight(Flight f) {
         for(Point p : f) {
             insertPoint(p);
+        }
+    }
+
+    private void merge(Flight f) {
+        for(Point p : f) {
+            addPoint(p);
         }
     }
 
@@ -236,22 +245,19 @@ public class Flight implements Iterable<Point> {
         while(modified) {
             modified = false;
 
-            for (int i = 0; i < res.size(); i++) {
+            for(int i = 0; i < res.size() - 1; i++) {
                 Flight f1 = res.get(i);
-                for (int j = i + 1; j < res.size(); j++) {
-                    Flight f2 = res.get(j);
+                Flight f2 = res.get(i + 1);
 
-                    if(f2.averagePos().distance(f1.averagePos()) < maxDist && f2.timeDifference(f1) < maxTimeDiff) {
-                        f1.addFlight(f2);
-                        res.remove(j);
-                        j--;
-                        modified = true;
-                    }
+                if(f2.averagePos().distance(f1.averagePos()) < maxDist) {
+                    //f1.addFlight(f2);
+                    f1.merge(f2);
+                    res.remove(i + 1);
+                    modified = true;
                 }
             }
         }
 
-        //res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
         res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
 
         return res;
@@ -306,13 +312,31 @@ public class Flight implements Iterable<Point> {
     }
 
     public static void main(String[] args) {
-        Flight f = new Flight();
+        try {
+            Flight f = new Flight("/home/oz/Documents/projects/java/igcanalyse/data/20190621/NetCoupe2019_12211.igc");
+            ArrayList<Flight> th = f.findThermals();
 
-        f.insertPoint(new Point(0, 0, 0, 0));
-        f.insertPoint(new Point(3, 3, 0, 0));
-        f.insertPoint(new Point(2, 2, 0, 0));
-        f.insertPoint(new Point(1, 1, 0, 0));
+            Point min = f.getMin();
+            f.positives(min);
+            Point max = f.getMax();
+            f.standardize(max);
 
-        System.out.println(f);
+            PointCollection pc = new PointCollection();
+            pc.addFlight(f);
+            pc.writeToFile("flight.obj");
+
+            pc = new PointCollection();
+
+            for(Flight i : th) {
+                i.positives(min);
+                i.standardize(max);
+
+                pc.addFlight(i);
+            }
+
+            pc.writeToFile("th.obj");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
