@@ -170,7 +170,7 @@ public class Main {
                 try {
                     for(Flight t : (new Flight(f)).findThermals()) {
                         synchronized (tc) {
-                            tc.addThermal(t.averagePos());
+                            tc.addThermal(t);
                         }
                     }
                 } catch (IOException e) {
@@ -210,19 +210,7 @@ public class Main {
             }
         }
 
-        //1012
-        //min 1, max 4
         tc.mergeExisting();
-
-        /*
-        Thermals count: 19663
-        min: 1
-        max: 17
-
-        Thermals count: 19462
-        min: 1
-        max: 19
-         */
 
         int i = 1;
         if(i < MIN) {

@@ -4,10 +4,16 @@ import lib.igc.Point;
 
 public class Thermal {
     private Point pos;
+    private Point min;
+    private Point max;
+    private float climbRate;
     private int count;
 
-    public Thermal(Point pos) {
+    public Thermal(Point pos, Point min, Point max, float climbRate) {
         this.pos = pos;
+        this.min = min;
+        this.max = max;
+        this.climbRate = climbRate;
         count = 1;
     }
 
@@ -22,10 +28,10 @@ public class Thermal {
         String alt = fields[5];
 
         name = name.substring("Thermal ".length() + 1, name.length() - 1);
-        count = Integer.valueOf(name);
+        count = Integer.parseInt(name);
 
-        float tmp = Integer.valueOf(lat.substring(0, 2));
-        tmp += Float.valueOf(lat.substring(2, 8)) / 60.0;
+        float tmp = Integer.parseInt(lat.substring(0, 2));
+        tmp += Float.parseFloat(lat.substring(2, 8)) / 60.0;
 
         if(lat.contains("S")) {
             tmp = -tmp;
@@ -33,8 +39,8 @@ public class Thermal {
 
         pos.setY(tmp);
 
-        tmp = Integer.valueOf(lon.substring(0, 3));
-        tmp += Float.valueOf(lon.substring(3, 9)) / 60;
+        tmp = Integer.parseInt(lon.substring(0, 3));
+        tmp += Float.parseFloat(lon.substring(3, 9)) / 60;
 
         if(lon.contains("W")) {
             tmp = -tmp;
@@ -42,8 +48,23 @@ public class Thermal {
 
         pos.setX(tmp);
 
-        tmp = Float.valueOf(alt.substring(0, alt.length() - 1));
+        tmp = Float.parseFloat(alt.substring(0, alt.length() - 1));
         pos.setAlt(tmp);
+    }
+
+    public void merge(Thermal t) {
+        Point.min(min, t.min);
+        Point.max(max, t.max);
+
+        int total = count + t.count;
+
+        climbRate = (climbRate * count + t.climbRate * t.count) / total;
+
+        pos.x = (pos.x * count + t.pos.x * t.count) / total;
+        pos.y = (pos.y * count + t.pos.y * t.count) / total;
+        pos.alt = (pos.alt * count + t.pos.alt * t.count) / total;
+
+        count = total;
     }
 
     public Point getPos() {
@@ -115,18 +136,10 @@ public class Thermal {
         str.append(",");
 
         str.append(pos.getAlt());
-        str.append("m,15,,,,\"\"");
+        str.append("m,15,,,,\"");
+        str.append(climbRate + "");
+        str.append("\"");
 
         return str.toString();
-    }
-
-    public static void main(String[] args) {
-        Thermal t = new Thermal(new Point(14.17445f, 1.123f, 100.1234450f));
-        System.out.println(t.toCUP());
-
-        String line = "\"Thermal 1\",,FR,0107.380N,01410.466E,100.12344m,0,,,,\"\"";
-
-        t = new Thermal(line);
-        System.out.println(t.toCUP());
     }
 }

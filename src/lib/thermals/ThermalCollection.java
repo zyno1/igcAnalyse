@@ -1,5 +1,6 @@
 package lib.thermals;
 
+import lib.igc.Flight;
 import lib.igc.Point;
 import lib.igc.StandardizePair;
 
@@ -29,8 +30,9 @@ public class ThermalCollection implements Iterable<Thermal> {
         }
     }
 
-    public void addThermal(Point p) {
-        addThermal(new Thermal(p));
+    public void addThermal(Flight f) {
+        Thermal t = new Thermal(f.averagePos(), f.getMin(), f.getMax(), f.climbRate());
+        addThermal(t);
     }
 
     public void addThermal(Thermal t) {
@@ -50,7 +52,7 @@ public class ThermalCollection implements Iterable<Thermal> {
         if(posMin < thermals.size() && distMin < 150) {
             Thermal i = thermals.get(posMin);
 
-            merge(i, t);
+            i.merge(t);
         }
         else {
             thermals.add(t);
@@ -128,18 +130,6 @@ public class ThermalCollection implements Iterable<Thermal> {
         return i;
     }
 
-    public void addThermals(Thermal... t) {
-        for(Thermal i : t) {
-            addThermal(i);
-        }
-    }
-
-    public void addThermals(Point... p) {
-        for(Point i : p) {
-            addThermal(new Thermal(i));
-        }
-    }
-
     public void sort() {
         if(thermals.size() > 2) {
             Point start = thermals.get(0).getPos();
@@ -179,12 +169,7 @@ public class ThermalCollection implements Iterable<Thermal> {
     }
 
     public void filter(int min) {
-        thermals.removeIf(new Predicate<Thermal>() {
-            @Override
-            public boolean test(Thermal thermal) {
-                return thermal.getCount() < min;
-            }
-        });
+        thermals.removeIf(thermal -> thermal.getCount() < min);
     }
 
     public String toCUP() {

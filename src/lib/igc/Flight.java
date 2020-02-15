@@ -4,9 +4,7 @@ import lib.obj.PointCollection;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
 public class Flight implements Iterable<Point> {
     private ArrayList<Point> flight;
@@ -70,13 +68,13 @@ public class Flight implements Iterable<Point> {
         }
     }
 
-    public void addFlight(Flight f) {
+    public void merge(Flight f) {
         for(Point p : f) {
             insertPoint(p);
         }
     }
 
-    private void merge(Flight f) {
+    private void appendFlight(Flight f) {
         for(Point p : f) {
             addPoint(p);
         }
@@ -127,23 +125,23 @@ public class Flight implements Iterable<Point> {
                 coeff = -1;
             }
 
-            res = Float.valueOf(l.substring(0,2));
-            res += Float.valueOf(l.substring(2, l.length() - 1)) / 60000;
+            res = Float.parseFloat(l.substring(0,2));
+            res += Float.parseFloat(l.substring(2, l.length() - 1)) / 60000;
         }
         else {
             if(l.contains("W")) {
                 coeff = -1;
             }
 
-            res = Float.valueOf(l.substring(0,3));
-            res += Float.valueOf(l.substring(3, l.length() - 1)) / 60000;
+            res = Float.parseFloat(l.substring(0,3));
+            res += Float.parseFloat(l.substring(3, l.length() - 1)) / 60000;
         }
 
         return res * coeff;
     }
 
     private static float extractAlt(String l) {
-        return Float.valueOf(l);
+        return Float.parseFloat(l);
     }
 
     public Flight standardize() {
@@ -251,7 +249,7 @@ public class Flight implements Iterable<Point> {
 
                 if(f2.averagePos().distance(f1.averagePos()) < maxDist) {
                     //f1.addFlight(f2);
-                    f1.merge(f2);
+                    f1.appendFlight(f2);
                     res.remove(i + 1);
                     modified = true;
                 }

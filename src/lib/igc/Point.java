@@ -1,9 +1,9 @@
 package lib.igc;
 
 public class Point {
-    private float x;
-    private float y;
-    private float alt;
+    public float x;
+    public float y;
+    public float alt;
 
     private int time;
 
