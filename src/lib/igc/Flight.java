@@ -28,7 +28,7 @@ public class Flight implements Iterable<Point> {
                 String m = line.substring(3, 5);
                 String s = line.substring(5, 7);
 
-                int time = Integer.valueOf(h) * 3600 + Integer.valueOf(m) * 60 + Integer.valueOf(s);
+                int time = Integer.parseInt(h) * 3600 + Integer.parseInt(m) * 60 + Integer.parseInt(s);
 
                 String y = line.substring(7, 15);
                 String x = line.substring(15, 24);

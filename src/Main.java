@@ -231,7 +231,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        System.out.println("Done, result written to res.cup");
+        System.out.println("\nDone, result written to res.cup");
 
         System.out.println("Thermals count: " + tc.size());
         System.out.println("min: " + tc.getMin());

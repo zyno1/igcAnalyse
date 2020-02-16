@@ -11,6 +11,8 @@ import java.util.function.Predicate;
 public class ThermalCollection implements Iterable<Thermal> {
     ArrayList<Thermal> thermals;
 
+    private static final float MERGE_MAX_DIST = 200;
+
     public ThermalCollection() {
         thermals = new ArrayList<>();
     }
@@ -49,7 +51,7 @@ public class ThermalCollection implements Iterable<Thermal> {
             }
         }
 
-        if(posMin < thermals.size() && distMin < 150) {
+        if(posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
             Thermal i = thermals.get(posMin);
 
             i.merge(t);
@@ -57,31 +59,6 @@ public class ThermalCollection implements Iterable<Thermal> {
         else {
             thermals.add(t);
         }
-    }
-
-    private static void merge(Thermal ti, Thermal tj) {
-        Point p = ti.getPos();
-
-        int ic = ti.getCount();
-        int jc = tj.getCount();
-
-        float xi = ti.getPos().getX() * ic;
-        float yi = ti.getPos().getY() * ic;
-        float alti = ti.getPos().getAlt() * ic;
-
-        float xj = tj.getPos().getX() * jc;
-        float yj = tj.getPos().getY() * jc;
-        float altj = tj.getPos().getAlt() * jc;
-
-        float x = (xi + xj) / (ic + jc);
-        float y = (yi + yj) / (ic + jc);
-        float alt = (alti + altj) / (ic +  jc);
-
-        p.setX(x);
-        p.setY(y);
-        p.setAlt(alt);
-
-        ti.setCount(ic + jc);
     }
 
     public void mergeExisting() {
@@ -92,15 +69,23 @@ public class ThermalCollection implements Iterable<Thermal> {
 
             for(int i = 0; i < thermals.size() - 1; i++) {
                 Thermal ti = thermals.get(i);
+
+                float distMin = Float.MAX_VALUE;
+                int posMin = -1;
+
                 for(int j = i + 1; j < thermals.size(); j++) {
                     Thermal tj = thermals.get(j);
-
-                    if(ti.getPos().distance(tj.getPos()) < 150) {
-                        merge(ti, tj);
-
-                        thermals.remove(j);
-                        j--;
+                    float dist = ti.getPos().distance(tj.getPos());
+                    if(dist < distMin) {
+                        posMin = j;
+                        distMin = dist;
                     }
+                }
+
+                if(posMin != -1 && distMin < MERGE_MAX_DIST) {
+                    ti.merge(thermals.get(posMin));
+                    thermals.remove(posMin);
+                    modified = true;
                 }
             }
         }

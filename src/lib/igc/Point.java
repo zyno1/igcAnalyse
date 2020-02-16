@@ -5,7 +5,7 @@ public class Point {
     public float y;
     public float alt;
 
-    private int time;
+    public int time;
 
     public Point(float x, float y, float alt) {
         this.x = x;
