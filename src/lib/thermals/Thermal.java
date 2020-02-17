@@ -138,6 +138,15 @@ public class Thermal {
         str.append(pos.getAlt());
         str.append("m,15,,,,\"");
 
+        str.append(getDescription());
+
+        str.append("\"");
+
+        return str.toString();
+    }
+
+    public String getDescription() {
+        StringBuilder str = new StringBuilder();
         int minH = min.time / 3600;
         int minM = (min.time / 60) % 60;
 
@@ -149,11 +158,9 @@ public class Thermal {
 
         float cr = (float)Math.floor(climbRate * 10) / 10;
 
-        str.append("alt: " + maxAlt + " - " + minAlt + "; ");
-        str.append("time: " + maxH + "H" + maxM + " - " + minH + "H" + minM + "; ");
+        str.append("alt: " + minAlt + " - " + maxAlt + "; ");
+        str.append("time: " + minH + "H" + minM + " - " + maxH + "H" + maxM + "; ");
         str.append("speed: " + cr + " m/s; ");
-
-        str.append("\"");
 
         return str.toString();
     }

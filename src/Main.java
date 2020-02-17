@@ -1,5 +1,6 @@
 import lib.igc.Flight;
 import lib.igc.FlightCollection;
+import lib.kml.KML;
 import lib.thermals.ThermalCollection;
 import lib.wind.Entry;
 import lib.wind.Wind;
@@ -220,6 +221,14 @@ public class Main {
 
         while (tc.size() > MAX_COUNT && MAX_COUNT != -1) {
             tc.filter(i++);
+        }
+
+        KML kml = new KML();
+        kml.addThermals(tc);
+        try {
+            kml.writeToFile("res.kml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         try {
