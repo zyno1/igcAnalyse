@@ -21,9 +21,10 @@ public class KML {
 
     public void addThermal(Thermal t) {
         str.append("<Placemark><name>");
-        str.append("Thermal " + t.getCount());
+        str.append("T");
         str.append("</name><description>\n");
-        str.append(t.getDescription());
+        str.append("Thermal " + t.getCount() + "\n");
+        str.append(t.getDescription().replace("; ", "\n"));
         str.append("\n</description><Point><coordinates>\n");
         str.append(t.getPos().x + ", " + t.getPos().y + ", 0");
         str.append("\n</coordinates></Point></Placemark>\n");
