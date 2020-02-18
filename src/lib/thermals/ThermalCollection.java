@@ -4,6 +4,11 @@ import lib.igc.Flight;
 import lib.igc.Point;
 import lib.igc.StandardizePair;
 
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
@@ -21,6 +26,8 @@ public class ThermalCollection implements Iterable<Thermal> {
         String[] splitted = data.split("\n");
 
         //"name, code, country, lat, lon, elev, style, rwydir, rwylen, freq, desc"
+
+        thermals = new ArrayList<>(splitted.length);
 
         String line = splitted[0];
         if(!line.contains("name") && !line.contains("code") && !line.contains("country") && !line.contains("lat") && !line.contains("lon") && !line.contains("elev")) {
@@ -173,5 +180,17 @@ public class ThermalCollection implements Iterable<Thermal> {
     @Override
     public Iterator<Thermal> iterator() {
         return thermals.iterator();
+    }
+
+    public static void main(String[] args) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get("res.cup"));
+        String data = new String(encoded, StandardCharsets.UTF_8);
+
+        ThermalCollection tc = new ThermalCollection(data);
+
+        FileWriter res = new FileWriter("res.2.cup");
+        res.write(tc.toCUP());
+        res.flush();
+        res.close();
     }
 }

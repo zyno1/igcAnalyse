@@ -26,6 +26,7 @@ public class Thermal {
         String lat = fields[3];
         String lon = fields[4];
         String alt = fields[5];
+        String[] description = fields[fields.length - 1].split("; ");
 
         name = name.substring("Thermal ".length() + 1, name.length() - 1);
         count = Integer.parseInt(name);
@@ -50,6 +51,30 @@ public class Thermal {
 
         tmp = Float.parseFloat(alt.substring(0, alt.length() - 1));
         pos.setAlt(tmp);
+
+        min = new Point(Integer.MAX_VALUE, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
+        max = new Point(Integer.MIN_VALUE, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
+        climbRate = 0;
+
+        for (String i : description) {
+            if(i.contains("alt")) {
+                String[] split = i.split("-");
+                min.alt = Float.parseFloat(split[0].replaceAll("[^0-9\\.]", ""));
+                max.alt = Float.parseFloat(split[1].replaceAll("[^0-9\\.]", ""));
+            }
+            else if(i.contains("time")) {
+                String[] split = i.split("-");
+                String[] st = split[0].toUpperCase().split("H");
+                String[] et = split[1].toUpperCase().split("H");
+
+                min.time = 3600 * Integer.parseInt(st[0].replaceAll("[^0-9]", "")) + 60 * Integer.parseInt(st[1].replaceAll("[^0-9]", ""));
+                max.time = 3600 * Integer.parseInt(et[0].replaceAll("[^0-9]", "")) + 60 * Integer.parseInt(et[1].replaceAll("[^0-9]", ""));
+            }
+            else if(i.contains("speed")) {
+                i = i.replaceAll("[^0-9\\.]", "");
+                climbRate = Float.parseFloat(i);
+            }
+        }
     }
 
     public void merge(Thermal t) {
