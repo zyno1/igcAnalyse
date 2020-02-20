@@ -17,6 +17,14 @@ public class Thermal {
         count = 1;
     }
 
+    public Point getMin() {
+        return min;
+    }
+
+    public Point getMax() {
+        return max;
+    }
+
     public void merge(Thermal t) {
         Point.min(min, t.min);
         Point.max(max, t.max);
