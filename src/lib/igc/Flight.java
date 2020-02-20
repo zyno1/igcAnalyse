@@ -1,8 +1,9 @@
 package lib.igc;
 
-import lib.obj.PointCollection;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,7 +11,6 @@ public class Flight implements Iterable<Point> {
     private ArrayList<Point> flight;
 
     private float maxDist = 300;
-    private int maxTimeDiff = 30;
     private float minHeight = 700;
     private int minDuration = 90;
     private float minClimbRate = 1f;
@@ -80,13 +80,6 @@ public class Flight implements Iterable<Point> {
         }
     }
 
-    public float altitudeDifference() {
-        float res = -flight.get(0).getAlt();
-        res += flight.get(flight.size() - 1).getAlt();
-
-        return res;
-    }
-
     public Point averagePos() {
         float x = 0;
         float y = 0;
@@ -99,22 +92,6 @@ public class Flight implements Iterable<Point> {
         }
 
         return new Point(x, y, alt);
-    }
-
-    public Point standardDistribution() {
-        double x = 0;
-        double y = 0;
-        double alt = 0;
-
-        Point average = averagePos();
-
-        for(Point p : flight) {
-            x += Math.pow(p.getX() - average.getX(), 2) / flight.size();
-            y += Math.pow(p.getY() - average.getY(), 2) / flight.size();
-            alt += Math.pow(p.getAlt() - average.getAlt(), 2) / flight.size();
-        }
-
-        return new Point((float)Math.sqrt(x), (float)Math.sqrt(y), (float)Math.sqrt(alt));
     }
 
     private static float extractPos(String l) {
@@ -142,39 +119,6 @@ public class Flight implements Iterable<Point> {
 
     private static float extractAlt(String l) {
         return Float.parseFloat(l);
-    }
-
-    public Flight standardize() {
-        Flight f = new Flight();
-        f.flight.ensureCapacity(flight.size());
-
-        Point average = averagePos();
-        Point sd = standardDistribution();
-
-        for(Point p : flight) {
-            float x = (p.getX() - average.getX()) / sd.getX();
-            float y = (p.getY() - average.getY()) / sd.getY();
-            float alt = (p.getAlt() - average.getAlt()) / sd.getAlt();
-            f.flight.add(new Point(x, y, alt));
-        }
-
-        return f;
-    }
-
-    public String toCSV() {
-        StringBuilder res = new StringBuilder();
-
-        res.append("x,y,alt\n");
-        for(Point p : flight) {
-            res.append(p.getX());
-            res.append(",");
-            res.append(p.getY());
-            res.append(",");
-            res.append(p.getAlt());
-            res.append("\n");
-        }
-
-        return res.toString();
     }
 
     @Override
@@ -209,24 +153,6 @@ public class Flight implements Iterable<Point> {
         }
 
         return p;
-    }
-
-    public Flight getDrawable() {
-        Flight res = new Flight(this);
-
-        Point min = res.getMin();
-
-        res.positives(min);
-
-        Point max = res.getMax();
-
-        res.standardize(max);
-
-        return res;
-    }
-
-    private int timeDifference(Flight f) {
-        return Math.min(Math.abs(getMin().getTime() - f.getMax().getTime()), Math.abs(f.getMin().getTime() - getMax().getTime()));
     }
 
     public ArrayList<Flight> findThermals() {
@@ -288,53 +214,8 @@ public class Flight implements Iterable<Point> {
         return res;
     }
 
-    public void positives(Point min) {
-        for(Point p : this) {
-            p.setX((p.getX() - min.getX()));
-            p.setY((p.getY() - min.getY()));
-            p.setAlt((p.getAlt() - min.getAlt()));
-        }
-    }
-
-    public void standardize(Point max) {
-        for(Point p : this) {
-            p.setX((p.getX() / max.getX()));
-            p.setY((p.getY() / max.getY()));
-            p.setAlt((p.getAlt() / max.getAlt()));
-        }
-    }
-
     @Override
     public Iterator<Point> iterator() {
         return flight.iterator();
-    }
-
-    public static void main(String[] args) {
-        try {
-            Flight f = new Flight("/home/oz/Documents/projects/java/igcanalyse/data/20190621/NetCoupe2019_12211.igc");
-            ArrayList<Flight> th = f.findThermals();
-
-            Point min = f.getMin();
-            f.positives(min);
-            Point max = f.getMax();
-            f.standardize(max);
-
-            PointCollection pc = new PointCollection();
-            pc.addFlight(f);
-            pc.writeToFile("flight.obj");
-
-            pc = new PointCollection();
-
-            for(Flight i : th) {
-                i.positives(min);
-                i.standardize(max);
-
-                pc.addFlight(i);
-            }
-
-            pc.writeToFile("th.obj");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

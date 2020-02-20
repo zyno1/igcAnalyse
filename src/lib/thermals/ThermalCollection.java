@@ -2,16 +2,9 @@ package lib.thermals;
 
 import lib.igc.Flight;
 import lib.igc.Point;
-import lib.igc.StandardizePair;
 
-import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.function.Predicate;
 
 public class ThermalCollection implements Iterable<Thermal> {
     ArrayList<Thermal> thermals;
@@ -20,23 +13,6 @@ public class ThermalCollection implements Iterable<Thermal> {
 
     public ThermalCollection() {
         thermals = new ArrayList<>();
-    }
-
-    public ThermalCollection(String data) {
-        String[] splitted = data.split("\n");
-
-        //"name, code, country, lat, lon, elev, style, rwydir, rwylen, freq, desc"
-
-        thermals = new ArrayList<>(splitted.length);
-
-        String line = splitted[0];
-        if(!line.contains("name") && !line.contains("code") && !line.contains("country") && !line.contains("lat") && !line.contains("lon") && !line.contains("elev")) {
-            thermals.add(new Thermal(line));
-        }
-
-        for(int i = 1; i < splitted.length; i++) {
-            thermals.add(new Thermal(splitted[i]));
-        }
     }
 
     public void addThermal(Flight f) {
@@ -66,6 +42,10 @@ public class ThermalCollection implements Iterable<Thermal> {
         else {
             thermals.add(t);
         }
+    }
+
+    public void appendThermal(Thermal t) {
+        thermals.add(t);
     }
 
     public void mergeExisting() {
@@ -144,53 +124,12 @@ public class ThermalCollection implements Iterable<Thermal> {
         }
     }
 
-    public void standardize(StandardizePair sdp) {
-        for(Thermal t : this) {
-            Point p = t.getPos();
-            p.setX((p.getX() - sdp.getMin().getX()));
-            p.setY((p.getY() - sdp.getMin().getY()));
-            p.setAlt((p.getAlt() - sdp.getMin().getAlt()));
-        }
-
-        for(Thermal t : this) {
-            Point p = t.getPos();
-            p.setX((p.getX() / sdp.getMax().getX()));
-            p.setY((p.getY() / sdp.getMax().getY()));
-            p.setAlt((p.getAlt() / sdp.getMax().getAlt()));
-        }
-    }
-
     public void filter(int min) {
         thermals.removeIf(thermal -> thermal.getCount() < min);
-    }
-
-    public String toCUP() {
-        StringBuilder str = new StringBuilder();
-
-        str.append("name,code,country,lat,lon,elev,style,rwydir,rwylen,freq,desc");
-
-        for(Thermal t : this) {
-            str.append("\n");
-            str.append(t.toCUP());
-        }
-
-        return str.toString();
     }
 
     @Override
     public Iterator<Thermal> iterator() {
         return thermals.iterator();
-    }
-
-    public static void main(String[] args) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get("res.cup"));
-        String data = new String(encoded, StandardCharsets.UTF_8);
-
-        ThermalCollection tc = new ThermalCollection(data);
-
-        FileWriter res = new FileWriter("res.2.cup");
-        res.write(tc.toCUP());
-        res.flush();
-        res.close();
     }
 }

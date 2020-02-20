@@ -1,15 +1,14 @@
+import lib.dao.thermals.ThermalCollectionCUP;
+import lib.dao.thermals.ThermalCollectionDAO;
+import lib.dao.thermals.ThermalCollectionKML;
 import lib.igc.Flight;
-import lib.igc.FlightCollection;
-import lib.kml.KML;
 import lib.thermals.ThermalCollection;
 import lib.wind.Entry;
 import lib.wind.Wind;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -223,19 +222,16 @@ public class Main {
             tc.filter(i++);
         }
 
-        KML kml = new KML();
-        kml.addThermals(tc);
+        ThermalCollectionDAO dao = new ThermalCollectionCUP();
         try {
-            kml.writeToFile("res.kml");
+            dao.save(tc, "res.cup");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        dao = new ThermalCollectionKML();
         try {
-            FileWriter res = new FileWriter("res.cup");
-            res.write(tc.toCUP());
-            res.flush();
-            res.close();
+            dao.save(tc, "res.kml");
         } catch (IOException e) {
             e.printStackTrace();
         }

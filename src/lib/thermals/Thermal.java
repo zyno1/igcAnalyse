@@ -17,66 +17,6 @@ public class Thermal {
         count = 1;
     }
 
-    public Thermal(String line) {
-        pos = new Point(0,0,0);
-        count = 0;
-
-        String[] fields = line.split(",");
-        String name = fields[0];
-        String lat = fields[3];
-        String lon = fields[4];
-        String alt = fields[5];
-        String[] description = fields[fields.length - 1].split("; ");
-
-        name = name.substring("Thermal ".length() + 1, name.length() - 1);
-        count = Integer.parseInt(name);
-
-        float tmp = Integer.parseInt(lat.substring(0, 2));
-        tmp += Float.parseFloat(lat.substring(2, 8)) / 60.0;
-
-        if(lat.contains("S")) {
-            tmp = -tmp;
-        }
-
-        pos.setY(tmp);
-
-        tmp = Integer.parseInt(lon.substring(0, 3));
-        tmp += Float.parseFloat(lon.substring(3, 9)) / 60;
-
-        if(lon.contains("W")) {
-            tmp = -tmp;
-        }
-
-        pos.setX(tmp);
-
-        tmp = Float.parseFloat(alt.substring(0, alt.length() - 1));
-        pos.setAlt(tmp);
-
-        min = new Point(Integer.MAX_VALUE, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
-        max = new Point(Integer.MIN_VALUE, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
-        climbRate = 0;
-
-        for (String i : description) {
-            if(i.contains("alt")) {
-                String[] split = i.split("-");
-                min.alt = Float.parseFloat(split[0].replaceAll("[^0-9\\.]", ""));
-                max.alt = Float.parseFloat(split[1].replaceAll("[^0-9\\.]", ""));
-            }
-            else if(i.contains("time")) {
-                String[] split = i.split("-");
-                String[] st = split[0].toUpperCase().split("H");
-                String[] et = split[1].toUpperCase().split("H");
-
-                min.time = 3600 * Integer.parseInt(st[0].replaceAll("[^0-9]", "")) + 60 * Integer.parseInt(st[1].replaceAll("[^0-9]", ""));
-                max.time = 3600 * Integer.parseInt(et[0].replaceAll("[^0-9]", "")) + 60 * Integer.parseInt(et[1].replaceAll("[^0-9]", ""));
-            }
-            else if(i.contains("speed")) {
-                i = i.replaceAll("[^0-9\\.]", "");
-                climbRate = Float.parseFloat(i);
-            }
-        }
-    }
-
     public void merge(Thermal t) {
         Point.min(min, t.min);
         Point.max(max, t.max);
@@ -106,68 +46,6 @@ public class Thermal {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    public String toCUP() {
-        StringBuilder str = new StringBuilder();
-
-        str.append("\"Thermal ");
-        str.append(count);
-        str.append("\",,FR,");
-
-        float lat = pos.getY();
-        String dlat = "N";
-        if(lat < 0) {
-            dlat = "S";
-            lat = -lat;
-        }
-        float lon = pos.getX();
-        String dlon = "E";
-        if(lon < 0) {
-            dlon = "W";
-            lon = -lon;
-        }
-
-        str.append(String.format("%02d", (int)lat));
-
-        lat -= (int)lat;
-        lat *= 60;
-
-        str.append(String.format("%02d.", (int)lat));
-
-        lat -= (int)lat;
-
-        while (lat < 100 && lat != 0) {
-            lat *= 10;
-        }
-        str.append(String.format("%03d", (int)lat));
-        str.append(dlat);
-        str.append(",");
-
-        str.append(String.format("%03d", (int)lon));
-
-        lon -= (int)lon;
-        lon *= 60;
-
-        str.append(String.format("%02d.", (int)lon));
-
-        lon -= (int)lon;
-
-        while (lon < 100 && lon != 0) {
-            lon *= 10;
-        }
-        str.append(String.format("%03d", (int)lon));
-        str.append(dlon);
-        str.append(",");
-
-        str.append(pos.getAlt());
-        str.append("m,15,,,,\"");
-
-        str.append(getDescription());
-
-        str.append("\"");
-
-        return str.toString();
     }
 
     public String getDescription() {

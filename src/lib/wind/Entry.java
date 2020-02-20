@@ -12,9 +12,9 @@ public class Entry {
 
         date = split[0];
         location = split[1];
-        altitude = Integer.valueOf(split[2]);
-        speed = Float.valueOf(split[3]);
-        direction = Float.valueOf(split[4]);
+        altitude = Integer.parseInt(split[2]);
+        speed = Float.parseFloat(split[3]);
+        direction = Float.parseFloat(split[4]);
     }
 
     public String getDate() {
