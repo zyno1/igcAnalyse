@@ -1,7 +1,7 @@
 # IGCAnalyse
 
 The program tries to extract average circling positions
-from igc files. These positions should be close to thermals.
+from igc files. These positions may be close to thermals.
 
 Some results for the PACA region in France:
 
