@@ -1,0 +1,1598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+<Placemark><name>T</name><description>
+Thermal 20
+alt: 2548.0 - 3388.0
+time: 11H36 - 17H10
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.622976, 44.777306, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 24
+alt: 2777.0 - 4160.0
+time: 10H43 - 15H40
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.663111, 44.434498, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 20
+alt: 3077.0 - 4019.0
+time: 11H59 - 16H50
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.4651732, 44.912304, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1420.0 - 2602.0
+time: 10H35 - 13H52
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.6281238, 44.708096, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2443.0 - 3331.0
+time: 11H14 - 15H14
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.7059174, 44.617958, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 1038.0 - 1926.0
+time: 10H24 - 15H22
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.0623217, 44.08354, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1602.0 - 2671.0
+time: 11H53 - 16H22
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.1300573, 44.212692, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2647.0 - 3618.0
+time: 10H16 - 12H25
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.6763844, 44.4378, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2335.0 - 3474.0
+time: 10H51 - 12H39
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.650856, 44.428955, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2836.0 - 3807.0
+time: 10H2 - 12H47
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.7019577, 44.498726, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3200.0 - 4414.0
+time: 12H16 - 15H50
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.4656954, 44.917717, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2416.0 - 3186.0
+time: 11H38 - 16H14
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.4500313, 44.33692, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2217.0 - 2883.0
+time: 11H3 - 15H26
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.403207, 44.487038, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 16
+alt: 2837.0 - 3868.0
+time: 10H20 - 16H35
+speed: 2.7 m/s
+
+</description><Point><coordinates>
+6.656852, 44.436417, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 1254.0 - 2387.0
+time: 9H54 - 14H12
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.042134, 44.37533, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2582.0 - 3176.0
+time: 11H56 - 14H54
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.384078, 44.608856, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 24
+alt: 2622.0 - 3643.0
+time: 11H41 - 16H1
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.389567, 44.61182, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2368.0 - 3046.0
+time: 10H22 - 17H34
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.4796104, 44.26181, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1587.0 - 2618.0
+time: 10H48 - 16H23
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.3192463, 44.02786, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3335.0 - 4564.0
+time: 12H59 - 16H4
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.434298, 44.936142, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2230.0 - 3160.0
+time: 12H9 - 16H36
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.3870525, 44.396877, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 952.0 - 1937.0
+time: 9H54 - 14H54
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.05142, 44.33138, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1140.0 - 2018.0
+time: 10H54 - 14H46
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.04981, 44.336746, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1802.0 - 2718.0
+time: 11H13 - 16H23
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.178814, 44.217865, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3333.0 - 4476.0
+time: 11H49 - 16H9
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.4606028, 44.921623, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2815.0 - 3709.0
+time: 12H23 - 15H15
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.465386, 44.90614, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2051.0 - 3060.0
+time: 10H8 - 15H48
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.210839, 44.298115, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1466.0 - 2284.0
+time: 11H2 - 11H50
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.0812397, 44.166084, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1621.0 - 2565.0
+time: 10H35 - 15H32
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.137396, 44.20783, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2643.0 - 3502.0
+time: 11H11 - 15H38
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6309204, 44.7864, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1695.0 - 2713.0
+time: 10H50 - 16H30
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.097768, 44.185543, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 764.0 - 1686.0
+time: 9H56 - 11H43
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+5.838041, 43.747276, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1521.0 - 2754.0
+time: 10H40 - 16H33
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.2485824, 43.97542, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2000.0 - 3079.0
+time: 11H8 - 14H36
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.4883575, 44.20161, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1564.0 - 2629.0
+time: 9H49 - 13H21
+speed: 1.3 m/s
+
+</description><Point><coordinates>
+6.1009364, 44.35598, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1532.0 - 3151.0
+time: 11H14 - 16H48
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.24695, 43.972683, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1443.0 - 2671.0
+time: 11H43 - 15H35
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.1201825, 44.22336, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1758.0 - 2770.0
+time: 10H44 - 16H34
+speed: 2.8 m/s
+
+</description><Point><coordinates>
+6.318964, 44.023884, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 846.0 - 1183.0
+time: 10H42 - 12H45
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.5966606, 44.70523, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 24
+alt: 2811.0 - 3908.0
+time: 10H57 - 15H0
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.694861, 44.494625, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1549.0 - 2641.0
+time: 12H15 - 16H22
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.2469177, 43.969616, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2635.0 - 3637.0
+time: 11H12 - 16H1
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.647125, 44.43511, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2864.0 - 4546.0
+time: 11H16 - 16H20
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.667099, 44.436077, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2613.0 - 4218.0
+time: 10H59 - 16H48
+speed: 2.8 m/s
+
+</description><Point><coordinates>
+6.632606, 44.444332, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 3004.0 - 3988.0
+time: 10H18 - 13H51
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.792848, 44.81669, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 24
+alt: 2662.0 - 3726.0
+time: 10H34 - 17H17
+speed: 2.7 m/s
+
+</description><Point><coordinates>
+6.777077, 44.443157, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2298.0 - 3447.0
+time: 12H11 - 15H36
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.7023735, 44.620193, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2531.0 - 3577.0
+time: 10H15 - 15H50
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.6288114, 44.78291, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 18
+alt: 2651.0 - 3985.0
+time: 11H26 - 16H24
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.632888, 44.809544, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2950.0 - 3977.0
+time: 11H47 - 14H59
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.8290167, 45.11345, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2505.0 - 3798.0
+time: 10H7 - 13H49
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.6519265, 44.43232, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2496.0 - 3362.0
+time: 10H30 - 16H22
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.7148376, 44.6072, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 16
+alt: 2421.0 - 3202.0
+time: 12H2 - 17H7
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.430374, 44.592102, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1860.0 - 2693.0
+time: 10H21 - 14H6
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.2073164, 44.30786, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1567.0 - 2594.0
+time: 9H18 - 15H18
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.0411825, 44.379627, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2262.0 - 3378.0
+time: 10H20 - 15H6
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.655919, 44.333263, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1629.0 - 2549.0
+time: 11H5 - 14H42
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.118418, 44.22542, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1778.0 - 3078.0
+time: 9H43 - 12H55
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.133271, 44.36799, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 1937.0 - 2698.0
+time: 9H25 - 17H2
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.214104, 44.298294, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2653.0 - 3329.0
+time: 12H26 - 15H48
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+5.8874583, 44.63523, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2522.0 - 3603.0
+time: 10H5 - 16H48
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.6573763, 44.33534, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2365.0 - 3297.0
+time: 11H17 - 15H28
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.618983, 44.771996, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1915.0 - 3113.0
+time: 9H55 - 13H29
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.2187757, 44.29314, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1705.0 - 2721.0
+time: 8H28 - 16H17
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.2598023, 43.89336, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2653.0 - 3725.0
+time: 9H31 - 14H27
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.679345, 44.436584, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1206.0 - 1816.0
+time: 10H56 - 12H52
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.6258535, 44.699684, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 30
+alt: 2427.0 - 3765.0
+time: 11H4 - 17H13
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.626454, 44.778687, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 1618.0 - 3173.0
+time: 10H45 - 17H4
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.117021, 44.230846, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2810.0 - 3674.0
+time: 11H7 - 15H26
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.654361, 44.435604, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1640.0 - 2449.0
+time: 9H25 - 11H6
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.1454945, 44.35591, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1955.0 - 3070.0
+time: 10H13 - 11H36
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.2227554, 44.288803, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 22
+alt: 2607.0 - 3774.0
+time: 9H44 - 14H49
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.6750474, 44.435307, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2546.0 - 3488.0
+time: 11H21 - 15H56
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6757956, 45.019146, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 1250.0 - 2582.0
+time: 11H12 - 19H3
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6236377, 44.703953, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2138.0 - 3129.0
+time: 11H13 - 16H12
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6596537, 44.700527, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 30
+alt: 2162.0 - 3510.0
+time: 11H20 - 16H27
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.610601, 44.770752, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2911.0 - 3997.0
+time: 11H48 - 14H43
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.636343, 44.80897, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2626.0 - 3520.0
+time: 11H30 - 16H20
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.7763033, 44.439575, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 19
+alt: 1254.0 - 2738.0
+time: 9H13 - 15H36
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.022276, 44.37387, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2456.0 - 3069.0
+time: 11H56 - 16H53
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.6626487, 44.701164, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2857.0 - 4243.0
+time: 11H32 - 16H32
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.6475143, 44.945618, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 1554.0 - 2387.0
+time: 10H50 - 16H11
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.3218412, 44.019577, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 722.0 - 1479.0
+time: 10H18 - 11H52
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+5.832982, 43.74473, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1664.0 - 2429.0
+time: 9H51 - 15H38
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.2703648, 43.880043, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1541.0 - 2744.0
+time: 10H0 - 17H5
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.2505918, 43.96794, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1662.0 - 2555.0
+time: 12H0 - 14H38
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.2555704, 43.96776, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2575.0 - 3085.0
+time: 12H1 - 17H5
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.452114, 44.33517, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1764.0 - 2862.0
+time: 10H51 - 16H7
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.338463, 44.076508, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 1819.0 - 2727.0
+time: 9H45 - 16H24
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.1714177, 44.22163, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2409.0 - 3418.0
+time: 12H30 - 16H8
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.470649, 44.298748, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1710.0 - 2649.0
+time: 8H44 - 16H7
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.2558312, 43.899605, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 15
+alt: 2190.0 - 3419.0
+time: 12H30 - 15H54
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+5.8947196, 44.62378, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2411.0 - 3849.0
+time: 11H28 - 15H14
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.78064, 44.491558, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2841.0 - 3830.0
+time: 10H34 - 17H12
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.779128, 44.44186, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2452.0 - 3331.0
+time: 10H48 - 13H24
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6212816, 44.77401, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2505.0 - 3489.0
+time: 11H54 - 16H56
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.7172813, 44.6038, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 19
+alt: 2909.0 - 5020.0
+time: 13H35 - 17H46
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.7834535, 44.441658, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2512.0 - 3292.0
+time: 9H55 - 14H40
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.63134, 44.783516, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 15
+alt: 2356.0 - 3273.0
+time: 11H20 - 16H54
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.393634, 44.603874, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2117.0 - 3345.0
+time: 11H55 - 16H15
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.3968444, 44.493042, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2325.0 - 3126.0
+time: 11H15 - 15H43
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.4257917, 44.59625, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1983.0 - 2649.0
+time: 11H42 - 16H16
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6033173, 44.769875, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2587.0 - 3768.0
+time: 10H30 - 16H33
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.7751513, 44.43697, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2585.0 - 3966.0
+time: 12H15 - 14H27
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.699421, 44.979053, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 18
+alt: 2349.0 - 3139.0
+time: 11H59 - 17H6
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.429498, 44.58978, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2047.0 - 3059.0
+time: 10H39 - 16H40
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.2159305, 44.307304, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 1525.0 - 2630.0
+time: 9H16 - 15H54
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.0371213, 44.37835, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1333.0 - 2726.0
+time: 9H24 - 16H0
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.0385685, 44.375656, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2181.0 - 2956.0
+time: 11H34 - 18H3
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6621304, 44.69837, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1107.0 - 1816.0
+time: 11H24 - 15H19
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.0632772, 44.080723, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2597.0 - 3423.0
+time: 11H24 - 17H41
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.620294, 44.77641, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 21
+alt: 2348.0 - 3198.0
+time: 10H46 - 15H34
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6149282, 44.771797, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2327.0 - 2870.0
+time: 10H28 - 16H1
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.4127593, 44.36706, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 2557.0 - 3793.0
+time: 10H34 - 16H25
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.6508527, 44.435505, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1649.0 - 2457.0
+time: 9H30 - 17H12
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.141817, 44.35684, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2370.0 - 3374.0
+time: 12H13 - 18H27
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.3829613, 44.412285, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2391.0 - 3252.0
+time: 11H49 - 14H34
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.385512, 44.409103, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 896.0 - 1609.0
+time: 11H6 - 14H8
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.02262, 44.021893, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2270.0 - 2999.0
+time: 10H16 - 16H28
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.4154515, 44.365967, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1487.0 - 2868.0
+time: 11H30 - 12H43
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.0856524, 44.16752, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 2353.0 - 3356.0
+time: 11H4 - 13H6
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6297164, 44.780334, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 22
+alt: 2578.0 - 3384.0
+time: 12H19 - 16H40
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.389355, 44.608456, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1508.0 - 2303.0
+time: 10H46 - 15H28
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.083685, 44.164806, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2394.0 - 3408.0
+time: 11H57 - 15H42
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+5.897844, 44.61938, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2236.0 - 3646.0
+time: 9H41 - 15H29
+speed: 2.9 m/s
+
+</description><Point><coordinates>
+6.641531, 44.331425, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 1580.0 - 2335.0
+time: 11H13 - 15H48
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.1135235, 44.233883, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2125.0 - 2997.0
+time: 11H32 - 12H44
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.208825, 44.302437, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1593.0 - 2878.0
+time: 10H36 - 14H58
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.2935596, 44.18984, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2615.0 - 3983.0
+time: 10H29 - 15H27
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.665891, 44.33746, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 1084.0 - 1795.0
+time: 10H58 - 12H53
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.05901, 44.080215, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 2557.0 - 3757.0
+time: 9H52 - 14H21
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.66624, 44.432503, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1989.0 - 2783.0
+time: 11H5 - 16H19
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.6061487, 44.76812, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2545.0 - 5347.0
+time: 10H59 - 13H3
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.6592593, 44.332817, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 18
+alt: 2378.0 - 3409.0
+time: 9H52 - 17H28
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6170464, 44.77385, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2659.0 - 4081.0
+time: 11H44 - 16H41
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.6342735, 44.807392, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2181.0 - 3305.0
+time: 11H23 - 17H21
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.419754, 44.116074, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2540.0 - 4465.0
+time: 11H25 - 16H4
+speed: 3.2 m/s
+
+</description><Point><coordinates>
+6.6496234, 44.43368, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2445.0 - 3483.0
+time: 11H3 - 15H37
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.7716956, 44.435944, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1360.0 - 2741.0
+time: 10H58 - 12H54
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.629364, 44.702065, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1275.0 - 2193.0
+time: 11H24 - 16H40
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.61605, 44.710033, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1974.0 - 3033.0
+time: 13H27 - 14H54
+speed: 3.0 m/s
+
+</description><Point><coordinates>
+5.8516483, 44.438072, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2154.0 - 3280.0
+time: 13H7 - 15H58
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.4184036, 44.11245, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 14
+alt: 1442.0 - 2411.0
+time: 11H11 - 12H51
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.083668, 44.169243, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1662.0 - 2652.0
+time: 11H20 - 13H6
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.2896657, 44.23757, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2299.0 - 3359.0
+time: 11H49 - 13H35
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.615419, 44.76919, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 3033.0 - 3803.0
+time: 11H31 - 15H17
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+6.4632673, 44.91032, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1366.0 - 2394.0
+time: 11H3 - 19H6
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.624063, 44.707897, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2025.0 - 3230.0
+time: 10H40 - 14H43
+speed: 2.3 m/s
+
+</description><Point><coordinates>
+5.897117, 44.615425, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 3470.0 - 4368.0
+time: 12H22 - 15H37
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+7.054234, 45.277992, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2341.0 - 3455.0
+time: 11H39 - 15H30
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+5.8985167, 44.622055, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3018.0 - 3710.0
+time: 11H8 - 13H29
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.9985056, 45.345505, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2619.0 - 3621.0
+time: 11H29 - 15H26
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.3949122, 44.6079, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2494.0 - 3426.0
+time: 11H57 - 15H0
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.3901615, 44.605556, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2560.0 - 3585.0
+time: 12H31 - 17H37
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.715904, 44.61023, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2631.0 - 4007.0
+time: 12H10 - 16H17
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.643458, 44.945774, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2947.0 - 4027.0
+time: 10H51 - 13H44
+speed: 1.9 m/s
+
+</description><Point><coordinates>
+6.6977224, 44.497696, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 13
+alt: 2934.0 - 3739.0
+time: 10H47 - 16H57
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.752917, 44.96293, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2861.0 - 4006.0
+time: 12H5 - 16H32
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.7812366, 44.44003, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2340.0 - 3265.0
+time: 11H27 - 16H2
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.613459, 44.773407, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2825.0 - 3773.0
+time: 10H51 - 14H27
+speed: 2.5 m/s
+
+</description><Point><coordinates>
+6.659421, 44.435925, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 12
+alt: 2476.0 - 3323.0
+time: 10H47 - 16H52
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.468819, 44.301254, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2128.0 - 3140.0
+time: 10H54 - 15H11
+speed: 2.1 m/s
+
+</description><Point><coordinates>
+6.4950285, 44.200783, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2916.0 - 3670.0
+time: 10H13 - 14H22
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.670987, 44.436104, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2669.0 - 5130.0
+time: 10H50 - 12H26
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.668943, 44.43417, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3109.0 - 3778.0
+time: 10H29 - 14H19
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.808795, 44.60135, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 2646.0 - 4276.0
+time: 11H30 - 14H58
+speed: 2.0 m/s
+
+</description><Point><coordinates>
+6.6326966, 44.949146, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 1370.0 - 2406.0
+time: 11H1 - 12H43
+speed: 1.4 m/s
+
+</description><Point><coordinates>
+6.6267495, 44.705498, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 1390.0 - 3159.0
+time: 9H30 - 15H36
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.0669127, 44.3557, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2803.0 - 3537.0
+time: 9H48 - 13H54
+speed: 1.7 m/s
+
+</description><Point><coordinates>
+6.6798706, 44.43933, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 11
+alt: 2136.0 - 3020.0
+time: 11H35 - 17H15
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.4000936, 44.490112, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1565.0 - 2770.0
+time: 10H8 - 15H56
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.2590246, 43.889122, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1663.0 - 3059.0
+time: 11H9 - 16H35
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.1160593, 44.226753, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 3045.0 - 3883.0
+time: 10H53 - 15H43
+speed: 1.8 m/s
+
+</description><Point><coordinates>
+6.6627827, 44.437904, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2366.0 - 3055.0
+time: 11H51 - 15H13
+speed: 2.2 m/s
+
+</description><Point><coordinates>
+6.396402, 44.602364, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 9
+alt: 1856.0 - 2877.0
+time: 9H51 - 16H25
+speed: 1.5 m/s
+
+</description><Point><coordinates>
+6.182532, 44.21733, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 8
+alt: 2773.0 - 4140.0
+time: 11H32 - 14H52
+speed: 1.6 m/s
+
+</description><Point><coordinates>
+6.636381, 44.953144, 0
+</coordinates></Point></Placemark>
+<Placemark><name>T</name><description>
+Thermal 10
+alt: 2414.0 - 2969.0
+time: 12H12 - 13H48
+speed: 2.4 m/s
+
+</description><Point><coordinates>
+6.262438, 44.60313, 0
+</coordinates></Point></Placemark>
+</Document>
+</kml>
