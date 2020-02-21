@@ -9,6 +9,8 @@ Some results for the PACA region in France:
 
 [cup file](results/res.cup)
 
-[kml file](results/res.kml)
+[kmz file](results/res.kmz)
 
-![google earth screenshot](results/google_earth_screenshot.png)
+![google earth screenshot](results/google_earth_screenshot_1.png)
+
+![google earth screenshot](results/google_earth_screenshot_2.png)

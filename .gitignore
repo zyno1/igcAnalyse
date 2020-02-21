@@ -4,4 +4,5 @@ data
 *.cup
 *.obj
 *.jar
+out/
 META-INF
