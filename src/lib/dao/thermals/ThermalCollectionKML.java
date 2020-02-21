@@ -12,9 +12,10 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
     public enum Type {
         Cylinder,
         Placemark,
+        All,
     }
 
-    private Type type = Type.Placemark;
+    private Type type = Type.All;
 
     @Override
     public ThermalCollection load(String path) throws IOException {
@@ -36,7 +37,7 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
         str.append("<longitude>" + t.getPos().x + "</longitude>");
         str.append("<latitude>" + t.getPos().y + "</latitude>");
         str.append("<altitude>" + t.getMin().alt + "</altitude>");
-        str.append("</Location>\n<Scale><x>100</x><y>100</y><z>");
+        str.append("</Location>\n<Scale><x>300</x><y>300</y><z>");
         str.append((t.getMax().alt - t.getMin().alt) + "</z>\n");
         str.append("</Scale>\n<Link><href>cylinder.dae</href></Link>\n</Model>");
 
@@ -65,20 +66,29 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
         BufferedWriter out = new BufferedWriter(new FileWriter(path));
 
         out.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        out.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n<Document>\n");
+        out.write("<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n");
 
-        for(Thermal t : tc) {
-            if(type == Type.Placemark) {
+        out.write("<Folder>\n<name>Flight Data</name>\n");
+
+        if(type == Type.Placemark || type == Type.All) {
+            out.write("<Document>\n<name>Placemarks</name>\n");
+            for (Thermal t : tc) {
                 out.write(thermalToPlacemark(t));
+                out.write("\n");
             }
-            else if(type == Type.Cylinder) {
-                out.write(thermalToCylinder(t));
-            }
-
-            out.write("\n");
+            out.write("</Document>\n");
         }
 
-        out.write("</Document>\n</kml>");
+        if(type == Type.Cylinder || type == Type.All) {
+            out.write("<Document>\n<name>Cylinders</name>\n");
+            for (Thermal t : tc) {
+                out.write(thermalToCylinder(t));
+                out.write("\n");
+            }
+            out.write("</Document>\n");
+        }
+
+        out.write("</Folder>\n</kml>");
 
         out.flush();
         out.close();
@@ -89,6 +99,7 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
         ThermalCollectionDAO kml = new ThermalCollectionKML();
 
         ThermalCollection tc = cup.load("res.cup");
+
         kml.save(tc, "res.kml");
     }
 }

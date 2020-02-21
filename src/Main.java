@@ -245,6 +245,12 @@ public class Main {
 
     public static void main(String[] arg) {
         loadOptions(arg);
+
+        //long time = System.currentTimeMillis();
+
         operate();
+
+        //time = System.currentTimeMillis() - time;
+        //System.out.println(time / 60000.0);
     }
 }

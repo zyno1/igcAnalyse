@@ -20,28 +20,32 @@ public class ThermalCollection implements Iterable<Thermal> {
         addThermal(t);
     }
 
-    public void addThermal(Thermal t) {
-        int posMin = 0;
-        float distMin = Float.MAX_VALUE;
+    public synchronized void addThermal(Thermal t) {
+        //while(t != null) {
+            int posMin = 0;
+            float distMin = Float.MAX_VALUE;
 
-        for(int i = 0; i < thermals.size(); i++) {
-            Thermal j = thermals.get(i);
-            float tmp = j.getPos().distance(t.getPos());
+            for (int i = 0; i < thermals.size(); i++) {
+                Thermal j = thermals.get(i);
+                float tmp = j.getPos().distance(t.getPos());
 
-            if(tmp < distMin) {
-                posMin = i;
-                distMin = tmp;
+                if (tmp < distMin) {
+                    posMin = i;
+                    distMin = tmp;
+                }
             }
-        }
 
-        if(posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
-            Thermal i = thermals.get(posMin);
+            if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
+                Thermal i = thermals.get(posMin);
+                //Thermal i = thermals.remove(posMin);
 
-            i.merge(t);
-        }
-        else {
-            thermals.add(t);
-        }
+                i.merge(t);
+                //t = i;
+            } else {
+                thermals.add(t);
+                //t = null;
+            }
+        //}
     }
 
     public void appendThermal(Thermal t) {
