@@ -248,7 +248,7 @@ public class Main {
         if(h != 0 || m != 0) {
             System.out.print(m + "m");
         }
-        System.out.print(s + "s");
+        System.out.print(s + "s\n");
     }
 
     public static void main(String[] arg) {
