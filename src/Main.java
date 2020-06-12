@@ -153,9 +153,7 @@ public class Main {
             while (f != null) {
                 try {
                     for(Flight t : (new Flight(f)).findThermals()) {
-                        synchronized (tc) {
-                            tc.addThermal(t);
-                        }
+                        tc.addThermal(t);
                     }
                 } catch (IOException e) {
                     System.out.println("failed to load file: " + f);

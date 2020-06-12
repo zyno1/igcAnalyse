@@ -39,7 +39,7 @@ public class ThermalCollection implements Iterable<Thermal> {
     }
 
     public synchronized void addThermal(Thermal t) {
-        //while(t != null) {
+        while(t != null) {
             int posMin = 0;
             float distMin = Float.MAX_VALUE;
 
@@ -54,23 +54,23 @@ public class ThermalCollection implements Iterable<Thermal> {
             }
 
             if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
-                Thermal i = thermals.get(posMin);
-                //Thermal i = thermals.remove(posMin);
+                //Thermal i = thermals.get(posMin);
+                Thermal i = thermals.remove(posMin);
 
                 i.merge(t);
-                //t = i;
+                t = i;
             } else {
                 thermals.add(t);
-                //t = null;
+                t = null;
             }
-        //}
+        }
     }
 
-    public void appendThermal(Thermal t) {
+    public synchronized void appendThermal(Thermal t) {
         thermals.add(t);
     }
 
-    public void mergeExisting() {
+    public synchronized void mergeExisting() {
         boolean modified = true;
 
         while (modified) {
@@ -124,7 +124,7 @@ public class ThermalCollection implements Iterable<Thermal> {
         return i;
     }
 
-    public void sort() {
+    public synchronized void sort() {
         if(thermals.size() > 2) {
             Point start = thermals.get(0).getPos();
 
@@ -146,7 +146,7 @@ public class ThermalCollection implements Iterable<Thermal> {
         }
     }
 
-    public void filter(int min) {
+    public synchronized void filter(int min) {
         thermals.removeIf(thermal -> thermal.getCount() < min);
     }
 
