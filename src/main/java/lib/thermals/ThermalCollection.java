@@ -56,6 +56,8 @@ public class ThermalCollection implements Iterable<Thermal> {
             //this modification may not give the best results
             //but the execution time seems to be divided by 2 on my computer with ~1600 files
             //with ~2200 files I only win 1m out of 3m
+            //this modification messes things up because of the previous loop which might
+            //be reading the list while another thread modifies it through this block
             //synchronized (this) {
             //    if(thermals.size() == 0 || (posMin < thermals.size() && thermals.get(posMin).getPos().distance(t.getPos()) == distMin)) {
                     if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
