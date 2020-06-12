@@ -155,6 +155,14 @@ public class ThermalCollection implements Iterable<Thermal> {
         }
     }
 
+    public synchronized Thermal take(int i) {
+        return thermals.remove(i);
+    }
+
+    public synchronized void clear() {
+        thermals.clear();
+    }
+
     public synchronized void filter(int min) {
         thermals.removeIf(thermal -> thermal.getCount() < min);
     }
