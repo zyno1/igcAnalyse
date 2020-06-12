@@ -38,6 +38,8 @@ public class Main {
     private static String CUP_IN = "";
     private static String KML_OUT = "";
 
+    private static ThermalCollection tc;
+
 
     private static void loadOptions(String[] arg) {
         for(int i = 0; i < arg.length; i++) {
@@ -119,8 +121,6 @@ public class Main {
             System.exit(1);
         }
 
-        ThermalCollection tc = new ThermalCollection();
-
         if(!CUP_IN.equals("")) {
             ThermalCollectionDAO dao = new ThermalCollectionCUP();
             try {
@@ -129,6 +129,9 @@ public class Main {
                 e.printStackTrace();
                 System.err.println("error: failed to load file: " + CUP_IN);
             }
+        }
+        else {
+            tc = new ThermalCollection();
         }
 
         AtomicInteger co = new AtomicInteger(0);
