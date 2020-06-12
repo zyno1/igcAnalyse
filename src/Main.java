@@ -34,6 +34,9 @@ public class Main {
     private static String FOLDER = "data/";;
     private static int MAX_COUNT = -1;
     private static int MIN = -1;
+    private static String CUP_OUT = "";
+    private static String CUP_IN = "";
+    private static String KML_OUT = "";
 
 
     private static void loadOptions(String[] arg) {
@@ -45,10 +48,17 @@ public class Main {
 
                 str.append("-h\n");
                 str.append("--help             display help screen\n");
-                str.append("--threads <n>      set the number of threads to use\n");
-                str.append("-i <s>             set the path that contains the flight logs\n");
-                str.append("--max-count <n>    set the maximum number of thermals to keep\n");
-                str.append("--min <n>          set the minimum amount of times a thermal has been found to be kept\n");
+                str.append("--threads <int>    set the number of threads to use\n");
+                str.append("-i <str>           set the path that contains the flight logs\n");
+                str.append("--max-count <int>  set the maximum number of thermals to keep\n");
+                str.append("--min <int>        set the minimum amount of times a thermal has been found to be kept\n");
+                str.append("--cup <str>        set the output file for the cup file (if not set no cup file will be written\n");
+                str.append("--kml <str>        set the output file for the kml file (if not set no kml file will be written\n");
+                str.append("--load <str>       expects a path to a cup file containing thermals. This has to\n" +
+                           "                   be a file written by this program or else it will fail\n" +
+                           "                   (note: errors will not be handled well)\n" +
+                           "                   So if you use this option be careful only to use non-modified cup\n" +
+                           "                   files written only by this program\n");
 
                 System.out.println(str.toString());
                 System.exit(0);
@@ -64,6 +74,15 @@ public class Main {
             }
             else if(tmp.equals("-i")) {
                 FOLDER = arg[++i];
+            }
+            else if(tmp.equals("--cup")) {
+                CUP_OUT = arg[++i];
+            }
+            else if(tmp.equals("--kml")) {
+                KML_OUT = arg[++i];
+            }
+            else if(tmp.equals("--load")) {
+                CUP_IN = arg[++i];
             }
         }
     }
@@ -101,6 +120,16 @@ public class Main {
         }
 
         ThermalCollection tc = new ThermalCollection();
+
+        if(!CUP_IN.equals("")) {
+            ThermalCollectionDAO dao = new ThermalCollectionCUP();
+            try {
+                tc = dao.load(CUP_IN);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("error: failed to load file: " + CUP_IN);
+            }
+        }
 
         AtomicInteger co = new AtomicInteger(0);
         Iterator<String> it = igcPaths.iterator();
@@ -172,21 +201,27 @@ public class Main {
             tc.filter(i++);
         }
 
-        ThermalCollectionDAO dao = new ThermalCollectionCUP();
-        try {
-            dao.save(tc, "res.cup");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!CUP_OUT.equals("")) {
+            ThermalCollectionDAO dao = new ThermalCollectionCUP();
+            try {
+                dao.save(tc, CUP_OUT);
+                System.out.println("\nDone, result written to " + CUP_OUT);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("\nError writing cup file: " + CUP_OUT);
+            }
         }
 
-        dao = new ThermalCollectionKML();
-        try {
-            dao.save(tc, "res.kml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!KML_OUT.equals("")) {
+            ThermalCollectionDAO dao = new ThermalCollectionKML();
+            try {
+                dao.save(tc, KML_OUT);
+                System.out.println("\nDone, result written to " + KML_OUT);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("\nError writing kml file: " + KML_OUT);
+            }
         }
-
-        System.out.println("\nDone, result written to res.cup");
 
         System.out.println("Thermals count: " + tc.size());
         System.out.println("min: " + tc.getMin());
