@@ -113,6 +113,8 @@ public class Main {
     }
 
     private static void operate() {
+        final long start_time = System.currentTimeMillis();
+
         ArrayList<String> igcPaths = findAllFiles(FOLDER);
 
 
@@ -192,7 +194,13 @@ public class Main {
             }
         }
 
+        System.out.println("\nThermals found: " + tc.size());
+        System.out.println("Doing some final merges");
+
         tc.mergeExisting();
+
+        System.out.println("Thermals still present after merging: " + tc.size());
+        System.out.println("Filtering");
 
         int i = 1;
         if(i < MIN) {
@@ -208,10 +216,10 @@ public class Main {
             ThermalCollectionDAO dao = new ThermalCollectionCUP();
             try {
                 dao.save(tc, CUP_OUT);
-                System.out.println("\nDone, result written to " + CUP_OUT);
+                System.out.println("Done, result written to " + CUP_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println("\nError writing cup file: " + CUP_OUT);
+                System.err.println("Error writing cup file: " + CUP_OUT);
             }
         }
 
@@ -219,16 +227,32 @@ public class Main {
             ThermalCollectionDAO dao = new ThermalCollectionKML();
             try {
                 dao.save(tc, KML_OUT);
-                System.out.println("\nDone, result written to " + KML_OUT);
+                System.out.println("Done, result written to " + KML_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.err.println("\nError writing kml file: " + KML_OUT);
+                System.err.println("Error writing kml file: " + KML_OUT);
             }
         }
 
-        System.out.println("Thermals count: " + tc.size());
+        System.out.println("Thermals found: " + tc.size());
         System.out.println("min: " + tc.getMin());
         System.out.println("max: " + tc.getMax());
+
+        final long time = System.currentTimeMillis() - start_time;
+        final long s = time / 1000 % 60;
+        final long m = time / 1000 / 60 % 60;
+        final long h = time / 1000 / 60 / 60;
+
+        System.out.print("time needed: ");
+        if(h != 0) {
+            System.out.print(h + "h");
+        }
+        if(h != 0 || m != 0) {
+            System.out.print(m + "m");
+        }
+        if(h != 0 || m != 0 || s != 0) {
+            System.out.print(s + "s");
+        }
     }
 
     public static void main(String[] arg) {
