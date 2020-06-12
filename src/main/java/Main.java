@@ -193,6 +193,8 @@ public class Main {
         }
 
         System.out.println("\nThermals found: " + tc.size());
+        System.out.println("\tmin: " + tc.getMin());
+        System.out.println("\tmax: " + tc.getMax());
         //System.out.println("Doing some final merges");
 
         /*
@@ -237,8 +239,8 @@ public class Main {
         }
 
         System.out.println("Thermals found: " + tc.size());
-        System.out.println("min: " + tc.getMin());
-        System.out.println("max: " + tc.getMax());
+        System.out.println("\tmin: " + tc.getMin());
+        System.out.println("\tmax: " + tc.getMax());
 
         final long time = System.currentTimeMillis() - start_time;
         final long s = time / 1000 % 60;
