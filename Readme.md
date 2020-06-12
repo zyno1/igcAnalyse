@@ -17,15 +17,14 @@ Some results for the PACA region in France:
 
 # Usage
 
-Compiling:
+Compile using maven:
 ```
-cd src
-javac Main.java
+mvn package
 ```
 
 Run:
 ```
-java Main
+java -jar target/igcanalyse-[version].jar [options]
 ```
 
 Options:
@@ -39,7 +38,7 @@ Options:
 
 --max-count <int>  set the maximum number of thermals to keep
 --min <int>        set the minimum amount of times a thermal has been found to be kept
---cup <str>       set the output file for the cup file (if not set no cup file will be written
+--cup <str>        set the output file for the cup file (if not set no cup file will be written
 --kml <str>        set the output file for the kml file (if not set no kml file will be written
 --load <str>       expects a path to a cup file containing thermals. This has to
                    be a file written by this program or else it will fail
