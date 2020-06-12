@@ -1,8 +1,9 @@
-.idea
+.idea/
 igcanalyse.iml
 data
 *.cup
 *.obj
 *.jar
 out/
+target/
 META-INF
