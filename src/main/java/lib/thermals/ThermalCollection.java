@@ -38,7 +38,7 @@ public class ThermalCollection implements Iterable<Thermal> {
         addThermal(t);
     }
 
-    public void addThermal(Thermal t) {
+    public synchronized void addThermal(Thermal t) {
         while(t != null) {
             int posMin = 0;
             float distMin = Float.MAX_VALUE;
@@ -56,8 +56,8 @@ public class ThermalCollection implements Iterable<Thermal> {
             //this modification may not give the best results
             //but the execution time seems to be divided by 2 on my computer with ~1600 files
             //with ~2200 files I only win 1m out of 3m
-            synchronized (this) {
-                if(thermals.size() == 0 || (posMin < thermals.size() && thermals.get(posMin).getPos().distance(t.getPos()) == distMin)) {
+            //synchronized (this) {
+            //    if(thermals.size() == 0 || (posMin < thermals.size() && thermals.get(posMin).getPos().distance(t.getPos()) == distMin)) {
                     if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
                         //Thermal i = thermals.get(posMin);
                         Thermal i = thermals.remove(posMin);
@@ -68,8 +68,8 @@ public class ThermalCollection implements Iterable<Thermal> {
                         thermals.add(t);
                         t = null;
                     }
-                }
-            }
+            //    }
+            //}
         }
     }
 
