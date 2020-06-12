@@ -193,7 +193,7 @@ public class Main {
         }
 
         System.out.println("\nThermals found: " + tc.size());
-        System.out.println("Doing some final merges");
+        //System.out.println("Doing some final merges");
 
         /*
         technically useless because the ThermalCollection::addThermal function has been
@@ -201,7 +201,7 @@ public class Main {
          */
         //tc.mergeExisting();
 
-        System.out.println("Thermals still present after merging: " + tc.size());
+        //System.out.println("Thermals still present after merging: " + tc.size());
         System.out.println("Filtering");
 
         int i = 1;
