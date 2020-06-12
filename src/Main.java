@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main {
 
     private static int THREAD_COUNT = 1;
-    private static String FOLDER = "data/";;
+    private static String FOLDER = "data/";
     private static int MAX_COUNT = -1;
     private static int MIN = -1;
     private static String CUP_OUT = "";
@@ -248,9 +248,7 @@ public class Main {
         if(h != 0 || m != 0) {
             System.out.print(m + "m");
         }
-        if(h != 0 || m != 0 || s != 0) {
-            System.out.print(s + "s");
-        }
+        System.out.print(s + "s");
     }
 
     public static void main(String[] arg) {
