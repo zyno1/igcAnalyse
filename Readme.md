@@ -32,8 +32,6 @@ Options:
 -h
 --help             display help screen
 
---threads <int>    set the number of threads to use
-
 -i <str>           set the path that contains the flight logs
 
 --max-count <int>  set the maximum number of thermals to keep

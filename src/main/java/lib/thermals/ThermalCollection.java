@@ -23,6 +23,7 @@ import lib.igc.Point;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
 public class ThermalCollection implements Iterable<Thermal> {
     ArrayList<Thermal> thermals;
@@ -53,25 +54,44 @@ public class ThermalCollection implements Iterable<Thermal> {
                 }
             }
 
-            //this modification may not give the best results
-            //but the execution time seems to be divided by 2 on my computer with ~1600 files
-            //with ~2200 files I only win 1m out of 3m
-            //this modification messes things up because of the previous loop which might
-            //be reading the list while another thread modifies it through this block
-            //synchronized (this) {
-            //    if(thermals.size() == 0 || (posMin < thermals.size() && thermals.get(posMin).getPos().distance(t.getPos()) == distMin)) {
-                    if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
-                        //Thermal i = thermals.get(posMin);
-                        Thermal i = thermals.remove(posMin);
+            if (posMin < thermals.size() && distMin < MERGE_MAX_DIST) {
+                //Thermal i = thermals.get(posMin);
+                Thermal i = thermals.remove(posMin);
 
-                        i.merge(t);
-                        t = i;
-                    } else {
-                        thermals.add(t);
-                        t = null;
-                    }
-            //    }
-            //}
+                i.merge(t);
+                t = i;
+            } else {
+                thermals.add(t);
+                t = null;
+            }
+        }
+    }
+
+    public synchronized void parAddThermal(Thermal p) {
+        ArrayList<Thermal> stack = new ArrayList<>(5);
+        stack.add(p);
+
+        while (stack.get(stack.size() - 1) != null) {
+            Thermal t = stack.get(stack.size() - 1);
+
+            Optional<Thermal> res = thermals.parallelStream().reduce((t1, t2) -> {
+                if (t1.getPos().distance(t.getPos()) < t2.getPos().distance(t.getPos())) {
+                    return t1;
+                } else {
+                    return t2;
+                }
+            });
+
+            if (res.isPresent() && res.get().getPos().distance(t.getPos()) < MERGE_MAX_DIST) {
+                Thermal t2 = res.get();
+                thermals.remove(t2);
+                t2.merge(t);
+                //parAddThermal(t2);
+                stack.add(t2);
+            } else {
+                thermals.add(t);
+                stack.add(null);
+            }
         }
     }
 

@@ -20,17 +20,18 @@ import lib.dao.thermals.ThermalCollectionCUP;
 import lib.dao.thermals.ThermalCollectionDAO;
 import lib.dao.thermals.ThermalCollectionKML;
 import lib.igc.Flight;
+import lib.thermals.Thermal;
 import lib.thermals.ThermalCollection;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class Main {
-
-    private static int THREAD_COUNT = 1;
     private static String FOLDER = "data/";
     private static int MAX_COUNT = -1;
     private static int MIN = -1;
@@ -50,7 +51,6 @@ public class Main {
 
                 str.append("-h\n");
                 str.append("--help             display help screen\n");
-                str.append("--threads <int>    set the number of threads to use\n");
                 str.append("-i <str>           set the path that contains the flight logs\n");
                 str.append("--max-count <int>  set the maximum number of thermals to keep\n");
                 str.append("--min <int>        set the minimum amount of times a thermal has been found to be kept\n");
@@ -64,9 +64,6 @@ public class Main {
 
                 System.out.println(str.toString());
                 System.exit(0);
-            }
-            else if(tmp.equals("--threads")) {
-                THREAD_COUNT = Integer.parseInt(arg[++i]);
             }
             else if(tmp.equals("--max-count")) {
                 MAX_COUNT = Integer.parseInt(arg[++i]);
@@ -113,8 +110,6 @@ public class Main {
     }
 
     private static void operate() {
-        final long start_time = System.currentTimeMillis();
-
         ArrayList<String> igcPaths = findAllFiles(FOLDER);
 
 
@@ -136,61 +131,34 @@ public class Main {
             tc = new ThermalCollection();
         }
 
+        Stream.Builder<ThermalCollection> sbtc = Stream.builder();
+        sbtc.accept(tc);
+
         AtomicInteger co = new AtomicInteger(0);
-        Iterator<String> it = igcPaths.iterator();
         final int size = igcPaths.size();
 
         System.out.println("Analyzing " + size + " files:");
 
-        Runnable r = () -> {
-            String f = null;
-            synchronized (it) {
-                if(it.hasNext()) {
-                    f = it.next();
+        Optional<ThermalCollection> tmp = Stream.concat(igcPaths.parallelStream().map(f -> {
+            ThermalCollection res = new ThermalCollection();
+            try {
+                for(Flight i : (new Flight(f)).findThermals()) {
+                    res.addThermal(i);
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            while (f != null) {
-                try {
-                    for(Flight t : (new Flight(f)).findThermals()) {
-                        tc.addThermal(t);
-                    }
-                } catch (IOException e) {
-                    System.out.println("failed to load file: " + f);
-                }
-                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
-                synchronized (it) {
-                    if(it.hasNext()) {
-                        f = it.next();
-                    }
-                    else {
-                        f = null;
-                    }
-                }
+            return res;
+        }), sbtc.build())
+        .reduce((c1, c2) -> {
+            for(Thermal t : c2) {
+                c1.parAddThermal(t);
             }
-        };
+            System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+            return c1;
+        });
 
-        Thread[] threads = null;
-        if(THREAD_COUNT > 1) {
-            threads = new Thread[THREAD_COUNT - 1];
-
-            for(int i = 0; i < threads.length; i++) {
-                threads[i] = new Thread(r);
-                threads[i].start();
-            }
-        }
-
-        r.run();
-
-        if(threads != null) {
-            for (Thread t : threads) {
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        tmp.ifPresent(thermals -> tc = thermals);
 
         System.out.println("\nThermals found: " + tc.size());
         System.out.println("\tmin: " + tc.getMin());
@@ -241,6 +209,14 @@ public class Main {
         System.out.println("Thermals found: " + tc.size());
         System.out.println("\tmin: " + tc.getMin());
         System.out.println("\tmax: " + tc.getMax());
+    }
+
+    public static void main(String[] arg) {
+        loadOptions(arg);
+
+        final long start_time = System.currentTimeMillis();
+
+        operate();
 
         final long time = System.currentTimeMillis() - start_time;
         final long s = time / 1000 % 60;
@@ -255,16 +231,5 @@ public class Main {
             System.out.print(m + "m");
         }
         System.out.print(s + "s\n");
-    }
-
-    public static void main(String[] arg) {
-        loadOptions(arg);
-
-        //long time = System.currentTimeMillis();
-
-        operate();
-
-        //time = System.currentTimeMillis() - time;
-        //System.out.println(time / 60000.0);
     }
 }
