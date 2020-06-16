@@ -29,7 +29,7 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
 
     private Thermal loadThermalFromLine(String line) {
         Point pos = new Point(0,0,0);
-        int count = 0;
+        int count;
 
         String[] fields = line.split(",");
         String name = fields[0];

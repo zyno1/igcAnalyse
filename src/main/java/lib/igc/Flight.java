@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Flight implements Iterable<Point> {
-    private ArrayList<Point> flight;
+    private final ArrayList<Point> flight;
 
-    private float maxDist = 300;
-    private float minHeight = 700;
-    private int minDuration = 90;
-    private float minClimbRate = 1f;
+    private static final float MAX_DIST = 300;
+    private static final float MIN_HEIGHT = 700;
+    private static final int MIN_DURATION = 90;
+    private static final float MIN_CLIMB_RATE = 1f;
 
     public Flight(String file) throws IOException {
         flight = new ArrayList<>();
@@ -76,8 +76,8 @@ public class Flight implements Iterable<Point> {
 
     private void insertPoint(Point p) {
         int i;
-        for(i = (flight.size() - 1); i >= 0 && p.getTime() < flight.get(i).getTime(); i--) {
-        }
+        for(i = (flight.size() - 1); i >= 0 && p.getTime() < flight.get(i).getTime(); i--);
+
         if(i + 1 < flight.size()) {
             flight.add(i + 1, p);
         }
@@ -154,8 +154,7 @@ public class Flight implements Iterable<Point> {
     public Point getMin() {
         Point p = new Point(flight.get(0));
 
-        for(int i = 0; i < flight.size(); i++) {
-            Point tmp = flight.get(i);
+        for (Point tmp : flight) {
             Point.min(p, tmp);
         }
 
@@ -165,8 +164,7 @@ public class Flight implements Iterable<Point> {
     public Point getMax() {
         Point p = new Point(flight.get(0));
 
-        for(int i = 0; i < flight.size(); i++) {
-            Point tmp = flight.get(i);
+        for (Point tmp : flight) {
             Point.max(p, tmp);
         }
 
@@ -191,7 +189,7 @@ public class Flight implements Iterable<Point> {
                 Flight f1 = res.get(i);
                 Flight f2 = res.get(i + 1);
 
-                if(f2.averagePos().distance(f1.averagePos()) < maxDist) {
+                if(f2.averagePos().distance(f1.averagePos()) < MAX_DIST) {
                     //f1.addFlight(f2);
                     f1.appendFlight(f2);
                     res.remove(i + 1);
@@ -200,7 +198,7 @@ public class Flight implements Iterable<Point> {
             }
         }
 
-        res.removeIf(points -> points.getMin().getAlt() < minHeight || points.duration() < minDuration || points.climbRate() < minClimbRate);
+        res.removeIf(points -> points.getMin().getAlt() < MIN_HEIGHT || points.duration() < MIN_DURATION || points.climbRate() < MIN_CLIMB_RATE);
 
         return res;
     }

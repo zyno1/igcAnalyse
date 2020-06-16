@@ -25,9 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Optional;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -49,59 +47,58 @@ public class Main {
         for(int i = 0; i < arg.length; i++) {
             String tmp = arg[i];
 
-            if(tmp.equals("-h") || tmp.equals("--help")) {
-                StringBuilder str = new StringBuilder();
-
-                str.append("-h\n");
-                str.append("--help             display help screen\n");
-                str.append("-i <str>           set the path that contains the flight logs\n");
-                str.append("--max-count <int>  set the maximum number of thermals to keep\n");
-                str.append("--min <int>        set the minimum amount of times a thermal has been found to be kept\n");
-                str.append("--cup <str>        set the output file for the cup file (if not set no cup file will be written)\n");
-                str.append("--kml <str>        set the output file for the kml file (if not set no kml file will be written)\n");
-                str.append("--json <str>       set the output file for the json file (if not set no json file will be written)\n");
-                str.append("--load-json <str>  set the path to load a json file\n");
-                str.append("--bin <str>        set the output file for the bin file (if not set no bin file will be written)\n");
-                str.append("--load-bin <str>   set the path to load a bin file\n");
-                str.append("                   (the bin file format is just java serialization)\n");
-                str.append("--load-cub <str>   expects a path to a cup file containing thermals. This has to\n" +
-                           "                   be a file written by this program or else it will fail\n" +
-                           "                   (note: errors will not be handled well)\n" +
-                           "                   So if you use this option be careful only to use non-modified cup\n" +
-                           "                   files written only by this program\n");
-
-                System.out.println(str.toString());
-                System.exit(0);
-            }
-            else if(tmp.equals("--max-count")) {
-                MAX_COUNT = Integer.parseInt(arg[++i]);
-            }
-            else if(tmp.equals("--min")) {
-                MIN = Integer.parseInt(arg[++i]);
-            }
-            else if(tmp.equals("-i")) {
-                FOLDER = arg[++i];
-            }
-            else if(tmp.equals("--cup")) {
-                CUP_OUT = arg[++i];
-            }
-            else if(tmp.equals("--kml")) {
-                KML_OUT = arg[++i];
-            }
-            else if(tmp.equals("--load-cub")) {
-                CUP_IN.add(arg[++i]);
-            }
-            else if(tmp.equals("--json")) {
-                JSON_OUT = arg[++i];
-            }
-            else if(tmp.equals("--load-json")) {
-                JSON_IN.add(arg[++i]);
-            }
-            else if(tmp.equals("--bin")) {
-                BIN_OUT = arg[++i];
-            }
-            else if(tmp.equals("--load-bin")) {
-                BIN_IN.add(arg[++i]);
+            switch (tmp) {
+                case "-h":
+                case "--help":
+                    String str = "-h\n" +
+                            "--help             display help screen\n" +
+                            "-i <str>           set the path that contains the flight logs\n" +
+                            "--max-count <int>  set the maximum number of thermals to keep\n" +
+                            "--min <int>        set the minimum amount of times a thermal has been found to be kept\n" +
+                            "--cup <str>        set the output file for the cup file (if not set no cup file will be written)\n" +
+                            "--kml <str>        set the output file for the kml file (if not set no kml file will be written)\n" +
+                            "--json <str>       set the output file for the json file (if not set no json file will be written)\n" +
+                            "--load-json <str>  set the path to load a json file\n" +
+                            "--bin <str>        set the output file for the bin file (if not set no bin file will be written)\n" +
+                            "--load-bin <str>   set the path to load a bin file\n" +
+                            "                   (the bin file format is just java serialization)\n" +
+                            "--load-cub <str>   expects a path to a cup file containing thermals. This has to\n" +
+                            "                   be a file written by this program or else it will fail\n" +
+                            "                   (note: errors will not be handled well)\n" +
+                            "                   So if you use this option be careful only to use non-modified cup\n" +
+                            "                   files written only by this program\n";
+                    System.out.println(str);
+                    System.exit(0);
+                case "--max-count":
+                    MAX_COUNT = Integer.parseInt(arg[++i]);
+                    break;
+                case "--min":
+                    MIN = Integer.parseInt(arg[++i]);
+                    break;
+                case "-i":
+                    FOLDER = arg[++i];
+                    break;
+                case "--cup":
+                    CUP_OUT = arg[++i];
+                    break;
+                case "--kml":
+                    KML_OUT = arg[++i];
+                    break;
+                case "--load-cub":
+                    CUP_IN.add(arg[++i]);
+                    break;
+                case "--json":
+                    JSON_OUT = arg[++i];
+                    break;
+                case "--load-json":
+                    JSON_IN.add(arg[++i]);
+                    break;
+                case "--bin":
+                    BIN_OUT = arg[++i];
+                    break;
+                case "--load-bin":
+                    BIN_IN.add(arg[++i]);
+                    break;
             }
         }
     }
@@ -132,7 +129,7 @@ public class Main {
     private static void operate() {
         ThermalCollectionDAO cup = new ThermalCollectionCUP();
         ThermalCollectionDAO json = new ThermalCollectionJSON();
-        ThermalCollectionDAO bin = new ThermanCollectionBIN();
+        ThermalCollectionDAO bin = new ThermalCollectionBIN();
         ThermalCollectionDAO kml = new ThermalCollectionKML();
 
         Collection<ThermalCollection> ctc = new ArrayList<>();
@@ -143,7 +140,7 @@ public class Main {
             try {
                 ctc.add(cup.load(p));
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("error: failed to load cup file: " + p);
             }
         }
@@ -154,7 +151,7 @@ public class Main {
             try {
                 ctc.add(json.load(p));
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("error: failed to load json file: " + p);
             }
         }
@@ -165,7 +162,7 @@ public class Main {
             try {
                 ctc.add(bin.load(p));
             } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("error: failed to load bin file: " + p);
             }
         }
@@ -190,7 +187,8 @@ public class Main {
                     res.addThermal(i);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
+                System.err.println("error reading file: " + f);
             }
             return res;
         }), ctc.parallelStream())
@@ -240,7 +238,7 @@ public class Main {
                 cup.save(tc, CUP_OUT);
                 System.out.println("Done, result written to " + CUP_OUT);
             } catch (IOException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("Error writing cup file: " + CUP_OUT);
             }
         }
@@ -250,7 +248,7 @@ public class Main {
                 kml.save(tc, KML_OUT);
                 System.out.println("Done, result written to " + KML_OUT);
             } catch (IOException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("Error writing kml file: " + KML_OUT);
             }
         }
@@ -260,7 +258,7 @@ public class Main {
                 json.save(tc, JSON_OUT);
                 System.out.println("Done, result written to " + JSON_OUT);
             } catch (IOException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("Error writing to json file: " + JSON_OUT);
             }
         }
@@ -270,7 +268,7 @@ public class Main {
                 bin.save(tc, BIN_OUT);
                 System.out.println("Done, result written to " + BIN_OUT);
             } catch (IOException e) {
-                e.printStackTrace();
+                //System.err.println(e.getMessage());
                 System.err.println("Error writing to bin file: " + BIN_OUT);
             }
         }

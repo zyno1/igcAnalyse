@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class ThermalCollection implements Iterable<Thermal>, Serializable {
-    ArrayList<Thermal> thermals;
+    private final ArrayList<Thermal> thermals;
 
     private static final float MERGE_MAX_DIST = 200;
 

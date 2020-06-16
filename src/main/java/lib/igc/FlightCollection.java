@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class FlightCollection implements Iterable<Flight> {
-    private ArrayList<Flight> flights;
+    private final ArrayList<Flight> flights;
 
     public FlightCollection(String... paths) throws IOException {
         flights = new ArrayList<>(paths.length);
@@ -51,8 +51,8 @@ public class FlightCollection implements Iterable<Flight> {
     public Point getMin() {
         Point p = new Point(flights.get(0).getMin());
 
-        for(int i = 0; i < flights.size(); i++) {
-            Point tmp = flights.get(i).getMin();
+        for (Flight flight : flights) {
+            Point tmp = flight.getMin();
             Point.min(p, tmp);
         }
 
@@ -62,8 +62,8 @@ public class FlightCollection implements Iterable<Flight> {
     public Point getMax() {
         Point p = new Point(flights.get(0).getMax());
 
-        for(int i = 0; i < flights.size(); i++) {
-            Point tmp = flights.get(i).getMax();
+        for (Flight flight : flights) {
+            Point tmp = flight.getMax();
             Point.max(p, tmp);
         }
 

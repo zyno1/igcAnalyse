@@ -114,9 +114,9 @@ public class Thermal implements Serializable {
 
         float cr = (float)Math.floor(climbRate * 10) / 10;
 
-        str.append("alt: " + minAlt + " - " + maxAlt + "; ");
-        str.append("time: " + minH + "H" + minM + " - " + maxH + "H" + maxM + "; ");
-        str.append("speed: " + cr + " m/s; ");
+        str.append("alt: ").append(minAlt).append(" - ").append(maxAlt).append("; ");
+        str.append("time: ").append(minH).append("H").append(minM).append(" - ").append(maxH).append("H").append(maxM).append("; ");
+        str.append("speed: ").append(cr).append(" m/s; ");
 
         return str.toString();
     }

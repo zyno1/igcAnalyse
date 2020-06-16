@@ -33,7 +33,7 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
         All,
     }
 
-    private Type type = Type.All;
+    private final Type type = Type.All;
 
     @Override
     public ThermalCollection load(String path) throws IOException {
@@ -42,41 +42,33 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
     }
 
     public String thermalToCylinder(Thermal t) {
-        StringBuilder str = new StringBuilder();
-
-        str.append("<Placemark><name>");
-        str.append("T");
-        str.append("</name><description>\n");
-        str.append("Thermal " + t.getCount() + "\n");
-        str.append(t.getDescription().replace("; ", "\n"));
-        str.append("\n</description>\n");
-
-        str.append("<Model><altitudeMode>absolute</altitudeMode>\n<Location>");
-        str.append("<longitude>" + t.getPos().x + "</longitude>");
-        str.append("<latitude>" + t.getPos().y + "</latitude>");
-        str.append("<altitude>" + t.getMin().alt + "</altitude>");
-        str.append("</Location>\n<Scale><x>300</x><y>300</y><z>");
-        str.append((t.getMax().alt - t.getMin().alt) + "</z>\n");
-        str.append("</Scale>\n<Link><href>cylinder.dae</href></Link>\n</Model>");
-
-        str.append("</Placemark>");
-
-        return str.toString();
+        final String str = "<Placemark><name>" +
+                "T" +
+                "</name><description>\n" +
+                "Thermal " + t.getCount() + "\n" +
+                t.getDescription().replace("; ", "\n") +
+                "\n</description>\n" +
+                "<Model><altitudeMode>absolute</altitudeMode>\n<Location>" +
+                "<longitude>" + t.getPos().x + "</longitude>" +
+                "<latitude>" + t.getPos().y + "</latitude>" +
+                "<altitude>" + t.getMin().alt + "</altitude>" +
+                "</Location>\n<Scale><x>300</x><y>300</y><z>" +
+                (t.getMax().alt - t.getMin().alt) + "</z>\n" +
+                "</Scale>\n<Link><href>cylinder.dae</href></Link>\n</Model>" +
+                "</Placemark>";
+        return str;
     }
 
     public String thermalToPlacemark(Thermal t) {
-        StringBuilder str = new StringBuilder();
-
-        str.append("<Placemark><name>");
-        str.append("T");
-        str.append("</name><description>\n");
-        str.append("Thermal " + t.getCount() + "\n");
-        str.append(t.getDescription().replace("; ", "\n"));
-        str.append("\n</description><Point><coordinates>\n");
-        str.append(t.getPos().x + ", " + t.getPos().y + ", 0");
-        str.append("\n</coordinates></Point></Placemark>");
-
-        return str.toString();
+        final String str = "<Placemark><name>" +
+                "T" +
+                "</name><description>\n" +
+                "Thermal " + t.getCount() + "\n" +
+                t.getDescription().replace("; ", "\n") +
+                "\n</description><Point><coordinates>\n" +
+                t.getPos().x + ", " + t.getPos().y + ", 0" +
+                "\n</coordinates></Point></Placemark>";
+        return str;
     }
 
     @Override
