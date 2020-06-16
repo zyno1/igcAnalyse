@@ -36,9 +36,14 @@ Options:
 
 --max-count <int>  set the maximum number of thermals to keep
 --min <int>        set the minimum amount of times a thermal has been found to be kept
---cup <str>        set the output file for the cup file (if not set no cup file will be written
---kml <str>        set the output file for the kml file (if not set no kml file will be written
---load <str>       expects a path to a cup file containing thermals. This has to
+--cup <str>        set the output file for the cup file (if not set no cup file will be written)
+--kml <str>        set the output file for the kml file (if not set no kml file will be written)
+--json <str>       set the output file for the json file (if not set no json file will be written)
+--load-json <str>  set the path to load a json file
+--bin <str>        set the output file for the bin file (if not set no bin file will be written)
+--load-bin <str>   set the path to load a bin file
+                   (the bin file format is just java serialization)
+--load-cub <str>   expects a path to a cup file containing thermals. This has to
                    be a file written by this program or else it will fail
                    (note: errors will not be handled well)
                    So if you use this option be careful only to use non-modified cup

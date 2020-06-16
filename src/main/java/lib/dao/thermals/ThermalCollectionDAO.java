@@ -23,10 +23,10 @@ import lib.thermals.ThermalCollection;
 import java.io.IOException;
 
 public interface ThermalCollectionDAO {
-    ThermalCollection load(String path) throws IOException;
+    ThermalCollection load(String path) throws IOException, ClassNotFoundException;
     void save(ThermalCollection tc, String path) throws IOException;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ThermalCollectionDAO dao = new ThermalCollectionCUP();
         ThermalCollection tc = dao.load("res.cup");
         dao.save(tc, "res.2.cup");

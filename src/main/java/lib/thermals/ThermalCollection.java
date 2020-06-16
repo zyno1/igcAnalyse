@@ -21,11 +21,12 @@ package lib.thermals;
 import lib.igc.Flight;
 import lib.igc.Point;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class ThermalCollection implements Iterable<Thermal> {
+public class ThermalCollection implements Iterable<Thermal>, Serializable {
     ArrayList<Thermal> thermals;
 
     private static final float MERGE_MAX_DIST = 200;

@@ -18,7 +18,11 @@
 
 package lib.igc;
 
-public class Point {
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class Point implements Serializable {
     public float x;
     public float y;
     public float alt;
@@ -44,6 +48,27 @@ public class Point {
         y = p.y;
         alt = p.alt;
         time = p.time;
+    }
+
+    public static Point fromJSON(JSONObject obj) {
+        Point p = new Point(0, 0, 0);
+
+        p.x = obj.getFloat("x");
+        p.y = obj.getFloat("y");
+        p.alt = obj.getFloat("alt");
+        p.time = obj.getInt("time");
+
+        return p;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject obj = new JSONObject();
+        obj.put("x", x);
+        obj.put("y", y);
+        obj.put("alt", alt);
+        obj.put("time", time);
+
+        return obj;
     }
 
     public float getX() {

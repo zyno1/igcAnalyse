@@ -112,7 +112,7 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
         out.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ThermalCollectionDAO cup = new ThermalCollectionCUP();
         ThermalCollectionDAO kml = new ThermalCollectionKML();
 

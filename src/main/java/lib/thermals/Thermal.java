@@ -19,8 +19,11 @@
 package lib.thermals;
 
 import lib.igc.Point;
+import org.json.JSONObject;
 
-public class Thermal {
+import java.io.Serializable;
+
+public class Thermal implements Serializable {
     private Point pos;
     private Point min;
     private Point max;
@@ -33,6 +36,30 @@ public class Thermal {
         this.max = max;
         this.climbRate = climbRate;
         count = 1;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject obj = new JSONObject();
+
+        obj.put("pos", pos.toJSON());
+        obj.put("min", min.toJSON());
+        obj.put("max", max.toJSON());
+        obj.put("climbRate", climbRate);
+        obj.put("count", count);
+
+        return obj;
+    }
+
+    public static Thermal fromJSON(JSONObject obj) {
+        Thermal t = new Thermal(null, null, null, 0);
+
+        t.pos = Point.fromJSON(obj.getJSONObject("pos"));
+        t.min = Point.fromJSON(obj.getJSONObject("min"));
+        t.max = Point.fromJSON(obj.getJSONObject("max"));
+        t.climbRate = obj.getFloat("climbRate");
+        t.count = obj.getInt("count");
+
+        return t;
     }
 
     public Point getMin() {
