@@ -24,6 +24,7 @@ import lib.thermals.ThermalCollection;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,17 +35,14 @@ public class Main {
     private static int MAX_COUNT = -1;
     private static int MIN = -1;
     private static String CUP_OUT = "";
-    private static String CUP_IN = "";
+    private static final Collection<String> CUP_IN = new ArrayList<>();
     private static String KML_OUT = "";
 
     private static String JSON_OUT = "";
-    private static String JSON_IN = "";
+    private static final Collection<String> JSON_IN = new ArrayList<>();
 
     private static String BIN_OUT = "";
-    private static String BIN_IN = "";
-
-    private static ThermalCollection tc;
-
+    private static final Collection<String> BIN_IN = new ArrayList<>();
 
     private static void loadOptions(String[] arg) {
         for(int i = 0; i < arg.length; i++) {
@@ -90,19 +88,19 @@ public class Main {
                 KML_OUT = arg[++i];
             }
             else if(tmp.equals("--load-cub")) {
-                CUP_IN = arg[++i];
+                CUP_IN.add(arg[++i]);
             }
             else if(tmp.equals("--json")) {
                 JSON_OUT = arg[++i];
             }
             else if(tmp.equals("--load-json")) {
-                JSON_IN = arg[++i];
+                JSON_IN.add(arg[++i]);
             }
             else if(tmp.equals("--bin")) {
                 BIN_OUT = arg[++i];
             }
             else if(tmp.equals("--load-bin")) {
-                BIN_IN = arg[++i];
+                BIN_IN.add(arg[++i]);
             }
         }
     }
@@ -131,82 +129,55 @@ public class Main {
     }
 
     private static void operate() {
-        if(!CUP_IN.equals("")) {
-            System.out.println("loading cup file");
-            ThermalCollectionDAO dao = new ThermalCollectionCUP();
-            try {
-                tc = dao.load(CUP_IN);
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-                System.err.println("error: failed to load file: " + CUP_IN);
-            }
-        }
-        else {
-            tc = new ThermalCollection();
-        }
+        ThermalCollectionDAO cup = new ThermalCollectionCUP();
+        ThermalCollectionDAO json = new ThermalCollectionJSON();
+        ThermalCollectionDAO bin = new ThermanCollectionBIN();
+        ThermalCollectionDAO kml = new ThermalCollectionKML();
 
-        if(!JSON_IN.equals("")) {
-            System.out.println("loading json file");
-            ThermalCollectionDAO dao = new ThermalCollectionJSON();
+        Collection<ThermalCollection> ctc = new ArrayList<>();
+
+        for(String p : CUP_IN) {
+            System.out.println("loading cup file: " + p);
 
             try {
-                ThermalCollection tmp = dao.load(JSON_IN);
-                if(tc.size() == 0) {
-                    tc = tmp;
-                }
-                else if(tc.size() < tmp.size()) {
-                    for(Thermal t : tc) {
-                        tmp.addThermal(t);
-                    }
-                    tc = tmp;
-                }
-                else {
-                    for(Thermal t : tmp) {
-                        tc.addThermal(t);
-                    }
-                }
+                ctc.add(cup.load(p));
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-                System.err.println("error: failed to load file: " + JSON_IN);
+                System.err.println("error: failed to load cup file: " + p);
             }
         }
 
-        if(!BIN_IN.equals("")) {
-            System.out.println("loading bin file");
-            ThermalCollectionDAO dao = new ThermanCollectionBIN();
+        for(String p : JSON_IN) {
+            System.out.println("loading json file: " + p);
 
             try {
-                ThermalCollection tmp = dao.load(BIN_IN);
-                if(tc.size() == 0) {
-                    tc = tmp;
-                }
-                else if(tc.size() < tmp.size()) {
-                    for(Thermal t : tc) {
-                        tmp.addThermal(t);
-                    }
-                    tc = tmp;
-                }
-                else {
-                    for(Thermal t : tmp) {
-                        tc.addThermal(t);
-                    }
-                }
+                ctc.add(json.load(p));
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
-                System.err.println("error: failed to load file: " + BIN_IN);
+                System.err.println("error: failed to load json file: " + p);
             }
         }
+
+        for(String p : BIN_IN) {
+            System.out.println("loading bin file: " + p);
+
+            try {
+                ctc.add(bin.load(p));
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                System.err.println("error: failed to load bin file: " + p);
+            }
+        }
+
+        ThermalCollection tc = null;
 
         if(!FOLDER.equals("")) {
             ArrayList<String> igcPaths = findAllFiles(FOLDER);
 
-            Stream.Builder<ThermalCollection> sbtc = Stream.builder();
-            sbtc.accept(tc);
-
             AtomicInteger co = new AtomicInteger(0);
-            final int size = igcPaths.size();
+            final int size = igcPaths.size() + ctc.size();
 
-            System.out.println("Analyzing " + size + " files:");
+            System.out.println("Analyzing " + igcPaths.size() + " files and merging " + ctc.size() + " files:");
 
             Optional<ThermalCollection> tmp = Stream.concat(igcPaths.parallelStream().map(f -> {
                 ThermalCollection res = new ThermalCollection();
@@ -218,16 +189,41 @@ public class Main {
                     e.printStackTrace();
                 }
                 return res;
-            }), sbtc.build())
-                    .reduce((c1, c2) -> {
-                        for (Thermal t : c2) {
-                            c1.parAddThermal(t);
-                        }
-                        System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
-                        return c1;
-                    });
+            }), ctc.parallelStream())
+            .reduce((c1, c2) -> {
+                for (Thermal t : c2) {
+                    c1.parAddThermal(t);
+                }
+                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+                return c1;
+            });
 
-            tmp.ifPresent(thermals -> tc = thermals);
+            if(tmp.isPresent()) {
+                tc = tmp.get();
+            }
+        }
+        else {
+            AtomicInteger co = new AtomicInteger(0);
+            final int size = ctc.size();
+
+            System.out.println("Merging " + size + " files:");
+
+            Optional<ThermalCollection> tmp = ctc.parallelStream().reduce((c1, c2) -> {
+                for (Thermal t : c2) {
+                    c1.parAddThermal(t);
+                }
+                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+                return c1;
+            });
+
+            if(tmp.isPresent()) {
+                tc = tmp.get();
+            }
+        }
+
+        if(tc == null) {
+            System.err.println("Error: nothing to do, exiting");
+            System.exit(1);
         }
 
         System.out.println("\nThermals found: " + tc.size());
@@ -255,9 +251,8 @@ public class Main {
         }
 
         if(!CUP_OUT.equals("")) {
-            ThermalCollectionDAO dao = new ThermalCollectionCUP();
             try {
-                dao.save(tc, CUP_OUT);
+                cup.save(tc, CUP_OUT);
                 System.out.println("Done, result written to " + CUP_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -266,9 +261,8 @@ public class Main {
         }
 
         if(!KML_OUT.equals("")) {
-            ThermalCollectionDAO dao = new ThermalCollectionKML();
             try {
-                dao.save(tc, KML_OUT);
+                kml.save(tc, KML_OUT);
                 System.out.println("Done, result written to " + KML_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -277,10 +271,8 @@ public class Main {
         }
 
         if(!JSON_OUT.equals("")) {
-            ThermalCollectionDAO dao = new ThermalCollectionJSON();
-
             try {
-                dao.save(tc, JSON_OUT);
+                json.save(tc, JSON_OUT);
                 System.out.println("Done, result written to " + JSON_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -289,10 +281,8 @@ public class Main {
         }
 
         if(!BIN_OUT.equals("")) {
-            ThermalCollectionDAO dao = new ThermanCollectionBIN();
-
             try {
-                dao.save(tc, BIN_OUT);
+                bin.save(tc, BIN_OUT);
                 System.out.println("Done, result written to " + BIN_OUT);
             } catch (IOException e) {
                 e.printStackTrace();
