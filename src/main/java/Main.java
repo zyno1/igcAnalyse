@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -171,54 +172,38 @@ public class Main {
 
         ThermalCollection tc = null;
 
+        ArrayList<String> igcPaths = new ArrayList<>();
         if(!FOLDER.equals("")) {
-            ArrayList<String> igcPaths = findAllFiles(FOLDER);
-
-            AtomicInteger co = new AtomicInteger(0);
-            final int size = igcPaths.size() + ctc.size();
-
-            System.out.println("Analyzing " + igcPaths.size() + " files and merging " + ctc.size() + " files:");
-
-            Optional<ThermalCollection> tmp = Stream.concat(igcPaths.parallelStream().map(f -> {
-                ThermalCollection res = new ThermalCollection();
-                try {
-                    for (Flight i : (new Flight(f)).findThermals()) {
-                        res.addThermal(i);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return res;
-            }), ctc.parallelStream())
-            .reduce((c1, c2) -> {
-                for (Thermal t : c2) {
-                    c1.parAddThermal(t);
-                }
-                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
-                return c1;
-            });
-
-            if(tmp.isPresent()) {
-                tc = tmp.get();
-            }
+            igcPaths = findAllFiles(FOLDER);
         }
-        else {
-            AtomicInteger co = new AtomicInteger(0);
-            final int size = ctc.size();
 
-            System.out.println("Merging " + size + " files:");
 
-            Optional<ThermalCollection> tmp = ctc.parallelStream().reduce((c1, c2) -> {
-                for (Thermal t : c2) {
-                    c1.parAddThermal(t);
+        AtomicInteger co = new AtomicInteger(0);
+        final int size = igcPaths.size() + ctc.size();
+
+        System.out.println("Analyzing " + igcPaths.size() + " files and merging " + ctc.size() + " files:");
+
+        Optional<ThermalCollection> tmp = Stream.concat(igcPaths.parallelStream().map(f -> {
+            ThermalCollection res = new ThermalCollection();
+            try {
+                for (Flight i : (new Flight(f)).findThermals()) {
+                    res.addThermal(i);
                 }
-                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
-                return c1;
-            });
-
-            if(tmp.isPresent()) {
-                tc = tmp.get();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            return res;
+        }), ctc.parallelStream())
+        .reduce((c1, c2) -> {
+            for (Thermal t : c2) {
+                c1.parAddThermal(t);
+            }
+            System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+            return c1;
+        });
+
+        if(tmp.isPresent()) {
+            tc = tmp.get();
         }
 
         if(tc == null) {
