@@ -26,7 +26,7 @@ public class ThermalCollectionJSON implements ThermalCollectionDAO {
             JSONObject tmp = (JSONObject) o;
 
             Thermal t = Thermal.fromJSON(tmp);
-            tc.addThermal(t);
+            tc.appendThermal(t);
         }
 
         return tc;

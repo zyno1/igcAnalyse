@@ -66,3 +66,10 @@ int the `results` directory to be in the same folder.
 Both files can also be zipped together into a single file and then by changing
 the extension from `.zip` to `.kmz` the file can be opened with Google Earth
 without needing to keep track of 2 files.
+
+I advise to use the binary format to store and to use this program to convert from one program to
+another. The binary format will generate smaller files and will be faster. Moreover,
+loading a cup file will generate wrong results due to rounding errors built into the file format.
+The json format is available and should give the same precision as the binary format but since it
+generates larger files it is probably better to only use it for interoperability between
+programs.
