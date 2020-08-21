@@ -23,8 +23,8 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    public float x;
-    public float y;
+    public float x; //long
+    public float y; //lat
     public float alt;
 
     public int time;
@@ -110,6 +110,13 @@ public class Point implements Serializable {
         return (float) (R * c);
     }
 
+    public float bearing(Point p) {
+        double tmp_x = Math.cos(p.y * Math.PI / 180) * Math.sin((p.x - x) * Math.PI / 180);
+        double tmp_y = Math.cos(y * Math.PI / 180) * Math.sin(p.y * Math.PI / 180) - Math.sin(y * Math.PI / 180) * Math.cos(p.y * Math.PI / 180) * Math.cos((p.x - x) * Math.PI / 180);
+
+        return (float) Math.atan2(tmp_x, tmp_y);
+    }
+
     public static Point average(Point... p) {
         Point res = new Point(0, 0, 0);
 
@@ -158,9 +165,10 @@ public class Point implements Serializable {
     }
 
     public static void main(String[] args) {
-        Point p1 = new Point(5, 50, 0);
-        Point p2 = new Point(3, 58, 0);
+        Point p1 = new Point(-94.581213f, 39.099912f, 0);
+        Point p2 = new Point(-90.200203f, 38.627089f, 0);
 
         System.out.println(p1.distance(p2));
+        System.out.println(p1.bearing(p2));
     }
 }
