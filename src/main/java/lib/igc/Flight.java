@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -172,7 +173,7 @@ public class Flight implements Iterable<Point> {
     }
 
     public ArrayList<Flight> findThermals() {
-        ArrayList<Flight> res = new ArrayList<>();
+        ArrayList<Flight> res = new ArrayList<>(flight.size());
 
         for (Point p : this) {
             Flight tmp = new Flight();
@@ -199,6 +200,26 @@ public class Flight implements Iterable<Point> {
         }
 
         res.removeIf(points -> points.getMin().getAlt() < MIN_HEIGHT || points.duration() < MIN_DURATION || points.climbRate() < MIN_CLIMB_RATE);
+
+        return res;
+    }
+
+    public FlightCollection findClimbingPaths() {
+        FlightCollection res = new FlightCollection(flight.size());
+
+        Flight tmp = new Flight();
+
+        for(int i = 0; i < flight.size() - 1; i++) {
+            if(flight.get(i).alt <= flight.get(i + 1).alt) {
+                tmp.addPoint(flight.get(i));
+            }
+            else {
+                if(tmp.size() >= 2) {
+                    res.addFlight(tmp);
+                }
+                tmp = new Flight();
+            }
+        };
 
         return res;
     }

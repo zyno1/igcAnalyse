@@ -40,6 +40,14 @@ public class FlightCollection implements Iterable<Flight> {
         }
     }
 
+    public FlightCollection(int i) {
+        flights = new ArrayList<>(i);
+    }
+
+    public FlightCollection(ArrayList<Flight> fc) {
+        flights = fc;
+    }
+
     public FlightCollection() {
         flights = new ArrayList<>();
     }

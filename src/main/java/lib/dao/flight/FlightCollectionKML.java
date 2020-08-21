@@ -48,6 +48,6 @@ public class FlightCollectionKML implements FlightCollectionDAO {
         fc.addFlight(f);
 
         FlightCollectionDAO dao = new FlightCollectionKML();
-        dao.save(fc, "res.kml");
+        dao.save(f.findClimbingPaths(), "res.kml");
     }
 }
