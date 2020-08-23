@@ -29,6 +29,10 @@ public class Cluster implements Iterable<Point> {
         return dist;
     }
 
+    public float distance(Cluster c) {
+        return minDistance(c);
+    }
+
     public void merge(Cluster c) {
         for(Point p : c) {
             data.add(p);
