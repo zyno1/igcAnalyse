@@ -27,10 +27,10 @@ public class Thermal implements Serializable {
     private Point pos;
     private Point min;
     private Point max;
-    private float climbRate;
+    private double climbRate;
     private int count;
 
-    public Thermal(Point pos, Point min, Point max, float climbRate) {
+    public Thermal(Point pos, Point min, Point max, double climbRate) {
         this.pos = pos;
         this.min = min;
         this.max = max;
@@ -56,7 +56,7 @@ public class Thermal implements Serializable {
         t.pos = Point.fromJSON(obj.getJSONObject("pos"));
         t.min = Point.fromJSON(obj.getJSONObject("min"));
         t.max = Point.fromJSON(obj.getJSONObject("max"));
-        t.climbRate = obj.getFloat("climbRate");
+        t.climbRate = obj.getDouble("climbRate");
         t.count = obj.getInt("count");
 
         return t;
@@ -109,10 +109,10 @@ public class Thermal implements Serializable {
         int maxH = max.time / 3600;
         int maxM = (max.time / 60) % 60;
 
-        float minAlt = min.alt;
-        float maxAlt = max.alt;
+        double minAlt = min.alt;
+        double maxAlt = max.alt;
 
-        float cr = (float)Math.floor(climbRate * 10) / 10;
+        double cr = (double)Math.floor(climbRate * 10) / 10;
 
         str.append("alt: ").append(minAlt).append(" - ").append(maxAlt).append("; ");
         str.append("time: ").append(minH).append("H").append(minM).append(" - ").append(maxH).append("H").append(maxM).append("; ");

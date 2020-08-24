@@ -23,20 +23,20 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    public float x; //long
-    public float y; //lat
-    public float alt;
+    public double x; //long
+    public double y; //lat
+    public double alt;
 
     public int time;
 
-    public Point(float x, float y, float alt) {
+    public Point(double x, double y, double alt) {
         this.x = x;
         this.y = y;
         this.alt = alt;
         time = 0;
     }
 
-    public Point(int time, float x, float y, float alt) {
+    public Point(int time, double x, double y, double alt) {
         this.x = x;
         this.y = y;
         this.alt = alt;
@@ -53,9 +53,9 @@ public class Point implements Serializable {
     public static Point fromJSON(JSONObject obj) {
         Point p = new Point(0, 0, 0);
 
-        p.x = obj.getFloat("x");
-        p.y = obj.getFloat("y");
-        p.alt = obj.getFloat("alt");
+        p.x = obj.getDouble("x");
+        p.y = obj.getDouble("y");
+        p.alt = obj.getDouble("alt");
         p.time = obj.getInt("time");
 
         return p;
@@ -71,31 +71,31 @@ public class Point implements Serializable {
         return obj;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public float getAlt() {
+    public double getAlt() {
         return alt;
     }
 
-    public void setX(float x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(float y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public void setAlt(float alt) {
+    public void setAlt(double alt) {
         this.alt = alt;
     }
 
-    public float distance(Point p) {
+    public double distance(Point p) {
         double R = 6371e3;
         double p1 = Math.toRadians(y);
         double p2 = Math.toRadians(p.y);
@@ -107,14 +107,14 @@ public class Point implements Serializable {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return (float) (R * c);
+        return (double) (R * c);
     }
 
-    public float bearing(Point p) {
+    public double bearing(Point p) {
         double tmp_x = Math.cos(p.y * Math.PI / 180) * Math.sin((p.x - x) * Math.PI / 180);
         double tmp_y = Math.cos(y * Math.PI / 180) * Math.sin(p.y * Math.PI / 180) - Math.sin(y * Math.PI / 180) * Math.cos(p.y * Math.PI / 180) * Math.cos((p.x - x) * Math.PI / 180);
 
-        return (float) Math.atan2(tmp_x, tmp_y);
+        return (double) Math.atan2(tmp_x, tmp_y);
     }
 
     public static Point average(Point... p) {

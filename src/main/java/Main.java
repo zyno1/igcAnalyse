@@ -16,6 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import lib.cluster.Cluster;
+import lib.cluster.ClusterCollection;
 import lib.dao.thermals.*;
 import lib.igc.Flight;
 import lib.thermals.Thermal;
@@ -124,6 +126,38 @@ public class Main {
         }
 
         return res;
+    }
+
+    private static void clusterOperate() {
+        ArrayList<String> igcPaths = new ArrayList<>();
+        if(!FOLDER.equals("")) {
+            igcPaths = findAllFiles(FOLDER);
+        }
+
+        AtomicInteger co = new AtomicInteger(0);
+        final int size = igcPaths.size();
+
+        Optional<ClusterCollection> cctmp = igcPaths.parallelStream().map(f -> {
+            ClusterCollection cc = new ClusterCollection();
+
+            try {
+                for(Flight i : (new Flight(f)).findClimbingPaths()) {
+                    cc.add(new Cluster(i));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return cc;
+        })
+        .reduce((c1, c2) -> {
+            for(Cluster c : c1) {
+                c2.add(c);
+            }
+            System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+            return c2;
+        });
+
+        System.out.println("\n----\ncluster count: " + cctmp.get().size());
     }
 
     private static void operate() {
@@ -283,7 +317,8 @@ public class Main {
 
         final long start_time = System.currentTimeMillis();
 
-        operate();
+        //operate();
+        clusterOperate();
 
         final long time = System.currentTimeMillis() - start_time;
         final long s = time / 1000 % 60;

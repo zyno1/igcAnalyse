@@ -41,8 +41,8 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
         name = name.substring("Thermal ".length() + 1, name.length() - 1);
         count = Integer.parseInt(name);
 
-        float tmp = Integer.parseInt(lat.substring(0, 2));
-        tmp += Float.parseFloat(lat.substring(2, 8)) / 60.0;
+        double tmp = Integer.parseInt(lat.substring(0, 2));
+        tmp += Double.parseDouble(lat.substring(2, 8)) / 60.0;
 
         if(lat.contains("S")) {
             tmp = -tmp;
@@ -51,7 +51,7 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
         pos.setY(tmp);
 
         tmp = Integer.parseInt(lon.substring(0, 3));
-        tmp += Float.parseFloat(lon.substring(3, 9)) / 60;
+        tmp += Double.parseDouble(lon.substring(3, 9)) / 60;
 
         if(lon.contains("W")) {
             tmp = -tmp;
@@ -59,18 +59,18 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
 
         pos.setX(tmp);
 
-        tmp = Float.parseFloat(alt.substring(0, alt.length() - 1));
+        tmp = Double.parseDouble(alt.substring(0, alt.length() - 1));
         pos.setAlt(tmp);
 
-        Point min = new Point(Integer.MAX_VALUE, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY);
-        Point max = new Point(Integer.MIN_VALUE, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY);
-        float climbRate = 0;
+        Point min = new Point(Integer.MAX_VALUE, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        Point max = new Point(Integer.MIN_VALUE, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        double climbRate = 0;
 
         for (String i : description) {
             if(i.contains("alt")) {
                 String[] split = i.split("-");
-                min.alt = Float.parseFloat(split[0].replaceAll("[^0-9\\.]", ""));
-                max.alt = Float.parseFloat(split[1].replaceAll("[^0-9\\.]", ""));
+                min.alt = Double.parseDouble(split[0].replaceAll("[^0-9\\.]", ""));
+                max.alt = Double.parseDouble(split[1].replaceAll("[^0-9\\.]", ""));
             }
             else if(i.contains("time")) {
                 String[] split = i.split("-");
@@ -82,7 +82,7 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
             }
             else if(i.contains("speed")) {
                 i = i.replaceAll("[^0-9\\.]", "");
-                climbRate = Float.parseFloat(i);
+                climbRate = Double.parseDouble(i);
             }
         }
 
@@ -98,13 +98,13 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
         str.append(t.getCount());
         str.append("\",,FR,");
 
-        float lat = t.getPos().getY();
+        double lat = t.getPos().getY();
         String dlat = "N";
         if(lat < 0) {
             dlat = "S";
             lat = -lat;
         }
-        float lon = t.getPos().getX();
+        double lon = t.getPos().getX();
         String dlon = "E";
         if(lon < 0) {
             dlon = "W";

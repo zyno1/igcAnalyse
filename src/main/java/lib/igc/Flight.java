@@ -22,7 +22,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -33,6 +32,9 @@ public class Flight implements Iterable<Point> {
     private static final float MIN_HEIGHT = 700;
     private static final int MIN_DURATION = 90;
     private static final float MIN_CLIMB_RATE = 1f;
+
+    private static final float MIN_CLIMB_RATE_2 = 0.2f;
+    private static final int MIN_DURATION_2 = 30;
 
     public Flight(String file) throws IOException {
         flight = new ArrayList<>();
@@ -100,9 +102,9 @@ public class Flight implements Iterable<Point> {
     }
 
     public Point averagePos() {
-        float x = 0;
-        float y = 0;
-        float alt = 0;
+        double x = 0;
+        double y = 0;
+        double alt = 0;
 
         for(Point p : flight) {
             x += p.getX() / flight.size();
@@ -214,8 +216,11 @@ public class Flight implements Iterable<Point> {
                 tmp.addPoint(flight.get(i));
             }
             else {
-                if(tmp.size() >= 2) {
-                    res.addFlight(tmp);
+                if(tmp.size() >= 1) {
+                    tmp.addPoint(flight.get(i));
+                    if(tmp.climbRate() >= MIN_CLIMB_RATE_2 && tmp.duration() >= MIN_DURATION_2) {
+                        res.addFlight(tmp);
+                    }
                 }
                 tmp = new Flight();
             }
@@ -228,8 +233,8 @@ public class Flight implements Iterable<Point> {
         return flight.size();
     }
 
-    public float climbRate() {
-        float res;
+    public double climbRate() {
+        double res;
 
         Point min = flight.get(0);
         Point max = flight.get(flight.size() - 1);

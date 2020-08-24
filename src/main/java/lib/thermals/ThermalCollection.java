@@ -29,7 +29,7 @@ import java.util.Optional;
 public class ThermalCollection implements Iterable<Thermal>, Serializable {
     private final ArrayList<Thermal> thermals;
 
-    private static final float MERGE_MAX_DIST = 200;
+    private static final double MERGE_MAX_DIST = 200;
 
     public ThermalCollection() {
         thermals = new ArrayList<>();
@@ -43,11 +43,11 @@ public class ThermalCollection implements Iterable<Thermal>, Serializable {
     public synchronized void addThermal(Thermal t) {
         while(t != null) {
             int posMin = 0;
-            float distMin = Float.MAX_VALUE;
+            double distMin = Double.MAX_VALUE;
 
             for (int i = 0; i < thermals.size(); i++) {
                 Thermal j = thermals.get(i);
-                float tmp = j.getPos().distance(t.getPos());
+                double tmp = j.getPos().distance(t.getPos());
 
                 if (tmp < distMin) {
                     posMin = i;
@@ -109,12 +109,12 @@ public class ThermalCollection implements Iterable<Thermal>, Serializable {
             for(int i = 0; i < thermals.size() - 1; i++) {
                 Thermal ti = thermals.get(i);
 
-                float distMin = Float.MAX_VALUE;
+                double distMin = Double.MAX_VALUE;
                 int posMin = -1;
 
                 for(int j = i + 1; j < thermals.size(); j++) {
                     Thermal tj = thermals.get(j);
-                    float dist = ti.getPos().distance(tj.getPos());
+                    double dist = ti.getPos().distance(tj.getPos());
                     if(dist < distMin) {
                         posMin = j;
                         distMin = dist;

@@ -1,11 +1,14 @@
-package lib.dao.cluster;
+package lib.cluster;
+
+import lib.igc.Flight;
+import lib.igc.FlightCollection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class ClusterCollection implements Iterable<Cluster> {
-    private static final float MAX_MERGE_DISTANCE = 150f;
+    private static final double MAX_MERGE_DISTANCE = 150f;
 
     private List<Cluster> data;
 
@@ -13,16 +16,25 @@ public class ClusterCollection implements Iterable<Cluster> {
         data = new ArrayList<>();
     }
 
+    public ClusterCollection(FlightCollection fc) {
+        data = new ArrayList<>(fc.size());
+
+        for(Flight f : fc) {
+            //data.add(new Cluster(f));
+            add(new Cluster(f));
+        }
+    }
+
     public void append(Cluster c) {
         data.add(c);
     }
 
     public void add(Cluster c) {
-        float dist = Float.MAX_VALUE;
+        double dist = Double.MAX_VALUE;
         int posMin = -1;
 
         for(int i = 0; i < data.size(); i++) {
-            float tmp = get(i).distance(c);
+            double tmp = get(i).distance(c);
 
             if(tmp < dist) {
                 dist = tmp;
@@ -55,5 +67,9 @@ public class ClusterCollection implements Iterable<Cluster> {
     @Override
     public Iterator<Cluster> iterator() {
         return data.iterator();
+    }
+
+    public int size() {
+        return data.size();
     }
 }
