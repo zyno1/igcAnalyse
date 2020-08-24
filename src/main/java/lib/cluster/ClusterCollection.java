@@ -6,6 +6,8 @@ import lib.igc.FlightCollection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ClusterCollection implements Iterable<Cluster> {
     private static final double MAX_MERGE_DISTANCE = 150f;
@@ -29,21 +31,59 @@ public class ClusterCollection implements Iterable<Cluster> {
         data.add(c);
     }
 
+    public Stream<Cluster> parallelStream() {
+        return data.parallelStream();
+    }
+
+    public Stream<Cluster> stream() {
+        return data.stream();
+    }
+
     public void add(Cluster c) {
-        double dist = Double.MAX_VALUE;
-        int posMin = -1;
+//        double dist = Double.MAX_VALUE;
+//        int posMin = -1;
+//
+//        for(int i = 0; i < data.size(); i++) {
+//            double tmp = get(i).distance(c);
+//
+//            if(tmp < dist) {
+//                dist = tmp;
+//                posMin = i;
+//            }
+//        }
+//
+//        if(posMin != -1 && dist <= MAX_MERGE_DISTANCE) {
+//            get(posMin).merge(c);
+//        }
+//        else {
+//            append(c);
+//        }
 
-        for(int i = 0; i < data.size(); i++) {
-            double tmp = get(i).distance(c);
-
-            if(tmp < dist) {
-                dist = tmp;
-                posMin = i;
+        Cluster min = data.parallelStream().reduce(null, (c1, c2) -> {
+            double dist1 = Double.POSITIVE_INFINITY;
+            if(c1 != null) {
+                dist1 = c1.distance(c);
             }
-        }
 
-        if(posMin != -1 && dist <= MAX_MERGE_DISTANCE) {
-            get(posMin).merge(c);
+            double dist2 = Double.POSITIVE_INFINITY;
+            if(c2 != null) {
+                dist2 = c2.distance(c);
+            }
+
+            if(dist1 <= dist2) {
+                if(dist1 <= MAX_MERGE_DISTANCE) {
+                    return c1;
+                }
+                return null;
+            }
+            else if(dist2 <= MAX_MERGE_DISTANCE) {
+                return c2;
+            }
+            return null;
+        });
+
+        if(min != null) {
+            min.merge(c);
         }
         else {
             append(c);
