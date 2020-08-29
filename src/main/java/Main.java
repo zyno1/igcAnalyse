@@ -317,8 +317,8 @@ public class Main {
 
         final long start_time = System.currentTimeMillis();
 
-        operate();
-        //clusterOperate();
+        //operate();
+        clusterOperate();
 
         final long time = System.currentTimeMillis() - start_time;
         final long s = time / 1000 % 60;
