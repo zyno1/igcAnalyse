@@ -23,29 +23,29 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    public double x; //long
-    public double y; //lat
+    public double lon; //long
+    public double lat; //lat
     public double alt;
 
     public int time;
 
     public Point(double x, double y, double alt) {
-        this.x = x;
-        this.y = y;
+        this.lon = x;
+        this.lat = y;
         this.alt = alt;
         time = 0;
     }
 
     public Point(int time, double x, double y, double alt) {
-        this.x = x;
-        this.y = y;
+        this.lon = x;
+        this.lat = y;
         this.alt = alt;
         this.time = time;
     }
 
     public Point(Point p) {
-        x = p.x;
-        y = p.y;
+        lon = p.lon;
+        lat = p.lat;
         alt = p.alt;
         time = p.time;
     }
@@ -53,8 +53,8 @@ public class Point implements Serializable {
     public static Point fromJSON(JSONObject obj) {
         Point p = new Point(0, 0, 0);
 
-        p.x = obj.getDouble("x");
-        p.y = obj.getDouble("y");
+        p.lon = obj.getDouble("x");
+        p.lat = obj.getDouble("y");
         p.alt = obj.getDouble("alt");
         p.time = obj.getInt("time");
 
@@ -63,32 +63,32 @@ public class Point implements Serializable {
 
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
-        obj.put("x", x);
-        obj.put("y", y);
+        obj.put("x", lon);
+        obj.put("y", lat);
         obj.put("alt", alt);
         obj.put("time", time);
 
         return obj;
     }
 
-    public double getX() {
-        return x;
+    public double getLon() {
+        return lon;
     }
 
-    public double getY() {
-        return y;
+    public double getLat() {
+        return lat;
     }
 
     public double getAlt() {
         return alt;
     }
 
-    public void setX(double x) {
-        this.x = x;
+    public void setLon(double lon) {
+        this.lon = lon;
     }
 
-    public void setY(double y) {
-        this.y = y;
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
     public void setAlt(double alt) {
@@ -97,32 +97,36 @@ public class Point implements Serializable {
 
     public double distance(Point p) {
         double R = 6371e3;
-        double p1 = Math.toRadians(y);
-        double p2 = Math.toRadians(p.y);
-        double dp = Math.toRadians(p.y - y);
-        double dl = Math.toRadians(p.x - x);
+        double p1 = Math.toRadians(lat);
+        double p2 = Math.toRadians(p.lat);
+        double dp = Math.toRadians(p.lat - lat);
+        double dl = Math.toRadians(p.lon - lon);
 
         double a = Math.sin(dp / 2) * Math.sin(dp / 2) +
                 Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return (double) (R * c);
+        return R * c;
     }
 
     public double bearing(Point p) {
-        double tmp_x = Math.cos(p.y * Math.PI / 180) * Math.sin((p.x - x) * Math.PI / 180);
-        double tmp_y = Math.cos(y * Math.PI / 180) * Math.sin(p.y * Math.PI / 180) - Math.sin(y * Math.PI / 180) * Math.cos(p.y * Math.PI / 180) * Math.cos((p.x - x) * Math.PI / 180);
+        double tmp_x = Math.cos(p.lat * Math.PI / 180) * Math.sin((p.lon - lon) * Math.PI / 180);
+        double tmp_y = Math.cos(lat * Math.PI / 180) * Math.sin(p.lat * Math.PI / 180) - Math.sin(lat * Math.PI / 180) * Math.cos(p.lat * Math.PI / 180) * Math.cos((p.lon - lon) * Math.PI / 180);
 
-        return (double) Math.atan2(tmp_x, tmp_y);
+        double res = Math.atan2(tmp_x, tmp_y) * 180 / Math.PI;
+        while (res < 0) {
+            res += 360;
+        }
+        return res;
     }
 
     public static Point average(Point... p) {
         Point res = new Point(0, 0, 0);
 
         for(Point tmp : p) {
-            res.setX(res.getX() + tmp.getX() / p.length);
-            res.setY(res.getY() + tmp.getY() / p.length);
+            res.setLon(res.getLon() + tmp.getLon() / p.length);
+            res.setLat(res.getLat() + tmp.getLat() / p.length);
             res.setAlt(res.getAlt() + tmp.getAlt() / p.length);
         }
 
@@ -139,8 +143,8 @@ public class Point implements Serializable {
 
     public static void max(Point res, Point... in) {
         for (Point point : in) {
-            res.setX(Math.max(res.getX(), point.getX()));
-            res.setY(Math.max(res.getY(), point.getY()));
+            res.setLon(Math.max(res.getLon(), point.getLon()));
+            res.setLat(Math.max(res.getLat(), point.getLat()));
             res.setAlt(Math.max(res.getAlt(), point.getAlt()));
             res.setTime(Math.max(res.getTime(), point.getTime()));
         }
@@ -148,8 +152,8 @@ public class Point implements Serializable {
 
     public static void min(Point res, Point... in) {
         for (Point point : in) {
-            res.setX(Math.min(res.getX(), point.getX()));
-            res.setY(Math.min(res.getY(), point.getY()));
+            res.setLon(Math.min(res.getLon(), point.getLon()));
+            res.setLat(Math.min(res.getLat(), point.getLat()));
             res.setAlt(Math.min(res.getAlt(), point.getAlt()));
             res.setTime(Math.min(res.getTime(), point.getTime()));
         }
@@ -158,8 +162,8 @@ public class Point implements Serializable {
     @Override
     public String toString() {
         return "Point{" +
-                "x = " + x +
-                ", y = " + y +
+                "x = " + lon +
+                ", y = " + lat +
                 ", alt = " + alt +
                 '}';
     }
@@ -170,5 +174,7 @@ public class Point implements Serializable {
 
         System.out.println(p1.distance(p2));
         System.out.println(p1.bearing(p2));
+        System.out.println(p2.bearing(p1));
+        System.out.println(p2.bearing(p1) - p1.bearing(p2));
     }
 }

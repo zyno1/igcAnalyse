@@ -29,7 +29,7 @@ public class FlightCollectionKML implements FlightCollectionDAO {
             out.write("<altitudeMode>absolute</altitudeMode><coordinates>\n");
 
             for (Point p : f) {
-                out.write(p.x + "," + p.y + "," + p.alt + "\n");
+                out.write(p.lon + "," + p.lat + "," + p.alt + "\n");
             }
 
             out.write("</coordinates></LineString></Placemark>\n");

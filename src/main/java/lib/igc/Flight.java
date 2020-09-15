@@ -107,8 +107,8 @@ public class Flight implements Iterable<Point> {
         double alt = 0;
 
         for(Point p : flight) {
-            x += p.getX() / flight.size();
-            y += p.getY() / flight.size();
+            x += p.getLon() / flight.size();
+            y += p.getLat() / flight.size();
             alt += p.getAlt() / flight.size();
         }
 

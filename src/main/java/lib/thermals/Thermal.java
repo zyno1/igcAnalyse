@@ -78,8 +78,8 @@ public class Thermal implements Serializable {
 
         climbRate = (climbRate * count + t.climbRate * t.count) / total;
 
-        pos.x = (pos.x * count + t.pos.x * t.count) / total;
-        pos.y = (pos.y * count + t.pos.y * t.count) / total;
+        pos.lon = (pos.lon * count + t.pos.lon * t.count) / total;
+        pos.lat = (pos.lat * count + t.pos.lat * t.count) / total;
         pos.alt = (pos.alt * count + t.pos.alt * t.count) / total;
 
         count = total;

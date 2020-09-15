@@ -108,8 +108,8 @@ public class FlightCollection implements Iterable<Flight> {
                     Point p2 = res.get(j);
 
                     if(p1.distance(p2) < 150) {
-                        p1.setX((p1.getX() + p2.getX()) / 2);
-                        p1.setY((p1.getY() + p2.getY()) / 2);
+                        p1.setLon((p1.getLon() + p2.getLon()) / 2);
+                        p1.setLat((p1.getLat() + p2.getLat()) / 2);
                         p1.setAlt((p1.getAlt() + p2.getAlt()) / 2);
 
                         res.remove(j);

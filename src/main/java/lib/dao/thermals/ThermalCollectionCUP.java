@@ -48,7 +48,7 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
             tmp = -tmp;
         }
 
-        pos.setY(tmp);
+        pos.setLat(tmp);
 
         tmp = Integer.parseInt(lon.substring(0, 3));
         tmp += Double.parseDouble(lon.substring(3, 9)) / 60;
@@ -57,7 +57,7 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
             tmp = -tmp;
         }
 
-        pos.setX(tmp);
+        pos.setLon(tmp);
 
         tmp = Double.parseDouble(alt.substring(0, alt.length() - 1));
         pos.setAlt(tmp);
@@ -98,13 +98,13 @@ public class ThermalCollectionCUP implements ThermalCollectionDAO {
         str.append(t.getCount());
         str.append("\",,FR,");
 
-        double lat = t.getPos().getY();
+        double lat = t.getPos().getLat();
         String dlat = "N";
         if(lat < 0) {
             dlat = "S";
             lat = -lat;
         }
-        double lon = t.getPos().getX();
+        double lon = t.getPos().getLon();
         String dlon = "E";
         if(lon < 0) {
             dlon = "W";

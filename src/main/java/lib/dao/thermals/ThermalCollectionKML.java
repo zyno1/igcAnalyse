@@ -49,8 +49,8 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
                 t.getDescription().replace("; ", "\n") +
                 "\n</description>\n" +
                 "<Model><altitudeMode>absolute</altitudeMode>\n<Location>" +
-                "<longitude>" + t.getPos().x + "</longitude>" +
-                "<latitude>" + t.getPos().y + "</latitude>" +
+                "<longitude>" + t.getPos().lon + "</longitude>" +
+                "<latitude>" + t.getPos().lat + "</latitude>" +
                 "<altitude>" + t.getMin().alt + "</altitude>" +
                 "</Location>\n<Scale><x>300</x><y>300</y><z>" +
                 (t.getMax().alt - t.getMin().alt) + "</z>\n" +
@@ -66,7 +66,7 @@ public class ThermalCollectionKML implements ThermalCollectionDAO {
                 "Thermal " + t.getCount() + "\n" +
                 t.getDescription().replace("; ", "\n") +
                 "\n</description><Point><coordinates>\n" +
-                t.getPos().x + ", " + t.getPos().y + ", 0" +
+                t.getPos().lon + ", " + t.getPos().lat + ", 0" +
                 "\n</coordinates></Point></Placemark>";
         return str;
     }
