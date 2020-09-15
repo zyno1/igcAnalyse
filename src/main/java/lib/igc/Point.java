@@ -115,9 +115,9 @@ public class Point implements Serializable {
         double tmp_y = Math.cos(lat * Math.PI / 180) * Math.sin(p.lat * Math.PI / 180) - Math.sin(lat * Math.PI / 180) * Math.cos(p.lat * Math.PI / 180) * Math.cos((p.lon - lon) * Math.PI / 180);
 
         double res = Math.atan2(tmp_x, tmp_y) * 180 / Math.PI;
-        while (res < 0) {
-            res += 360;
-        }
+        //while (res < 0) {
+        //    res += 360;
+        //}
         return res;
     }
 

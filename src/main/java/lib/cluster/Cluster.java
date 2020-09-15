@@ -122,8 +122,8 @@ public class Cluster implements Iterable<Point> {
 
         Point finalP = p0;
         copy.sort((p1, p2) -> {
-            double b1 = finalP.bearing(p1) - 90;
-            double b2 = finalP.bearing(p2) - 90;
+            double b1 = finalP.bearing(p1);
+            double b2 = finalP.bearing(p2);
 
             if(b1 < b2) {
                 return -1;
@@ -170,20 +170,7 @@ public class Cluster implements Iterable<Point> {
         double b2 = p1.bearing(p2);
         double b3 = p2.bearing(p3);
 
-        while (b2 > 180) {
-            b2 -= 360;
-        }
-        while (b3 > 180) {
-            b3 -= 360;
-        }
-
         double diff = b3 - b2;
-        /*while (diff > 180) {
-            diff -= 360;
-        }
-        while (diff < -180) {
-            diff += 360;
-        }*/
 
         if(diff == 0) {
             return 0;
