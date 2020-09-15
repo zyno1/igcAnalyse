@@ -83,6 +83,10 @@ public class Cluster implements Iterable<Point> {
         }
     }
 
+    public Point getAvgPos() {
+        return avgPos;
+    }
+
     public int size() {
         return data.size();
     }
@@ -94,6 +98,10 @@ public class Cluster implements Iterable<Point> {
     @Override
     public Iterator<Point> iterator() {
         return data.iterator();
+    }
+
+    public List<Point> convexHull() {
+        return convexHull(data);
     }
 
     public static List<Point> convexHull(List<Point> points) {
@@ -114,14 +122,22 @@ public class Cluster implements Iterable<Point> {
 
         Point finalP = p0;
         copy.sort((p1, p2) -> {
-            double b1 = finalP.bearing(p1);
-            double b2 = finalP.bearing(p2);
+            double b1 = finalP.bearing(p1) - 90;
+            double b2 = finalP.bearing(p2) - 90;
 
             if(b1 < b2) {
                 return -1;
             }
-            else if(b1 == b2) {
-                return 0;
+            if(b1 == b2) {
+                double d1 = finalP.distance(p1);
+                double d2 = finalP.distance(p2);
+                if(d1 < d2) {
+                    return -1;
+                }
+                if(d1 == d2) {
+                    return 0;
+                }
+                return 1;
             }
             return 1;
         });
@@ -138,29 +154,55 @@ public class Cluster implements Iterable<Point> {
             }
         }
 
+        res.add(p0);
+
         for(Point p : copy) {
             while (res.size() > 1 && ccw(res.get(res.size() - 2), res.get(res.size() - 1), p) < 0) {
                 res.remove(res.size() - 1);
             }
             res.add(p);
         }
-        res.add(0, p0);
+        //res.add(0, p0);
         return res;
     }
 
     private static int ccw(Point p1, Point p2, Point p3) {
         double b2 = p1.bearing(p2);
-        double b3 = p1.bearing(p3);
+        double b3 = p2.bearing(p3);
 
-        if(b2 == b3) {
+        while (b2 > 180) {
+            b2 -= 360;
+        }
+        while (b3 > 180) {
+            b3 -= 360;
+        }
+
+        double diff = b3 - b2;
+        /*while (diff > 180) {
+            diff -= 360;
+        }
+        while (diff < -180) {
+            diff += 360;
+        }*/
+
+        if(diff == 0) {
+            return 0;
+        }
+        if(diff < 0) {
+            return -1;
+        }
+        return 1;
+
+        /*if(p1.bearing(p2) == p2.bearing(p3)) {
             return 0;
         }
 
-        if(b3 < b2) {
+        //counterclockwise
+        if(p1.bearing(p2) > p2.bearing(p3)) {
             return 1;
         }
 
-        return -1;
+        return -1;*/
     }
 
     public static void main(String[] args) {
