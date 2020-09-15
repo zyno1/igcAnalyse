@@ -205,7 +205,7 @@ public class Cluster implements Iterable<Point> {
             if(v1 < v2) {
                 return -1;
             }
-            else if(v1 == v2) {
+            else if(v1.equals(v2)) {
                 return 0;
             }
             return 1;
