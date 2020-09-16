@@ -137,7 +137,7 @@ public class Main {
         AtomicInteger co = new AtomicInteger(0);
         final int size = igcPaths.size();
 
-        Optional<ClusterCollection> cctmp = igcPaths.parallelStream().map(f -> {
+        ClusterCollection cctmp = igcPaths.parallelStream().map(f -> {
             ClusterCollection cc = new ClusterCollection();
 
             try {
@@ -149,7 +149,7 @@ public class Main {
             }
             return cc;
         })
-        .reduce((c1, c2) -> {
+        .reduce(new ClusterCollection(), (c1, c2) -> {
             for(Cluster c : c1) {
                 c2.add(c);
             }
@@ -169,7 +169,7 @@ public class Main {
             System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
         }*/
 
-        System.out.println("\n----\ncluster count: " + cctmp.get().size());
+        System.out.println("\n----\ncluster count: " + cctmp.size());
     }
 
     private static void operate() {
