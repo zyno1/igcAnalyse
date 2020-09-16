@@ -41,10 +41,14 @@ public class ClusterCollection implements Iterable<Cluster> {
 
     public void add(Cluster c) {
         for(int i = data.size() - 1; i >= 0; i--) {
-            if(data.get(i).minDistanceLowerThan(c, MAX_MERGE_DISTANCE)) {
+            if(data.get(i).avgBaseDistanceLowerThan(c, MAX_MERGE_DISTANCE)) {
                 Cluster tmp = data.remove(i);
                 c.merge(tmp);
             }
+
+            /*if(data.get(i).avgBaseDistance(c) <= MAX_MERGE_DISTANCE) {
+                c.merge(data.remove(i));
+            }*/
         }
 
         data.add(c);

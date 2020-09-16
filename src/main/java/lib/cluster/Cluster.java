@@ -11,10 +11,12 @@ public class Cluster implements Iterable<Point> {
     private List<Point> data;
 
     private Point avgPos;
+    private double minDist;
 
     public Cluster() {
         data = new ArrayList<>();
         avgPos = new Point(0, 0, 0);
+        minDist = 0;
     }
 
     public Cluster(Flight f) {
@@ -26,6 +28,7 @@ public class Cluster implements Iterable<Point> {
         }
 
         calcAvgPos();
+        calcMinDist();
     }
 
     private void calcAvgPos() {
@@ -47,7 +50,14 @@ public class Cluster implements Iterable<Point> {
         avgPos.time /= size();
     }
 
+    private void calcMinDist() {
+        minDist = data.parallelStream().map(p -> {
+            return p.distance(avgPos);
+        }).reduce(0.0, Math::min);
+    }
+
     public boolean add(Point p) {
+        minDist = Math.min(minDist, p.distance(avgPos));
         return data.add(p);
     }
 
@@ -86,6 +96,42 @@ public class Cluster implements Iterable<Point> {
         return avgPos.distance(c.avgPos);
     }
 
+    public double avgBaseDistance(Cluster c) {
+        final double avgD = avgPos.distance(c.avgPos);
+
+        double d1 = data.parallelStream().map(p -> {
+            double b = Math.abs(avgPos.bearing(p) - avgPos.bearing(c.avgPos));
+            return Math.cos(Math.toRadians(b)) * avgPos.distance(p);
+        }).reduce(0.0, Math::max);
+
+        double d2 = c.data.parallelStream().map(p -> {
+            double b = Math.abs(c.avgPos.bearing(p) - c.avgPos.bearing(avgPos));
+            return Math.cos(Math.toRadians(b)) * c.avgPos.distance(p);
+        }).reduce(0.0, Math::max);
+
+        return avgD - d1 - d2;
+    }
+
+    public boolean avgBaseDistanceLowerThan(Cluster c, double maxDist) {
+        final double avgD = avgPos.distance(c.avgPos);
+
+        if(avgD - c.minDist - minDist <= maxDist) return true;
+
+        double d1 = data.parallelStream().map(p -> {
+            double b = Math.abs(avgPos.bearing(p) - avgPos.bearing(c.avgPos));
+            return Math.cos(Math.toRadians(b)) * avgPos.distance(p);
+        }).reduce(0.0, Math::max);
+
+        if(avgD - d1 - c.minDist <= maxDist) return true;
+
+        double d2 = c.data.parallelStream().map(p -> {
+            double b = Math.abs(c.avgPos.bearing(p) - c.avgPos.bearing(avgPos));
+            return Math.cos(Math.toRadians(b)) * c.avgPos.distance(p);
+        }).reduce(0.0, Math::max);
+
+        return avgD - d1 - d2 < maxDist;
+    }
+
     public void merge(Cluster c) {
         avgPos.lon = (avgPos.lon * size() + c.avgPos.lon * c.size()) / (size() + c.size());
         avgPos.lat = (avgPos.lat * size() + c.avgPos.lat * c.size()) / (size() + c.size());
@@ -93,6 +139,7 @@ public class Cluster implements Iterable<Point> {
         avgPos.time = (avgPos.time * size() + c.avgPos.time * c.size()) / (size() + c.size());
 
         data.addAll(c.data);
+        calcMinDist();
     }
 
     public Point getAvgPos() {
