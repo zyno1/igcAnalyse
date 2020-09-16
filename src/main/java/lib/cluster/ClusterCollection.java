@@ -40,54 +40,14 @@ public class ClusterCollection implements Iterable<Cluster> {
     }
 
     public void add(Cluster c) {
-//        double dist = Double.MAX_VALUE;
-//        int posMin = -1;
-//
-//        for(int i = 0; i < data.size(); i++) {
-//            double tmp = get(i).distance(c);
-//
-//            if(tmp < dist) {
-//                dist = tmp;
-//                posMin = i;
-//            }
-//        }
-//
-//        if(posMin != -1 && dist <= MAX_MERGE_DISTANCE) {
-//            get(posMin).merge(c);
-//        }
-//        else {
-//            append(c);
-//        }
-
-        Cluster min = data.parallelStream().reduce(null, (c1, c2) -> {
-            double dist1 = Double.POSITIVE_INFINITY;
-            if(c1 != null) {
-                dist1 = c1.distance(c);
+        for(int i = data.size() - 1; i >= 0; i--) {
+            if(data.get(i).minDistanceLowerThan(c, MAX_MERGE_DISTANCE)) {
+                Cluster tmp = data.remove(i);
+                c.merge(tmp);
             }
-
-            double dist2 = Double.POSITIVE_INFINITY;
-            if(c2 != null) {
-                dist2 = c2.distance(c);
-            }
-
-            if(dist1 <= dist2) {
-                if(dist1 <= MAX_MERGE_DISTANCE) {
-                    return c1;
-                }
-                return null;
-            }
-            else if(dist2 <= MAX_MERGE_DISTANCE) {
-                return c2;
-            }
-            return null;
-        });
-
-        if(min != null) {
-            min.merge(c);
         }
-        else {
-            append(c);
-        }
+
+        data.add(c);
     }
 
     public Cluster get(int i) {

@@ -67,6 +67,20 @@ public class Cluster implements Iterable<Point> {
         return dist;
     }
 
+    public boolean minDistanceLowerThan(Cluster c, double dist) {
+        return data.parallelStream().map(p -> {
+            return c.data.parallelStream()
+                    .map(p2 -> {
+                        return p.distance(p2) <= dist;
+                    })
+                    .reduce(false, (a, b) -> {
+                        return a || b;
+                    });
+        }).reduce(false, (a, b) -> {
+            return a || b;
+        });
+    }
+
     public double distance(Cluster c) {
         //return minDistance(c);
         return avgPos.distance(c.avgPos);
@@ -78,9 +92,7 @@ public class Cluster implements Iterable<Point> {
         avgPos.alt = (avgPos.alt * size() + c.avgPos.alt * c.size()) / (size() + c.size());
         avgPos.time = (avgPos.time * size() + c.avgPos.time * c.size()) / (size() + c.size());
 
-        for(Point p : c) {
-            data.add(p);
-        }
+        data.addAll(c.data);
     }
 
     public Point getAvgPos() {
