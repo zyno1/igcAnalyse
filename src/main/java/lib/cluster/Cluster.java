@@ -12,11 +12,13 @@ public class Cluster implements Iterable<Point> {
 
     private Point avgPos;
     private double minDist;
+    private double maxDist;
 
     public Cluster() {
         data = new ArrayList<>();
         avgPos = new Point(0, 0, 0);
         minDist = 0;
+        maxDist = 0;
     }
 
     public Cluster(Flight f) {
@@ -56,8 +58,15 @@ public class Cluster implements Iterable<Point> {
         }).reduce(0.0, Math::min);
     }
 
+    private void calcMaxDist() {
+        maxDist = data.parallelStream().map(p -> {
+            return p.distance(avgPos);
+        }).reduce(0.0, Math::max);
+    }
+
     public boolean add(Point p) {
         minDist = Math.min(minDist, p.distance(avgPos));
+        maxDist = Math.max(maxDist, p.distance(avgPos));
         return data.add(p);
     }
 
@@ -116,6 +125,7 @@ public class Cluster implements Iterable<Point> {
         final double avgD = avgPos.distance(c.avgPos);
 
         if(avgD - c.minDist - minDist <= maxDist) return true;
+        if(avgD - c.maxDist - maxDist > maxDist) return false;
 
         double d1 = data.parallelStream().map(p -> {
             double b = Math.abs(avgPos.bearing(p) - avgPos.bearing(c.avgPos));
