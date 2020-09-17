@@ -39,11 +39,11 @@ public class HeatMapJPG implements HeatMapDAO {
                     int argb = 255 << 24;
 
                     if (v > 0) {
-                        argb = argb | ((int) (v * 255 / MAX_VAL) << 16);
+                        argb = argb | ((int) (v * 255 / MAX_VAL) << 8);
                     } else if (v == 0) {
-                        argb = argb | (255 << 8);
+                        argb = argb | (255);
                     } else {
-                        argb = argb | ((int) (v * 255 / MAX_VAL));
+                        //argb = argb | ((int) (v * 255 / MAX_VAL) << 16);
                     }
                     img.setRGB(i, j, argb);
                 }

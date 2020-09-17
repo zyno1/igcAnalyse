@@ -164,10 +164,22 @@ public class Main {
             return a;
         }).get();*/
 
-        Point min = new Point(5.8385, 43.761, 0);
-        Point max = new Point(6.6999, 45.1, 0);
+        /*
+        France full:
+        latitude range: 42.0 to 51.5 : 3840
+        longitude range: -5.0 to 9.0 : 5632
 
-        final HeatMap hm = new HeatMap(min, max, 5000000);
+        Alps:
+        latitude range: 43.4 to 49.0
+        longitude range: 4.5 to 16.5
+         */
+        //Point min = new Point(4.5, 43.4, 0);
+        //Point max = new Point(10, 49.0, 0);
+
+        Point min = new Point(-5, 42.0, 0);
+        Point max = new Point(9.0, 51.5, 0);
+
+        final HeatMap hm = new HeatMap(min, max, 404210);
 
         AtomicInteger co = new AtomicInteger(0);
         final int size = igcPaths.size();
