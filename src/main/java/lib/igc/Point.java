@@ -23,15 +23,15 @@ import org.json.JSONObject;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    public double lon; //long
-    public double lat; //lat
+    public double lon; //long x
+    public double lat; //lat y
     public double alt;
 
     public int time;
 
-    public Point(double x, double y, double alt) {
-        this.lon = x;
-        this.lat = y;
+    public Point(double lon, double lat, double alt) {
+        this.lon = lon;
+        this.lat = lat;
         this.alt = alt;
         time = 0;
     }

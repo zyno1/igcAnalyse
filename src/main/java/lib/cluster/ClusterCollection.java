@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ClusterCollection implements Iterable<Cluster> {
-    private static final double MAX_MERGE_DISTANCE = 150f;
+    private static final double MAX_MERGE_DISTANCE = 300f;
 
     private List<Cluster> data;
 

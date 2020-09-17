@@ -174,6 +174,10 @@ public class Flight implements Iterable<Point> {
         return p;
     }
 
+    public Point get(int i) {
+        return flight.get(i);
+    }
+
     public ArrayList<Flight> findThermals() {
         ArrayList<Flight> res = new ArrayList<>(flight.size());
 

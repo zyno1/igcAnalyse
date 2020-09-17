@@ -20,8 +20,12 @@ import lib.cluster.Cluster;
 import lib.cluster.ClusterCollection;
 import lib.dao.cluster.ClusterCollectionDAO;
 import lib.dao.cluster.ClusterCollectionKML;
+import lib.dao.heatmap.HeatMapDAO;
+import lib.dao.heatmap.HeatMapJPG;
 import lib.dao.thermals.*;
+import lib.heatmap.HeatMap;
 import lib.igc.Flight;
+import lib.igc.Point;
 import lib.thermals.Thermal;
 import lib.thermals.ThermalCollection;
 
@@ -128,6 +132,75 @@ public class Main {
         }
 
         return res;
+    }
+
+    private static void heatmap() {
+        ArrayList<String> igcPaths = new ArrayList<>();
+        if(!FOLDER.equals("")) {
+            igcPaths = findAllFiles(FOLDER);
+        }
+
+        Point min = igcPaths.parallelStream().map(f -> {
+            try {
+                return (new Flight(f)).getMin();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return new Point(Integer.MAX_VALUE, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+        }).reduce((a, b) -> {
+            Point.min(a, b);
+            return a;
+        }).get();
+
+        Point max = igcPaths.parallelStream().map(f -> {
+            try {
+                return (new Flight(f)).getMax();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return new Point(Integer.MIN_VALUE, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+        }).reduce((a, b) -> {
+            Point.max(a, b);
+            return a;
+        }).get();
+
+        final HeatMap hm = new HeatMap(min, max, 1000.0 / 1000.0);
+
+        AtomicInteger co = new AtomicInteger(0);
+        final int size = igcPaths.size();
+
+        boolean res = igcPaths.parallelStream().map(f -> {
+            try {
+                Flight fg = new Flight(f);
+
+                for(int i = 1; i < fg.size(); i++) {
+                    Point p = fg.get(i);
+                    Point prev = fg.get(i - 1);
+
+                    double v = (p.alt - prev.alt) - (p.time - prev.time);
+
+                    hm.add(p, v);
+                }
+                System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }).reduce(true, (a, b) -> {
+            return a && b;
+        });
+
+        if(res) {
+            System.out.println("\nsuccess");
+        }
+
+        HeatMapDAO jpg = new HeatMapJPG();
+        try {
+            jpg.save(hm, "res.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void clusterOperate() {
@@ -341,7 +414,8 @@ public class Main {
         final long start_time = System.currentTimeMillis();
 
         //operate();
-        clusterOperate();
+        //clusterOperate();
+        heatmap();
 
         final long time = System.currentTimeMillis() - start_time;
         final long s = time / 1000 % 60;
