@@ -87,6 +87,11 @@ public class Cluster implements Iterable<Point> {
     }
 
     public boolean minDistanceLowerThan(Cluster c, double dist) {
+        final double avgD = avgPos.distance(c.avgPos);
+
+        if(avgD - c.minDist - minDist <= maxDist) return true;
+        if(avgD - c.maxDist - maxDist > maxDist) return false;
+
         return data.parallelStream().map(p -> {
             return c.data.parallelStream()
                     .map(p2 -> {

@@ -18,6 +18,8 @@
 
 import lib.cluster.Cluster;
 import lib.cluster.ClusterCollection;
+import lib.dao.cluster.ClusterCollectionDAO;
+import lib.dao.cluster.ClusterCollectionKML;
 import lib.dao.thermals.*;
 import lib.igc.Flight;
 import lib.thermals.Thermal;
@@ -170,6 +172,15 @@ public class Main {
         }*/
 
         System.out.println("\n----\ncluster count: " + cctmp.size());
+
+        cctmp.filterBySize(300);
+
+        ClusterCollectionDAO cdao = new ClusterCollectionKML();
+        try {
+            cdao.save(cctmp, "res_poly.kml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void operate() {
