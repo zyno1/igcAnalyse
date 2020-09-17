@@ -3,7 +3,6 @@ package lib.dao.heatmap;
 import lib.heatmap.HeatMap;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +29,7 @@ public class HeatMapJPG implements HeatMapDAO {
 
                 int nb = c.get(i, j).getNb();
 
-                if(nb == 0) {
+                if(nb < 5) {
                     img.setRGB(i, j, 255 << 24);
                 }
                 else {

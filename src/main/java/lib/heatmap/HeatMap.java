@@ -13,14 +13,21 @@ public class HeatMap {
 
     public HeatMap(Point min, Point max, double dpkm) {
         double d = min.distance(max);
-        double b = -1 * Math.toRadians(min.bearing(max) - 90);
+        double b = Math.toRadians(min.bearing(max));
+
+        System.out.println(b);
+
+        System.out.println(min);
+        System.out.println(max);
 
         this.dpkm = dpkm;
         this.min = min;
         this.max = max;
 
-        w = (int) Math.ceil(min.distance(new Point(max.lon, min.lat, 0)) * dpkm / 1000.0);
-        h = (int) Math.ceil(min.distance(new Point(min.lon, max.lat, 0)) * dpkm / 1000.0);
+        //w = (int) Math.ceil(min.distance(new Point(max.lon, min.lat, 0)) * dpkm / 1000.0);
+        //h = (int) Math.ceil(min.distance(new Point(min.lon, max.lat, 0)) * dpkm / 1000.0);
+        w = (int) Math.ceil((max.lon - min.lon) * dpkm / 1000.0);
+        h = (int) Math.ceil((max.lat - min.lat) * dpkm / 1000.0);
 
         System.out.println(w + ", " + h);
 
@@ -31,14 +38,16 @@ public class HeatMap {
         double d = min.distance(p);
         double b = Math.toRadians(min.bearing(p));
 
-        int x = (int) Math.round(min.distance(new Point(p.lon, min.lat, 0)) * dpkm / 1000.0);
-        int y = (int) Math.round(min.distance(new Point(min.lon, p.lat, 0)) * dpkm / 1000.0);
+        int x = (int) Math.ceil((p.lon - min.lon) * dpkm / 1000.0);
+        int y = (int) Math.ceil((p.lat - min.lat) * dpkm / 1000.0);
 
-        if(map[h - 1 - y][x] == null) {
-            map[h - 1 - y][x] = new Cell();
+        if(x >= 0 && x < w && y >= 0 && y < h) {
+            if (map[h - 1 - y][x] == null) {
+                map[h - 1 - y][x] = new Cell();
+            }
+
+            map[h - 1 - y][x].add(v);
         }
-
-        map[h - 1 - y][x].add(v);
     }
 
     public int getW() {

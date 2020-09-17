@@ -56,7 +56,9 @@ public class Flight implements Iterable<Point> {
                 String alt = line.substring(25, 30);
                 //String alt = line.substring(30, 35);
 
-                flight.add(new Point(time, extractPos(x), extractPos(y), extractAlt(alt)));
+                double dAlt = extractAlt(alt);
+                if(dAlt >= 0)
+                    flight.add(new Point(time, extractPos(x), extractPos(y), extractAlt(alt)));
             }
         }
     }

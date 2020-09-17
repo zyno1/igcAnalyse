@@ -140,7 +140,7 @@ public class Main {
             igcPaths = findAllFiles(FOLDER);
         }
 
-        Point min = igcPaths.parallelStream().map(f -> {
+        /*Point min = igcPaths.parallelStream().map(f -> {
             try {
                 return (new Flight(f)).getMin();
             } catch (IOException e) {
@@ -162,9 +162,12 @@ public class Main {
         }).reduce((a, b) -> {
             Point.max(a, b);
             return a;
-        }).get();
+        }).get();*/
 
-        final HeatMap hm = new HeatMap(min, max, 1000.0 / 1000.0);
+        Point min = new Point(5.8385, 43.761, 0);
+        Point max = new Point(6.6999, 45.1, 0);
+
+        final HeatMap hm = new HeatMap(min, max, 5000000);
 
         AtomicInteger co = new AtomicInteger(0);
         final int size = igcPaths.size();
@@ -197,7 +200,7 @@ public class Main {
 
         HeatMapDAO jpg = new HeatMapJPG();
         try {
-            jpg.save(hm, "res.jpg");
+            jpg.save(hm, "res.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
