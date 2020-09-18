@@ -176,10 +176,10 @@ public class Main {
         //Point min = new Point(4.5, 43.4, 0);
         //Point max = new Point(10, 49.0, 0);
 
-        Point min = new Point(-5, 42.0, 0);
-        Point max = new Point(9.0, 51.5, 0);
+        Point min = new Point(4.0, 43.0, 0);
+        Point max = new Point(9.0, 47.0, 0);
 
-        final HeatMap hm = new HeatMap(min, max, 404210);
+        final HeatMap hm = new HeatMap(min, max, 404210 * 2);
 
         AtomicInteger co = new AtomicInteger(0);
         final int size = igcPaths.size();
@@ -188,13 +188,16 @@ public class Main {
             try {
                 Flight fg = new Flight(f);
 
-                for(int i = 1; i < fg.size(); i++) {
+                for(int i = 2; i < fg.size(); i++) {
                     Point p = fg.get(i);
                     Point prev = fg.get(i - 1);
+                    Point prev2 = fg.get(i - 2);
 
-                    double v = (p.alt - prev.alt) - (p.time - prev.time);
+                    double v = (p.alt - prev.alt) / (p.time - prev.time);
+                    double v2 = (prev.alt - prev2.alt) / (prev.time - prev2.time);
 
-                    hm.add(p, v);
+                    //if(fg.get(i).alt >= fg.get(i - 1).alt && fg.get(i - 1).alt >= fg.get(i - 2).alt && v >= 0)
+                    hm.add(p, (v + v2) / 2);
                 }
                 System.out.print("\r                              \r" + co.incrementAndGet() + "/" + size);
                 return true;

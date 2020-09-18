@@ -3,6 +3,7 @@ package lib.heatmap;
 import lib.igc.Point;
 
 public class HeatMap {
+    private static final double MAX_DISTANCE = 50;
     private final Point min;
     private final Point max;
     private final double dpkm; // dots per kilometer
@@ -35,11 +36,48 @@ public class HeatMap {
     }
 
     public void add(Point p, double v) {
-        double d = min.distance(p);
-        double b = Math.toRadians(min.bearing(p));
-
         int x = (int) Math.ceil((p.lon - min.lon) * dpkm / 1000.0);
         int y = (int) Math.ceil((p.lat - min.lat) * dpkm / 1000.0);
+
+        /*Point p2 = new Point(0, 0, 0);
+
+        int minX = x;
+        double tmp = 0;
+        p2.lat = p.lat;
+        while (tmp <= MAX_DISTANCE) {
+            double dlon = minX * 1000.0 / dpkm;
+
+            p2.lon = dlon + min.lon;
+            tmp = p2.distance(p);
+            minX--;
+        }
+
+        int minY = y;
+        tmp = 0;
+        p2.lon = p.lon;
+        while (tmp <= MAX_DISTANCE) {
+            double dlat = minY * 1000.0 / dpkm;
+
+            p2.lat = dlat + min.lat;
+            tmp = p2.distance(p);
+            minY--;
+        }
+
+        for(int j = minY; j <= y + y - minY; j++) {
+            for (int i = minX; i < x + x - minX; i++) {
+                double dlon = i * 1000.0 / dpkm;
+                double dlat = j * 1000.0 / dpkm;
+
+                p2.lat = dlat + min.lat;
+                p2.lon = dlon + min.lon;
+                if (p2.distance(p) <= MAX_DISTANCE && i >= 0 && i < w && j >= 0 && j < h) {
+                    if(map[h - 1 - j][i] == null) {
+                        map[h - 1 - j][i] = new Cell();
+                    }
+                    map[h - 1 - j][i].add(v);
+                }
+            }
+        }*/
 
         if(x >= 0 && x < w && y >= 0 && y < h) {
             if (map[h - 1 - y][x] == null) {
