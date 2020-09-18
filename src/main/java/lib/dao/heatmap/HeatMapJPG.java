@@ -20,6 +20,10 @@ public class HeatMapJPG implements HeatMapDAO {
     public void save(HeatMap c, String path) throws IOException {
         BufferedImage img = new BufferedImage(c.getW(), c.getH(), BufferedImage.TYPE_INT_ARGB);
 
+        System.out.println("total points nb: " + c.getTotalNb());
+        System.out.println("raster size: " + (c.getH() * c.getW()));
+        System.out.println("ratio: " + (c.getTotalNb() / (double)(c.getW() * c.getH())));
+
         for(int j = 0; j < c.getH(); j++) {
             for(int i = 0; i < c.getW(); i++) {
                 if(c.get(i, j) == null) {
@@ -29,7 +33,7 @@ public class HeatMapJPG implements HeatMapDAO {
 
                 int nb = c.get(i, j).getNb();
 
-                if(nb < 10) {
+                if(nb < c.getTotalNb() / (c.getW() * c.getH())) {
                     img.setRGB(i, j, 0);
                 }
                 else {

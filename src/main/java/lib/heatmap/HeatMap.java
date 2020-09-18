@@ -11,15 +11,12 @@ public class HeatMap {
     private final Cell[][] map;
     private final int w;
     private final int h;
+    private int maxNb = 0;
+    private long totalNb = 0;
 
     public HeatMap(Point min, Point max, double dpkm) {
-        double d = min.distance(max);
-        double b = Math.toRadians(min.bearing(max));
-
-        System.out.println(b);
-
-        System.out.println(min);
-        System.out.println(max);
+        //System.out.println(min);
+        //System.out.println(max);
 
         this.dpkm = dpkm;
         this.min = min;
@@ -30,7 +27,7 @@ public class HeatMap {
         w = (int) Math.ceil((max.lon - min.lon) * dpkm / 1000.0);
         h = (int) Math.ceil((max.lat - min.lat) * dpkm / 1000.0);
 
-        System.out.println(w + ", " + h);
+        System.out.println("raster dimensions: " + w + ", " + h);
 
         map = new Cell[h][w];
     }
@@ -85,6 +82,9 @@ public class HeatMap {
             }
 
             map[h - 1 - y][x].add(v);
+
+            maxNb = Math.max(maxNb, map[h - 1 - y][x].getNb());
+            totalNb++;
         }
     }
 
@@ -98,5 +98,13 @@ public class HeatMap {
 
     public Cell get(int x, int y) {
         return map[y][x];
+    }
+
+    public int getMaxNb() {
+        return maxNb;
+    }
+
+    public long getTotalNb() {
+        return totalNb;
     }
 }
