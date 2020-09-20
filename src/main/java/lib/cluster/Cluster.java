@@ -196,8 +196,8 @@ public class Cluster implements Iterable<Point> {
 
         Point finalP = p0;
         copy.sort((p1, p2) -> {
-            double b1 = finalP.bearing(p1);
-            double b2 = finalP.bearing(p2);
+            double b1 = -1 * (finalP.bearing(p1) - 90);
+            double b2 = -1 * (finalP.bearing(p2) - 90);
 
             if(b1 < b2) {
                 return -1;
@@ -231,7 +231,7 @@ public class Cluster implements Iterable<Point> {
         res.add(p0);
 
         for(Point p : copy) {
-            while (res.size() > 1 && ccw(res.get(res.size() - 2), res.get(res.size() - 1), p) < 0) {
+            while (res.size() > 1 && ccw(res.get(res.size() - 2), res.get(res.size() - 1), p) <= 0) {
                 res.remove(res.size() - 1);
             }
             res.add(p);
@@ -241,10 +241,19 @@ public class Cluster implements Iterable<Point> {
     }
 
     private static int ccw(Point p1, Point p2, Point p3) {
-        double b2 = p1.bearing(p2);
-        double b3 = p2.bearing(p3);
+        double b1 = -1 * (p2.bearing(p1) - 90);
+        double b3 = -1 * (p2.bearing(p3) - 90);
 
-        double diff = b3 - b2;
+        if(Math.abs(b1 - b3) == Math.PI || b1 == b3) {
+            return 0;
+        }
+
+        if((Math.abs(b1) == Math.PI && b3 > 0) || (b1 == 0 && b3 < 0) || (b1 < 0 && b3 - b1 > 0) || (b1 > 0 && b3 - b1 < 0)) {
+            return 1;
+        }
+        return 0;
+
+        /*double diff = b3 - b2;
 
         if(diff == 0) {
             return 0;
@@ -252,7 +261,7 @@ public class Cluster implements Iterable<Point> {
         if(diff < 0) {
             return -1;
         }
-        return 1;
+        return 1;*/
 
         /*if(p1.bearing(p2) == p2.bearing(p3)) {
             return 0;
